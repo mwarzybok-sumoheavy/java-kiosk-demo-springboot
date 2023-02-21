@@ -10,5 +10,5 @@ import lombok.NonNull;
 public interface ObjectToStringConverter {
 
     @NonNull
-    String execute(@NonNull Object validatedParams);
+    String execute(@NonNull Object object);
 }

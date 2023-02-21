@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
+   http://java.sun.com/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.0">
+
+    <description>Persistent mapping</description>
+
+    <entity class="com.bitpay.demo.invoice.domain.Invoice" access="FIELD">
+        <table name="invoice"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <embedded name="fields">
+                <attribute-override name="value">
+                    <column name="fields"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="response">
+                <attribute-override name="value">
+                    <column name="response"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+</entity-mappings>

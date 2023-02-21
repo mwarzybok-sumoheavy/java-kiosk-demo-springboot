@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: BitPay
+      changes:
+        - createTable:
+            tableName: invoice
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: fields
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: response
+                  type: text
+                  constraints:
+                    nullable: false
