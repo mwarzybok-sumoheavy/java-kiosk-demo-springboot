@@ -13,14 +13,36 @@
             <id name="id">
                 <generated-value strategy="IDENTITY"/>
             </id>
+            <basic name="status">
+                <column nullable="false"/>
+                <enumerated>STRING</enumerated>
+            </basic>
+            <basic name="createdDate">
+                <column nullable="true"/>
+            </basic>
             <embedded name="fields">
                 <attribute-override name="value">
                     <column name="fields"/>
                 </attribute-override>
             </embedded>
-            <embedded name="response">
+            <embedded name="price">
                 <attribute-override name="value">
-                    <column name="response"/>
+                    <column name="price"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="currency">
+                <attribute-override name="value">
+                    <column name="currency"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="bitPayId">
+                <attribute-override name="value">
+                    <column name="bitpay_id"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="bitPayOrderId">
+                <attribute-override name="value">
+                    <column name="bitpay_order_id"/>
                 </attribute-override>
             </embedded>
         </attributes>

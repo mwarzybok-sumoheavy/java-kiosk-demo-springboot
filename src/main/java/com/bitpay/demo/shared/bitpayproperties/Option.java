@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.config;
+package com.bitpay.demo.shared.bitpayproperties;
 
 class Option {
     private String id;
@@ -14,7 +14,7 @@ class Option {
         return this.id;
     }
 
-    public void setId(final String id) {
+    void setId(final String id) {
         this.id = id;
     }
 
@@ -22,7 +22,7 @@ class Option {
         return this.label;
     }
 
-    public void setLabel(final String label) {
+    void setLabel(final String label) {
         this.label = label;
     }
 
@@ -30,7 +30,7 @@ class Option {
         return this.value;
     }
 
-    public void setValue(final String value) {
+    void setValue(final String value) {
         this.value = value;
     }
 }

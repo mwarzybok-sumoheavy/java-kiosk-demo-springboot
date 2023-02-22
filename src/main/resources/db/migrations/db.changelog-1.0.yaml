@@ -19,7 +19,32 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: response
-                  type: text
+                  name: price
+                  type: DOUBLE
                   constraints:
                     nullable: false
+              - column:
+                  name: currency
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bitpay_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: DATETIME
+                  constraints:
+                    nullable: true
+              - column:
+                  name: bitpay_order_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: true

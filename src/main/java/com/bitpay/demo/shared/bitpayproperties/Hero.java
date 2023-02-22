@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.config;
+package com.bitpay.demo.shared.bitpayproperties;
 
 class Hero {
     private String bgColor;
@@ -14,7 +14,7 @@ class Hero {
         return this.bgColor;
     }
 
-    public void setBgColor(final String bgColor) {
+    void setBgColor(final String bgColor) {
         this.bgColor = bgColor;
     }
 
@@ -22,7 +22,7 @@ class Hero {
         return this.title;
     }
 
-    public void setTitle(final String title) {
+    void setTitle(final String title) {
         this.title = title;
     }
 
@@ -30,7 +30,7 @@ class Hero {
         return this.body;
     }
 
-    public void setBody(final String body) {
+    void setBody(final String body) {
         this.body = body;
     }
 }

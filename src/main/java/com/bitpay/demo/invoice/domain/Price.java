@@ -7,18 +7,18 @@ package com.bitpay.demo.invoice.domain;
 
 import lombok.NonNull;
 
-public class Response {
+public class Price {
 
-    private String value;
+    private Double value;
 
-    public Response(final @NonNull String value) {
+    public Price(final @NonNull Double value) {
         this.value = value;
     }
 
-    public String value() {
+    public Double value() {
         return this.value;
     }
 
-    protected Response() {
+    protected Price() {
     }
 }

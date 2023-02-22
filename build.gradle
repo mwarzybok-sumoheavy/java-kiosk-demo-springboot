@@ -1,4 +1,5 @@
 plugins {
+    id 'checkstyle'
     id 'org.springframework.boot' version '3.0.2'
     id 'io.spring.dependency-management' version '1.1.0'
     id 'java'
@@ -35,4 +36,16 @@ configurations {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion = "8.39"
+    project.ext.checkstyleVersion = '8.39'
+    configFile = rootProject.file("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.destination rootProject.file("build/reports/checkstyle-result.xml")
+    }
 }

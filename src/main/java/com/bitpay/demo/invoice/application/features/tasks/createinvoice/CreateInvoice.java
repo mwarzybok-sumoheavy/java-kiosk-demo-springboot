@@ -38,22 +38,11 @@ public class CreateInvoice {
 
         final Map<String, Object> validatedParams = this.getValidatedParams.execute(requestParameters);
 
-        try {
-            final Invoice bitPayInvoice = this.createBitPayInvoice.execute(validatedParams);
-            final com.bitpay.demo.invoice.domain.Invoice invoice = this.invoiceFactory.create(bitPayInvoice);
+        final Invoice bitPayInvoice = this.createBitPayInvoice.execute(validatedParams);
+        final com.bitpay.demo.invoice.domain.Invoice invoice = this.invoiceFactory.create(bitPayInvoice);
 
-            this.invoiceRepository.save(invoice);
+        this.invoiceRepository.save(invoice);
 
-            return bitPayInvoice.getUrl();
-        } catch (final BitPayException exception) {
-            final com.bitpay.demo.invoice.domain.Invoice invoice = this.invoiceFactory.create(
-                validatedParams,
-                exception
-            );
-
-            this.invoiceRepository.save(invoice);
-
-            throw exception;
-        }
+        return bitPayInvoice.getUrl();
     }
 }

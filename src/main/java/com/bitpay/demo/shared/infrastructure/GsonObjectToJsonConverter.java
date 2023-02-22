@@ -6,12 +6,12 @@
 package com.bitpay.demo.shared.infrastructure;
 
 import com.bitpay.demo.DependencyInjection;
-import com.bitpay.demo.shared.ObjectToStringConverter;
+import com.bitpay.demo.shared.ObjectToJsonConverter;
 import com.google.gson.Gson;
 import lombok.NonNull;
 
 @DependencyInjection
-class ObjectToJsonConverter implements ObjectToStringConverter {
+class GsonObjectToJsonConverter implements ObjectToJsonConverter {
 
     private final Gson gson = new Gson();
 

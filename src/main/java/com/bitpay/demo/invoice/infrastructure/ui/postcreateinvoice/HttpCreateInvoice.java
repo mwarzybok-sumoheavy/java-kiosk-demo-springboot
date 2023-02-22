@@ -1,3 +1,8 @@
+/*
+ * Copyright 2023 BitPay.
+ * All rights reserved.
+ */
+
 package com.bitpay.demo.invoice.infrastructure.ui.postcreateinvoice;
 
 import com.bitpay.demo.invoice.application.features.tasks.createinvoice.CreateInvoice;

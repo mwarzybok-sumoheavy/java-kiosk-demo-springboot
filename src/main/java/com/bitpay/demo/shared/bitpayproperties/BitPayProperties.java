@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.config;
+package com.bitpay.demo.shared.bitpayproperties;
 
 public class BitPayProperties {
 
@@ -23,7 +23,7 @@ public class BitPayProperties {
         return this.token;
     }
 
-    public void setToken(final String token) {
+    void setToken(final String token) {
         this.token = token;
     }
 
@@ -31,7 +31,15 @@ public class BitPayProperties {
         return this.notificationEmail;
     }
 
-    public void setNotificationEmail(final String notificationEmail) {
+    void setNotificationEmail(final String notificationEmail) {
         this.notificationEmail = notificationEmail;
+    }
+
+    public String getCurrency() {
+        return this.getDesign().getPosData().getFields().stream()
+            .filter(field -> "price".equals(field.getType()))
+            .findFirst()
+            .map(Field::getCurrency)
+            .orElse(null);
     }
 }
