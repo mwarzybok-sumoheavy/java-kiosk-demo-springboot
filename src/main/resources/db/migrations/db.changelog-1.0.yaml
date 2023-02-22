@@ -14,7 +14,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: fields
+                  name: pos_data
                   type: text
                   constraints:
                     nullable: false

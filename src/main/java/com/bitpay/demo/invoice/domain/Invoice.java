@@ -11,7 +11,7 @@ import lombok.NonNull;
 public class Invoice {
 
     private Long id;
-    private Fields fields;
+    private PosData posData;
     private Price price;
     private Currency currency;
     private BitPayId bitPayId;
@@ -23,7 +23,7 @@ public class Invoice {
     }
 
     public Invoice(
-        @NonNull final Fields fields,
+        @NonNull final PosData posData,
         @NonNull final Price price,
         @NonNull final Currency currency,
         @NonNull final BitPayId bitPayId,
@@ -31,7 +31,7 @@ public class Invoice {
         @NonNull final LocalDateTime createdDate,
         @NonNull final BitPayOrderId bitPayOrderId
     ) {
-        this.fields = fields;
+        this.posData = posData;
         this.price = price;
         this.currency = currency;
         this.bitPayId = bitPayId;
@@ -44,8 +44,8 @@ public class Invoice {
         return this.id;
     }
 
-    public @NonNull Fields getFields() {
-        return this.fields;
+    public @NonNull PosData getPosData() {
+        return this.posData;
     }
 
     public @NonNull Price getPrice() {

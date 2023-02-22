@@ -5,11 +5,20 @@
 
 package com.bitpay.demo.invoice.domain;
 
-public enum Status {
-    NEW,
-    PAID,
-    CONFIRMED,
-    COMPLETE,
-    EXPIRED,
-    INVALID
+import lombok.NonNull;
+
+public class Status {
+
+    private String value;
+
+    public Status(final @NonNull String value) {
+        this.value = value;
+    }
+
+    public String value() {
+        return this.value;
+    }
+
+    protected Status() {
+    }
 }
