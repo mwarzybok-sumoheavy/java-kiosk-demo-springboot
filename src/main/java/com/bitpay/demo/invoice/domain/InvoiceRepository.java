@@ -9,4 +9,7 @@ import lombok.NonNull;
 
 public interface InvoiceRepository {
     void save(@NonNull Invoice invoice);
+
+    @NonNull
+    Invoice findById(@NonNull InvoiceId invoiceId) throws InvoiceNotFound;
 }
