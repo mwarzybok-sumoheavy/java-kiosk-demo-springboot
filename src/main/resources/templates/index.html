@@ -33,20 +33,20 @@
   </div>
 
   <div class="m-auto mt-6 max-w-3xl">
-    <div class="mt-4 error" th:if="${error != null}">
+    <div class="mt-4 bg-red-700" th:if="${error != null}">
       <span th:text="${error}"></span>
     </div>
 
     <form action="/invoice" method="post">
       <div th:each="field:${design.posData.fields}">
-        <div class="mt-4" th:if="${field.type == 'select'}">
+        <div class="mt-4" th:if="${#strings.equals(field.type, 'select')}">
           <label th:for="${field.name}" class="block text-sm font-medium text-gray-700" th:text="${field.label}"></label>
           <select th:id="${field.id}" th:name="${field.name}" th:required="${field.required}" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
             <option selected="selected" value=""></option>
             <option th:each="option:${field.options}" th:value="${option.value}" th:text="${option.label}"></option>
           </select>
         </div>
-        <div class="mt-4" th:if="${field.type == 'fieldset'}">
+        <div class="mt-4" th:if="${#strings.equals(field.type,'fieldset')}">
           <fieldset>
             <legend th:text="${field.label}"></legend>
             <div th:each="option:${field.options}">
@@ -55,13 +55,13 @@
             </div>
           </fieldset>
         </div>
-        <div class="mt-4" th:if="${field.type == 'text'}">
+        <div class="mt-4" th:if="${#strings.equals(field.type, 'text')}">
           <label th:for="${field.name}" class="block text-sm font-medium text-gray-700" th:text="${field.label}"></label>
           <div class="mt-1">
             <input type="text" th:id="${field.id}" th:name="${field.name}" th:required="${field.required}" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" />
           </div>
         </div>
-        <div class="mt-4" th:if="${field.type == 'price'}">
+        <div class="mt-4" th:if="${#strings.equals(field.type, 'price')}">
           <label th:for="${field.name}" class="block text-sm font-medium text-gray-700" th:text="${field.label}"></label>
           <div class="mt-1 relative rounded-md shadow-sm">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

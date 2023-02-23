@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.invoice.application.features.tasks.getinvoice;
+package com.bitpay.demo.invoice.application.features.shared;
 
 import com.bitpay.demo.DependencyInjection;
 import com.bitpay.demo.invoice.domain.Invoice;
@@ -15,11 +15,11 @@ import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 
 @DependencyInjection
-class InvoiceDtoMapper {
+public class InvoiceDtoMapper {
     @NonNull
     public InvoiceDto execute(@NonNull final Invoice invoice) {
-
         return new InvoiceDto(
+            invoice.getId(),
             invoice.getBitPayId().value(),
             invoice.getPrice().value(),
             formatToString(invoice.getCreatedDate()),

@@ -3,23 +3,24 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.invoice.application.features.tasks.getinvoice;
+package com.bitpay.demo.invoice.application.features.tasks.getinvoicegrid;
 
 import com.bitpay.demo.DependencyInjection;
 import com.bitpay.demo.invoice.application.features.shared.InvoiceDto;
 import com.bitpay.demo.invoice.application.features.shared.InvoiceDtoMapper;
-import com.bitpay.demo.invoice.domain.InvoiceId;
-import com.bitpay.demo.invoice.domain.InvoiceNotFound;
 import com.bitpay.demo.invoice.domain.InvoiceRepository;
+import com.bitpay.demo.shared.domain.EntityPageNumber;
+import com.bitpay.demo.shared.domain.EntityPageSize;
+import com.bitpay.demo.shared.domain.Page;
 import lombok.NonNull;
 
 @DependencyInjection
-public class GetInvoiceDto {
+public class GetInvoiceDtoGrid {
 
     private final InvoiceRepository invoiceRepository;
     private final InvoiceDtoMapper invoiceDtoMapper;
 
-    GetInvoiceDto(
+    GetInvoiceDtoGrid(
         @NonNull final InvoiceRepository invoiceRepository,
         @NonNull final InvoiceDtoMapper invoiceDtoMapper
     ) {
@@ -28,9 +29,12 @@ public class GetInvoiceDto {
     }
 
     @NonNull
-    public InvoiceDto execute(@NonNull final InvoiceId invoiceId) throws InvoiceNotFound {
-        final var invoice = this.invoiceRepository.findById(invoiceId);
+    public Page<InvoiceDto> execute(@NonNull final EntityPageNumber entityPageNumber) {
+        final var pagedInvoiceDto = this.invoiceRepository.findAllPaginated(
+            entityPageNumber,
+            new EntityPageSize(10)
+        );
 
-        return this.invoiceDtoMapper.execute(invoice);
+        return pagedInvoiceDto.mapElementsToNewType(this.invoiceDtoMapper::execute);
     }
 }
