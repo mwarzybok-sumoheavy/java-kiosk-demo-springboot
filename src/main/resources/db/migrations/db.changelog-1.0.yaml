@@ -32,7 +32,7 @@ databaseChangeLog:
                   name: bitpay_id
                   type: varchar(255)
                   constraints:
-                    nullable: true
+                    nullable: false
               - column:
                   name: status
                   type: varchar(255)
@@ -42,9 +42,9 @@ databaseChangeLog:
                   name: created_date
                   type: DATETIME
                   constraints:
-                    nullable: true
+                    nullable: false
               - column:
                   name: bitpay_order_id
                   type: varchar(255)
                   constraints:
-                    nullable: true
+                    nullable: false
