@@ -7,11 +7,11 @@ package com.bitpay.demo.invoice.domain;
 
 import lombok.NonNull;
 
-public class PosData {
+public class BuyerJson {
 
     private String value;
 
-    public PosData(final @NonNull String value) {
+    public BuyerJson(final @NonNull String value) {
         this.value = value;
     }
 
@@ -19,6 +19,6 @@ public class PosData {
         return this.value;
     }
 
-    protected PosData() {
+    protected BuyerJson() {
     }
 }
