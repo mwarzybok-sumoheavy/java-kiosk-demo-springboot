@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
+   http://java.sun.com/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.0">
+
+    <description>Persistent mapping</description>
+
+    <entity class="com.bitpay.demo.invoice.domain.Invoice" access="FIELD">
+        <table name="invoice"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="createdDate">
+                <column nullable="true"/>
+            </basic>
+            <embedded name="posData">
+                <attribute-override name="value">
+                    <column name="pos_data"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="price">
+                <attribute-override name="value">
+                    <column name="price"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="currency">
+                <attribute-override name="value">
+                    <column name="currency"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="status">
+                <attribute-override name="value">
+                    <column name="status"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="bitPayId">
+                <attribute-override name="value">
+                    <column name="bitpay_id"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="bitPayOrderId">
+                <attribute-override name="value">
+                    <column name="bitpay_order_id"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+</entity-mappings>

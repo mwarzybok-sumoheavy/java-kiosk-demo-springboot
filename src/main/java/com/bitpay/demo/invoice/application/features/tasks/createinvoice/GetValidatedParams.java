@@ -6,8 +6,8 @@
 package com.bitpay.demo.invoice.application.features.tasks.createinvoice;
 
 import com.bitpay.demo.DependencyInjection;
-import com.bitpay.demo.config.BitPayProperties;
-import com.bitpay.demo.config.Field;
+import com.bitpay.demo.shared.bitpayproperties.BitPayProperties;
+import com.bitpay.demo.shared.bitpayproperties.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

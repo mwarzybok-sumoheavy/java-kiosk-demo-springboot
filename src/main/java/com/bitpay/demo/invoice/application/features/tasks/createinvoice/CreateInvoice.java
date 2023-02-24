@@ -6,6 +6,7 @@
 package com.bitpay.demo.invoice.application.features.tasks.createinvoice;
 
 import com.bitpay.demo.DependencyInjection;
+import com.bitpay.demo.invoice.domain.InvoiceRepository;
 import com.bitpay.sdk.exceptions.BitPayException;
 import com.bitpay.sdk.model.Invoice.Invoice;
 import java.util.Map;
@@ -16,13 +17,19 @@ public class CreateInvoice {
 
     private final GetValidatedParams getValidatedParams;
     private final CreateBitPayInvoice createBitPayInvoice;
+    private final InvoiceFactory invoiceFactory;
+    private final InvoiceRepository invoiceRepository;
 
     CreateInvoice(
         @NonNull final GetValidatedParams getValidatedParams,
-        @NonNull final CreateBitPayInvoice createBitPayInvoice
+        @NonNull final CreateBitPayInvoice createBitPayInvoice,
+        @NonNull final InvoiceFactory invoiceFactory,
+        @NonNull final InvoiceRepository invoiceRepository
     ) {
         this.getValidatedParams = getValidatedParams;
         this.createBitPayInvoice = createBitPayInvoice;
+        this.invoiceFactory = invoiceFactory;
+        this.invoiceRepository = invoiceRepository;
     }
 
     @NonNull
@@ -30,8 +37,12 @@ public class CreateInvoice {
         throws MissingRequiredField, BitPayException {
 
         final Map<String, Object> validatedParams = this.getValidatedParams.execute(requestParameters);
-        final Invoice invoice = this.createBitPayInvoice.execute(validatedParams);
 
-        return invoice.getUrl();
+        final Invoice bitPayInvoice = this.createBitPayInvoice.execute(validatedParams);
+        final com.bitpay.demo.invoice.domain.Invoice invoice = this.invoiceFactory.create(bitPayInvoice);
+
+        this.invoiceRepository.save(invoice);
+
+        return bitPayInvoice.getUrl();
     }
 }

@@ -7,8 +7,8 @@ package com.bitpay.demo.shared;
 
 import lombok.NonNull;
 
-public interface ObjectToStringConverter {
+public interface ObjectToJsonConverter {
 
     @NonNull
-    String execute(@NonNull Object validatedParams);
+    String execute(@NonNull Object object);
 }

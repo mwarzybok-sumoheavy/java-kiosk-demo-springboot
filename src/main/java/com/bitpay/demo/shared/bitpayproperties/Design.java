@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.config;
+package com.bitpay.demo.shared.bitpayproperties;
 
 public class Design {
     private Hero hero = new Hero();
@@ -14,7 +14,7 @@ public class Design {
         return this.hero;
     }
 
-    public void setHero(final Hero hero) {
+    void setHero(final Hero hero) {
         this.hero = hero;
     }
 
@@ -22,7 +22,7 @@ public class Design {
         return this.logo;
     }
 
-    public void setLogo(final String logo) {
+    void setLogo(final String logo) {
         this.logo = logo;
     }
 
@@ -30,7 +30,7 @@ public class Design {
         return this.posData;
     }
 
-    public void setPosData(final PosData posData) {
+    void setPosData(final PosData posData) {
         this.posData = posData;
     }
 }

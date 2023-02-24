@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.config;
+package com.bitpay.demo.shared.bitpayproperties;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,13 +15,23 @@ public class Field {
     private String name;
     private String label;
     private Collection<Option> options = new ArrayList<>();
-    private String currency;
+    private String currency = "USD";
+
+    public static Field createPriceField() {
+        final var field = new Field();
+        field.type = "price";
+        field.required = true;
+        field.id = "price";
+        field.name = "price";
+
+        return field;
+    }
 
     public String getType() {
         return this.type;
     }
 
-    public void setType(final String type) {
+    void setType(final String type) {
         this.type = type;
     }
 
@@ -29,7 +39,7 @@ public class Field {
         return this.required;
     }
 
-    public void setRequired(final Boolean required) {
+    void setRequired(final Boolean required) {
         this.required = required;
     }
 
@@ -37,7 +47,7 @@ public class Field {
         return this.id;
     }
 
-    public void setId(final String id) {
+    void setId(final String id) {
         this.id = id;
     }
 
@@ -45,7 +55,7 @@ public class Field {
         return this.name;
     }
 
-    public void setName(final String name) {
+    void setName(final String name) {
         this.name = name;
     }
 
@@ -53,7 +63,7 @@ public class Field {
         return this.label;
     }
 
-    public void setLabel(final String label) {
+    void setLabel(final String label) {
         this.label = label;
     }
 
@@ -61,7 +71,7 @@ public class Field {
         return this.options;
     }
 
-    public void setOptions(final Collection<Option> options) {
+    void setOptions(final Collection<Option> options) {
         this.options = options;
     }
 
@@ -69,7 +79,7 @@ public class Field {
         return this.currency;
     }
 
-    public void setCurrency(final String currency) {
+    void setCurrency(final String currency) {
         this.currency = currency;
     }
 }

@@ -1,6 +1,11 @@
+/*
+ * Copyright 2023 BitPay.
+ * All rights reserved.
+ */
+
 package com.bitpay.demo.invoice.infrastructure.ui.getinvoiceform;
 
-import com.bitpay.demo.config.BitPayProperties;
+import com.bitpay.demo.shared.bitpayproperties.BitPayProperties;
 import lombok.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
