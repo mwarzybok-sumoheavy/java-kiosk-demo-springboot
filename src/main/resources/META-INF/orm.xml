@@ -16,6 +16,21 @@
             <basic name="createdDate">
                 <column nullable="true"/>
             </basic>
+            <basic name="expirationTime">
+                <column nullable="true"/>
+            </basic>
+            <one-to-one name="invoicePayment" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.InvoicePayment">
+                <join-column name="invoice_payment_id"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+            <one-to-one name="invoiceBuyer" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.InvoiceBuyer">
+                <join-column name="invoice_buyer_id"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
             <embedded name="posData">
                 <attribute-override name="value">
                     <column name="pos_data"/>
@@ -44,6 +59,229 @@
             <embedded name="bitPayOrderId">
                 <attribute-override name="value">
                     <column name="bitpay_order_id"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="facadeType">
+                <attribute-override name="value">
+                    <column name="facade_type"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="bitPayGuid">
+                <attribute-override name="value">
+                    <column name="bitpay_guid"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="exceptionStatus">
+                <attribute-override name="value">
+                    <column name="exception_status"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="bitPayUrl">
+                <attribute-override name="value">
+                    <column name="bitpay_url"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="redirectUrl">
+                <attribute-override name="value">
+                    <column name="redirect_url"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="closeUrl">
+                <attribute-override name="value">
+                    <column name="close_url"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="acceptanceWindow">
+                <attribute-override name="value">
+                    <column name="acceptance_window"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="token">
+                <attribute-override name="value">
+                    <column name="token"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="merchantName">
+                <attribute-override name="value">
+                    <column name="merchant_name"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="itemDescription">
+                <attribute-override name="value">
+                    <column name="item_description"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="billId">
+                <attribute-override name="value">
+                    <column name="bill_id"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+
+    <entity class="com.bitpay.demo.invoice.domain.InvoicePayment" access="FIELD">
+        <table name="invoice_payment"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <embedded name="targetConfirmations">
+                <attribute-override name="value">
+                    <column name="target_confirmations"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="transactions">
+                <attribute-override name="value">
+                    <column name="transactions"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="refundAddresses">
+                <attribute-override name="value">
+                    <column name="refund_addresses"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="lowFeeDetected">
+                <attribute-override name="value">
+                    <column name="low_fee_detected"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="amountPaid">
+                <attribute-override name="value">
+                    <column name="amount_paid"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="displayAmountPaid">
+                <attribute-override name="value">
+                    <column name="display_amount_paid"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="refundAddressRequestPending">
+                <attribute-override name="value">
+                    <column name="refund_address_request_pending"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="paymentSubtotals">
+                <attribute-override name="value">
+                    <column name="payment_subtotals"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="paymentTotals">
+                <attribute-override name="value">
+                    <column name="payment_totals"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="paymentDisplayTotals">
+                <attribute-override name="value">
+                    <column name="payment_display_totals"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="paymentDisplaySubtotals">
+                <attribute-override name="value">
+                    <column name="payment_display_subtotals"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="exchangeRates">
+                <attribute-override name="value">
+                    <column name="exchange_rates"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="supportedTransactionCurrencies">
+                <attribute-override name="value">
+                    <column name="supported_transaction_currencies"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="minerFees">
+                <attribute-override name="value">
+                    <column name="miner_fees"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="nonPayProPaymentReceived">
+                <attribute-override name="value">
+                    <column name="non_pay_pro_payment_received"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="autoRedirect">
+                <attribute-override name="value">
+                    <column name="auto_redirect"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="shopper">
+                <attribute-override name="value">
+                    <column name="shopper"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="refundInfo">
+                <attribute-override name="value">
+                    <column name="refund_info"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="jsonPayProRequired">
+                <attribute-override name="value">
+                    <column name="json_pay_pro_required"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="universalCodes">
+                <attribute-override name="value">
+                    <column name="universal_codes"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="bitPayIdRequired">
+                <attribute-override name="value">
+                    <column name="bitpay_id_required"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="isCancelled">
+                <attribute-override name="value">
+                    <column name="is_cancelled"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="itemizedDetails">
+                <attribute-override name="value">
+                    <column name="itemized_details"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="transactionCurrency">
+                <attribute-override name="value">
+                    <column name="transaction_currency"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="underpaidAmount">
+                <attribute-override name="value">
+                    <column name="underpaid_amount"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="overpaidAmount">
+                <attribute-override name="value">
+                    <column name="overpaid_amount"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="paymentCodes">
+                <attribute-override name="value">
+                    <column name="payment_codes"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+
+    <entity class="com.bitpay.demo.invoice.domain.InvoiceBuyer" access="FIELD">
+        <table name="invoice_buyer"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <embedded name="buyer">
+                <attribute-override name="value">
+                    <column name="buyer"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="buyerProvidedEmail">
+                <attribute-override name="value">
+                    <column name="buyer_provided_email"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="buyerProvidedInfo">
+                <attribute-override name="value">
+                    <column name="buyer_provided_info"/>
                 </attribute-override>
             </embedded>
         </attributes>

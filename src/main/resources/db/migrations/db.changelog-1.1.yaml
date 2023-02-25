@@ -1,0 +1,256 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: BitPay
+      changes:
+        - sql:
+            sql: TRUNCATE TABLE invoice;
+        - createTable:
+            tableName: invoice_payment
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: target_confirmations
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: transactions
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: refund_addresses
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: low_fee_detected
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount_paid
+                  type: DOUBLE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: display_amount_paid
+                  type: DOUBLE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: refund_address_request_pending
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payment_subtotals
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payment_totals
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payment_display_totals
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payment_display_subtotals
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: exchange_rates
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: supported_transaction_currencies
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: miner_fees
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: non_pay_pro_payment_received
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: auto_redirect
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: shopper
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: refund_info
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: json_pay_pro_required
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: universal_codes
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bitpay_id_required
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_cancelled
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: itemized_details
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: transaction_currency
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: underpaid_amount
+                  type: DOUBLE
+                  constraints:
+                    nullable: true
+              - column:
+                  name: overpaid_amount
+                  type: DOUBLE
+                  constraints:
+                    nullable: true
+              - column:
+                  name: payment_codes
+                  type: TEXT
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: invoice_buyer
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: buyer
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: buyer_provided_email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: buyer_provided_info
+                  type: TEXT
+                  constraints:
+                    nullable: false
+        - addColumn:
+            tableName: invoice
+            columns:
+              - column:
+                  name: facade_type
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expiration_time
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bitpay_guid
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: exception_status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bitpay_url
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: redirect_url
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: close_url
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: acceptance_window
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: token
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: merchant_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: item_description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bill_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: invoice_payment_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_payment_id_invoice_payment_id
+                    references: invoice_payment(id)
+                    deleteCascade: true
+              - column:
+                  name: invoice_buyer_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_buyer_id_invoice_buyer_id
+                    references: invoice_buyer(id)
+                    deleteCascade: true
