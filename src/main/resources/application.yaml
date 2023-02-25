@@ -30,23 +30,12 @@ bitpay:
             - id: "register-2"
               label: "2"
               value: "2"
-        - type: "fieldset"
-          required: true
-          name: "register2"
-          label: "Register #2"
-          options:
-            - id: "register-12"
-              label: "12"
-              value: "12"
-            - id: "register-22"
-              label: "22"
-              value: "22"
         - type: "text"
           required: true
           id: "reg_transaction_no"
           name: "reg_transaction_no"
           label: "Reg/Transaction #"
-        - type: "text"
+        - type: "price"
           required: true
           id: "price"
           name: "price"
