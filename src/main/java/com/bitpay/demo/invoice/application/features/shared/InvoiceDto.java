@@ -3,11 +3,12 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.invoice.application.features.tasks.getinvoice;
+package com.bitpay.demo.invoice.application.features.shared;
 
 import lombok.NonNull;
 
 public class InvoiceDto {
+    private final Long id;
     private final String bitPayId;
     private final Double price;
     private final String createdDate;
@@ -15,17 +16,23 @@ public class InvoiceDto {
     private final String status;
 
     public InvoiceDto(
+        @NonNull final Long id,
         @NonNull final String bitPayId,
         @NonNull final Double price,
         @NonNull final String createdDate,
         @NonNull final String bitPayOrderId,
         @NonNull final String status
     ) {
+        this.id = id;
         this.bitPayId = bitPayId;
         this.price = price;
         this.createdDate = createdDate;
         this.bitPayOrderId = bitPayOrderId;
         this.status = status;
+    }
+
+    public @NonNull Long getId() {
+        return this.id;
     }
 
     public @NonNull String getBitPayId() {

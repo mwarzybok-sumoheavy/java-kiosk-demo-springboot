@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html class="h-full" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${design.hero.title}"></title>
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" media="all">
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="h-full">
+
+<div class="min-h-full">
+    <nav class="border-b border-gray-200 bg-white">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 justify-between">
+                <div class="flex">
+                    <div class="flex flex-shrink-0 items-center">
+                        <img class="block h-8 w-auto lg:hidden" th:src="${design.logo}" alt="Your Company">
+                        <img class="hidden h-8 w-auto lg:block" th:src="${design.logo}" alt="Your Company">
+                    </div>
+                    <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="/invoices"
+                           class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                           aria-current="page">Invoices</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <!-- Mobile menu button -->
+                    <button type="button"
+                            class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Menu open: "hidden", Menu closed: "block" -->
+                        <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+                        </svg>
+                        <!-- Menu open: "block", Menu closed: "hidden" -->
+                        <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="sm:hidden" id="mobile-menu">
+            <div class="space-y-1 pt-2 pb-3">
+                <a href="/invoices"
+                   class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                   aria-current="page">Invoices</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <!-- Replace with your content -->
+            <table class="border-collapse table-auto w-full text-sm">
+                <thead class="bg-white dark:bg-slate-800">
+                <tr>
+                    <th>ID</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Order ID</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-slate-800">
+                <tr th:each="item:${grid.content}" th:onclick="'window.location.href = \'' + @{/invoices/{id}(id=${item.id})} + '\''" class="cursor-pointer">
+                    <td th:text="${item.bitPayId}"></td>
+                    <td th:text="${item.price}"></td>
+                    <td th:text="${item.createdDate}"></td>
+                    <td th:text="${item.bitPayOrderId}"></td>
+                    <td th:text="${item.status}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation example" class="mt-10">
+                <ul class="inline-flex -space-x-px">
+                    <li>
+                        <a th:href="'/invoices?page=' + ${navigationPrevious}"
+                           class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                    </li>
+                    <li th:each="i: ${#numbers.sequence(0, grid.totalPages - 1)}">
+                        <a th:if="${i == grid.currentPageNumber}" th:href="'/invoices?page=' + ${i + 1}"
+                           aria-current="page"
+                           class="px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                           th:text="${i + 1}"></a>
+                        <a th:if="${i != grid.currentPageNumber}" th:href="'/invoices?page=' + ${i + 1}"
+                           class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                           th:text="${i + 1}"></a>
+                    </li>
+                    <li>
+                        <a th:href="'/invoices?page=' + ${navigationNext}"
+                           class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </main>
+</div>
+</body>
+</html>
