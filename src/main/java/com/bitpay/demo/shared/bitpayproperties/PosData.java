@@ -7,6 +7,7 @@ package com.bitpay.demo.shared.bitpayproperties;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import lombok.NonNull;
 
 public class PosData {
     private Collection<Field> fields = new ArrayList<>();
@@ -15,7 +16,7 @@ public class PosData {
         return this.fields;
     }
 
-    void setFields(final Collection<Field> fields) {
+    void setFields(@NonNull final Collection<Field> fields) {
         final var modifiableFieldCollection = new ArrayList<>(fields);
         if (hasPriceField(modifiableFieldCollection)) {
             modifiableFieldCollection.add(Field.createPriceField());
@@ -24,7 +25,7 @@ public class PosData {
         this.fields = modifiableFieldCollection;
     }
 
-    private static boolean hasPriceField(final Collection<Field> fields) {
-        return fields.stream().noneMatch(field -> "price".equals(field.getType()));
+    private static boolean hasPriceField(@NonNull final Collection<Field> fields) {
+        return fields.stream().noneMatch(field -> "price".equals(field.getName()));
     }
 }

@@ -11,25 +11,50 @@ import lombok.NonNull;
 public class Invoice {
 
     private Long id;
-    private PosData posData;
+    private PosDataJson posData;
     private Price price;
     private Currency currency;
     private BitPayId bitPayId;
     private Status status;
     private LocalDateTime createdDate;
     private BitPayOrderId bitPayOrderId;
-
-    Invoice() {
-    }
+    private LocalDateTime expirationTime;
+    private FacadeType facadeType;
+    private BitPayGuid bitPayGuid;
+    private ExceptionStatus exceptionStatus;
+    private BitPayUrl bitPayUrl;
+    private RedirectUrl redirectUrl;
+    private CloseUrl closeUrl;
+    private AcceptanceWindow acceptanceWindow;
+    private Token token;
+    private MerchantName merchantName;
+    private ItemDescription itemDescription;
+    private BillId billId;
+    private InvoicePayment invoicePayment;
+    private InvoiceBuyer invoiceBuyer;
 
     public Invoice(
-        @NonNull final PosData posData,
+        @NonNull final PosDataJson posData,
         @NonNull final Price price,
         @NonNull final Currency currency,
         @NonNull final BitPayId bitPayId,
         @NonNull final Status status,
         @NonNull final LocalDateTime createdDate,
-        @NonNull final BitPayOrderId bitPayOrderId
+        @NonNull final BitPayOrderId bitPayOrderId,
+        @NonNull final LocalDateTime expirationTime,
+        @NonNull final FacadeType facadeType,
+        @NonNull final BitPayGuid bitPayGuid,
+        @NonNull final ExceptionStatus exceptionStatus,
+        @NonNull final BitPayUrl bitPayUrl,
+        @NonNull final RedirectUrl redirectUrl,
+        @NonNull final CloseUrl closeUrl,
+        @NonNull final AcceptanceWindow acceptanceWindow,
+        @NonNull final Token token,
+        @NonNull final MerchantName merchantName,
+        @NonNull final ItemDescription itemDescription,
+        @NonNull final BillId billId,
+        @NonNull final InvoicePayment invoicePayment,
+        @NonNull final InvoiceBuyer invoiceBuyer
     ) {
         this.posData = posData;
         this.price = price;
@@ -38,13 +63,30 @@ public class Invoice {
         this.status = status;
         this.createdDate = createdDate;
         this.bitPayOrderId = bitPayOrderId;
+        this.expirationTime = expirationTime;
+        this.facadeType = facadeType;
+        this.bitPayGuid = bitPayGuid;
+        this.exceptionStatus = exceptionStatus;
+        this.bitPayUrl = bitPayUrl;
+        this.redirectUrl = redirectUrl;
+        this.closeUrl = closeUrl;
+        this.acceptanceWindow = acceptanceWindow;
+        this.token = token;
+        this.merchantName = merchantName;
+        this.itemDescription = itemDescription;
+        this.billId = billId;
+        this.invoicePayment = invoicePayment;
+        this.invoiceBuyer = invoiceBuyer;
+    }
+
+    Invoice() {
     }
 
     public @NonNull Long getId() {
         return this.id;
     }
 
-    public @NonNull PosData getPosData() {
+    public @NonNull PosDataJson getPosData() {
         return this.posData;
     }
 
@@ -71,5 +113,4 @@ public class Invoice {
     public @NonNull BitPayOrderId getBitPayOrderId() {
         return this.bitPayOrderId;
     }
-
 }

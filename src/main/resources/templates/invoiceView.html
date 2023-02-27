@@ -20,7 +20,7 @@
                         <img class="hidden h-8 w-auto lg:block" th:src="${design.logo}" alt="Your Company">
                     </div>
                     <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="#" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" aria-current="page">Invoices</a>
+                        <a href="/invoices" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" aria-current="page">Invoices</a>
                     </div>
                 </div>
                 <div class="-mr-2 flex items-center sm:hidden">
@@ -43,7 +43,7 @@
         <!-- Mobile menu, show/hide based on menu state. -->
         <div class="sm:hidden" id="mobile-menu">
             <div class="space-y-1 pt-2 pb-3">
-                <a href="#" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" aria-current="page">Invoices</a>
+                <a href="/invoices" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" aria-current="page">Invoices</a>
             </div>
         </div>
     </nav>
@@ -72,7 +72,7 @@
                                                 <dt class="text-sm font-medium text-gray-500">ID</dt>
                                                 <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                                                     <span th:text="${invoice.bitPayId}"></span>
-                                                    <span class="inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800 status" th:text="${invoice.status}"></span>
+                                                    <span class="inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800 capitalize" th:text="${invoice.status}"></span>
                                                 </dd>
                                             </div>
                                             <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">

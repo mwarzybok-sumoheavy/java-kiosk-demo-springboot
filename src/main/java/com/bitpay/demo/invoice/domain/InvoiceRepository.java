@@ -5,6 +5,9 @@
 
 package com.bitpay.demo.invoice.domain;
 
+import com.bitpay.demo.shared.domain.EntityPageNumber;
+import com.bitpay.demo.shared.domain.EntityPageSize;
+import com.bitpay.demo.shared.domain.Page;
 import lombok.NonNull;
 
 public interface InvoiceRepository {
@@ -12,4 +15,10 @@ public interface InvoiceRepository {
 
     @NonNull
     Invoice findById(@NonNull InvoiceId invoiceId) throws InvoiceNotFound;
+
+    @NonNull
+    Page<Invoice> findAllPaginated(
+        @NonNull EntityPageNumber pageNumber,
+        @NonNull EntityPageSize pageSize
+    );
 }

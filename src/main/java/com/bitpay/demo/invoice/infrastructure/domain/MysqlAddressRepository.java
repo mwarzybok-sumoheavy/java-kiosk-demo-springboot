@@ -10,10 +10,17 @@ import com.bitpay.demo.invoice.domain.Invoice;
 import com.bitpay.demo.invoice.domain.InvoiceId;
 import com.bitpay.demo.invoice.domain.InvoiceNotFound;
 import com.bitpay.demo.invoice.domain.InvoiceRepository;
+import com.bitpay.demo.shared.domain.EntityPageNumber;
+import com.bitpay.demo.shared.domain.EntityPageSize;
+import com.bitpay.demo.shared.domain.Page;
+import com.bitpay.demo.shared.domain.PageFactory;
+import com.bitpay.demo.shared.domain.SpringPageRequest;
 import lombok.NonNull;
 
 @DependencyInjection
 class MysqlAddressRepository implements InvoiceRepository {
+
+    private final PageFactory<Invoice> pageFactory = new PageFactory<>();
 
     SpringInvoiceRepository repo;
 
@@ -29,5 +36,20 @@ class MysqlAddressRepository implements InvoiceRepository {
     @Override
     public @NonNull Invoice findById(@NonNull final InvoiceId invoiceId) throws InvoiceNotFound {
         return this.repo.findById(invoiceId.value()).orElseThrow(InvoiceNotFound::new);
+    }
+
+    @Override
+    public @NonNull Page<Invoice> findAllPaginated(
+        @NonNull final EntityPageNumber pageNumber,
+        @NonNull final EntityPageSize pageSize
+    ) {
+        return this.pageFactory.create(
+            this.repo.findAll(
+                new SpringPageRequest(
+                    pageNumber,
+                    pageSize
+                ).value()
+            )
+        );
     }
 }
