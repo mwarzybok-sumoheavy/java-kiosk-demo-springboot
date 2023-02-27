@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: BitPay
+      changes:
+        - sql:
+            sql: TRUNCATE TABLE invoice;
+        - createTable:
+            tableName: invoice_buyer_provided_info
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: selected_transaction_currency
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email_address
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: selected_wallet
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sms
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - addColumn:
+            tableName: invoice
+            columns:
+              - column:
+                  name: invoice_buyer_provided_info_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_buyer_provided_info_id_invoice_bpi_id
+                    references: invoice_buyer_provided_info(id)
+                    deleteCascade: true
+        - dropColumn:
+            tableName: invoice_buyer
+            columns:
+              - column:
+                  name: buyer_provided_info

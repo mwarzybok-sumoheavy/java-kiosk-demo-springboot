@@ -17,7 +17,6 @@ import com.bitpay.demo.invoice.domain.BitPayOrderId;
 import com.bitpay.demo.invoice.domain.BitPayUrl;
 import com.bitpay.demo.invoice.domain.BuyerJson;
 import com.bitpay.demo.invoice.domain.BuyerProvidedEmail;
-import com.bitpay.demo.invoice.domain.BuyerProvidedInfoJson;
 import com.bitpay.demo.invoice.domain.CloseUrl;
 import com.bitpay.demo.invoice.domain.Currency;
 import com.bitpay.demo.invoice.domain.DisplayAmountPaid;
@@ -56,6 +55,13 @@ import com.bitpay.demo.invoice.domain.TransactionCurrency;
 import com.bitpay.demo.invoice.domain.TransactionsJson;
 import com.bitpay.demo.invoice.domain.UnderpaidAmount;
 import com.bitpay.demo.invoice.domain.UniversalCodesJson;
+import com.bitpay.demo.invoice.domain.buyer.BuyerEmailAddress;
+import com.bitpay.demo.invoice.domain.buyer.BuyerName;
+import com.bitpay.demo.invoice.domain.buyer.BuyerPhoneNumber;
+import com.bitpay.demo.invoice.domain.buyer.BuyerSelectedTransactionCurrency;
+import com.bitpay.demo.invoice.domain.buyer.BuyerSelectedWallet;
+import com.bitpay.demo.invoice.domain.buyer.BuyerSms;
+import com.bitpay.demo.invoice.domain.buyer.InvoiceBuyerProvidedInfo;
 import com.bitpay.demo.shared.ObjectToJsonConverter;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -96,7 +102,22 @@ class InvoiceFactory {
             new ItemDescription(bitPayInvoice.getItemDesc()),
             new BillId(bitPayInvoice.getBillId()),
             getInvoicePayment(bitPayInvoice),
-            getInvoiceBuyer(bitPayInvoice)
+            getInvoiceBuyer(bitPayInvoice),
+            getInvoiceBuyerProvidedInfo(bitPayInvoice.getInvoiceBuyerProvidedInfo())
+        );
+    }
+
+    @NotNull
+    private InvoiceBuyerProvidedInfo getInvoiceBuyerProvidedInfo(
+        @NonNull final com.bitpay.sdk.model.Invoice.InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo
+    ) {
+        return new InvoiceBuyerProvidedInfo(
+            new BuyerName(invoiceBuyerProvidedInfo.getName()),
+            new BuyerPhoneNumber(invoiceBuyerProvidedInfo.getPhoneNumber()),
+            new BuyerSelectedTransactionCurrency(invoiceBuyerProvidedInfo.getSelectedTransactionCurrency()),
+            new BuyerEmailAddress(invoiceBuyerProvidedInfo.getEmailAddress()),
+            new BuyerSelectedWallet(invoiceBuyerProvidedInfo.getSelectedWallet()),
+            new BuyerSms(invoiceBuyerProvidedInfo.getSms())
         );
     }
 
@@ -104,8 +125,7 @@ class InvoiceFactory {
     private InvoiceBuyer getInvoiceBuyer(@NotNull final com.bitpay.sdk.model.Invoice.Invoice bitPayInvoice) {
         return new InvoiceBuyer(
             new BuyerJson(this.objectToJsonConverter.execute(bitPayInvoice.getBuyer())),
-            new BuyerProvidedEmail(bitPayInvoice.getBuyerProvidedEmail()),
-            new BuyerProvidedInfoJson(this.objectToJsonConverter.execute(bitPayInvoice.getInvoiceBuyerProvidedInfo()))
+            new BuyerProvidedEmail(bitPayInvoice.getBuyerProvidedEmail())
         );
     }
 

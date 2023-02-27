@@ -12,16 +12,13 @@ public class InvoiceBuyer {
     private Long id;
     private BuyerJson buyer;
     private BuyerProvidedEmail buyerProvidedEmail;
-    private BuyerProvidedInfoJson buyerProvidedInfo;
 
     public InvoiceBuyer(
         @NonNull final BuyerJson buyer,
-        @NonNull final BuyerProvidedEmail buyerProvidedEmail,
-        @NonNull final BuyerProvidedInfoJson buyerProvidedInfo
+        @NonNull final BuyerProvidedEmail buyerProvidedEmail
     ) {
         this.buyer = buyer;
         this.buyerProvidedEmail = buyerProvidedEmail;
-        this.buyerProvidedInfo = buyerProvidedInfo;
     }
 
     InvoiceBuyer() {

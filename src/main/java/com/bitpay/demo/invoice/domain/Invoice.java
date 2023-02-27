@@ -5,6 +5,7 @@
 
 package com.bitpay.demo.invoice.domain;
 
+import com.bitpay.demo.invoice.domain.buyer.InvoiceBuyerProvidedInfo;
 import java.time.LocalDateTime;
 import lombok.NonNull;
 
@@ -32,6 +33,7 @@ public class Invoice {
     private BillId billId;
     private InvoicePayment invoicePayment;
     private InvoiceBuyer invoiceBuyer;
+    private InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo;
 
     public Invoice(
         @NonNull final PosDataJson posData,
@@ -54,7 +56,8 @@ public class Invoice {
         @NonNull final ItemDescription itemDescription,
         @NonNull final BillId billId,
         @NonNull final InvoicePayment invoicePayment,
-        @NonNull final InvoiceBuyer invoiceBuyer
+        @NonNull final InvoiceBuyer invoiceBuyer,
+        @NonNull final InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo
     ) {
         this.posData = posData;
         this.price = price;
@@ -77,6 +80,7 @@ public class Invoice {
         this.billId = billId;
         this.invoicePayment = invoicePayment;
         this.invoiceBuyer = invoiceBuyer;
+        this.invoiceBuyerProvidedInfo = invoiceBuyerProvidedInfo;
     }
 
     Invoice() {

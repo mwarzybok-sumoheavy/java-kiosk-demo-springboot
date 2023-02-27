@@ -31,6 +31,12 @@
                     <cascade-all/>
                 </cascade>
             </one-to-one>
+            <one-to-one name="invoiceBuyerProvidedInfo" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.buyer.InvoiceBuyerProvidedInfo">
+                <join-column name="invoice_buyer_provided_info_id"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
             <embedded name="posData">
                 <attribute-override name="value">
                     <column name="pos_data"/>
@@ -279,9 +285,42 @@
                     <column name="buyer_provided_email"/>
                 </attribute-override>
             </embedded>
-            <embedded name="buyerProvidedInfo">
+        </attributes>
+    </entity>
+    <entity class="com.bitpay.demo.invoice.domain.buyer.InvoiceBuyerProvidedInfo" access="FIELD">
+        <table name="invoice_buyer_provided_info"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <embedded name="name">
                 <attribute-override name="value">
-                    <column name="buyer_provided_info"/>
+                    <column name="name"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="phoneNumber">
+                <attribute-override name="value">
+                    <column name="phone_number"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="selectedTransactionCurrency">
+                <attribute-override name="value">
+                    <column name="selected_transaction_currency"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="emailAddress">
+                <attribute-override name="value">
+                    <column name="email_address"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="selectedWallet">
+                <attribute-override name="value">
+                    <column name="selected_wallet"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="sms">
+                <attribute-override name="value">
+                    <column name="sms"/>
                 </attribute-override>
             </embedded>
         </attributes>
