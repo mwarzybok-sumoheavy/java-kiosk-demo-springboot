@@ -7,6 +7,7 @@ package com.bitpay.demo.invoice.application.features.shared;
 
 import com.bitpay.demo.DependencyInjection;
 import com.bitpay.demo.invoice.domain.Invoice;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -16,15 +17,19 @@ import org.jetbrains.annotations.NotNull;
 
 @DependencyInjection
 public class InvoiceDtoMapper {
+
+    private final DecimalFormat df = new DecimalFormat("#,###.00#");
+
     @NonNull
     public InvoiceDto execute(@NonNull final Invoice invoice) {
         return new InvoiceDto(
             invoice.getId(),
             invoice.getBitPayId().value(),
-            invoice.getPrice().value(),
+            this.df.format(invoice.getPrice().value()),
             formatToString(invoice.getCreatedDate()),
             invoice.getBitPayOrderId().value(),
-            invoice.getStatus().value()
+            invoice.getStatus().value(),
+            invoice.getItemDescription().value()
         );
     }
 

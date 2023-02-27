@@ -10,18 +10,20 @@ import lombok.NonNull;
 public class InvoiceDto {
     private final Long id;
     private final String bitPayId;
-    private final Double price;
+    private final String price;
     private final String createdDate;
     private final String bitPayOrderId;
     private final String status;
+    private final String description;
 
     public InvoiceDto(
         @NonNull final Long id,
         @NonNull final String bitPayId,
-        @NonNull final Double price,
+        @NonNull final String price,
         @NonNull final String createdDate,
         @NonNull final String bitPayOrderId,
-        @NonNull final String status
+        @NonNull final String status,
+        @NonNull final String description
     ) {
         this.id = id;
         this.bitPayId = bitPayId;
@@ -29,6 +31,7 @@ public class InvoiceDto {
         this.createdDate = createdDate;
         this.bitPayOrderId = bitPayOrderId;
         this.status = status;
+        this.description = description;
     }
 
     public @NonNull Long getId() {
@@ -39,7 +42,7 @@ public class InvoiceDto {
         return this.bitPayId;
     }
 
-    public @NonNull Double getPrice() {
+    public @NonNull String getPrice() {
         return this.price;
     }
 
@@ -53,5 +56,9 @@ public class InvoiceDto {
 
     public @NonNull String getStatus() {
         return this.status;
+    }
+
+    public @NonNull String getDescription() {
+        return this.description;
     }
 }
