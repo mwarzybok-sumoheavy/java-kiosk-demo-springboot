@@ -5,8 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title th:text="${design.hero.title}"></title>
-    <link rel="stylesheet" href="/css/styles.css" type="text/css" media="all">
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" media="all">
+    <style type="text/tailwindcss">
+        @layer components {
+            .grid-status-new {
+                @apply bg-gray-100 text-gray-800;
+            }
+
+            .grid-status-paid {
+                @apply bg-yellow-100 text-yellow-800;
+            }
+
+            .grid-status-confirmed {
+                @apply bg-blue-100 text-blue-800;
+            }
+
+            .grid-status-complete {
+                @apply bg-green-100 text-green-800;
+            }
+
+            .grid-status-expired, .grid-status-invalid {
+                @apply bg-red-100 text-red-800;
+            }
+        }
+    </style>
 </head>
 <body class="h-full">
 
@@ -60,49 +83,78 @@
     <main>
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <!-- Replace with your content -->
-            <table class="border-collapse table-auto w-full text-sm">
-                <thead class="bg-white dark:bg-slate-800">
-                <tr>
-                    <th>ID</th>
-                    <th>Price</th>
-                    <th>Date</th>
-                    <th>Order ID</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody class="bg-white dark:bg-slate-800">
-                <tr th:each="item:${grid.content}" th:onclick="'window.location.href = \'' + @{/invoices/{id}(id=${item.id})} + '\''" class="cursor-pointer">
-                    <td th:text="${item.bitPayId}"></td>
-                    <td th:text="${item.price}"></td>
-                    <td th:text="${item.createdDate}"></td>
-                    <td th:text="${item.bitPayOrderId}"></td>
-                    <td th:text="${item.status}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="px-4 py-8 sm:px-0">
+                <header>
+                    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900">Invoices</h1>
+                    </div>
+                </header>
+                <div class="px-6 lg:px-8">
 
-            <nav aria-label="Page navigation example" class="mt-10">
-                <ul class="inline-flex -space-x-px">
-                    <li>
+                    <div class="mt-8 flow-root">
+                        <div class="-my-2 -mx-6 overflow-x-auto lg:-mx-8">
+                            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                <table class="min-w-full divide-y divide-gray-300">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col"
+                                            class="py-3.5 pl-6 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                                            ID
+                                        </th>
+                                        <th scope="col"
+                                            class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Price
+                                        </th>
+                                        <th scope="col"
+                                            class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">
+                                            Description
+                                        </th>
+                                        <th scope="col"
+                                            class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Status
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                    <tr th:each="item:${grid.content}"
+                                        th:onclick="'window.location.href = \'' + @{/invoices/{id}(id=${item.id})} + '\''"
+                                        class="cursor-pointer">
+                                        <td class="whitespace-nowrap py-4 pl-6 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                                            th:text="${item.bitPayId}"></td>
+                                        <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500"
+                                            th:text="'$' + ${item.price}"></td>
+                                        <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500"
+                                            th:text="${item.description}"></td>
+                                        <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
+                                            <span th:class="'inline-flex items-center rounded-full px-3 py-0.5 text-sm font-medium capitalize grid-status-' + ${item.status}"
+                                                  th:text="${item.status}"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <nav class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
+                     aria-label="Pagination">
+                    <div class="hidden sm:block">
+                        <p class="text-sm text-gray-700">
+                            Showing
+                            <span class="font-medium" th:text="${(grid.maxElementsPerPage * grid.currentPageNumber) + 1}"></span>
+                            to
+                            <span class="font-medium" th:text="${(grid.maxElementsPerPage * grid.currentPageNumber) + grid.content.size}"></span>
+                            of
+                            <span class="font-medium" th:text="${grid.totalElements}"></span>
+                            results
+                        </p>
+                    </div>
+                    <div class="flex flex-1 justify-between sm:justify-end">
                         <a th:href="'/invoices?page=' + ${navigationPrevious}"
-                           class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                    </li>
-                    <li th:each="i: ${#numbers.sequence(0, grid.totalPages - 1)}">
-                        <a th:if="${i == grid.currentPageNumber}" th:href="'/invoices?page=' + ${i + 1}"
-                           aria-current="page"
-                           class="px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                           th:text="${i + 1}"></a>
-                        <a th:if="${i != grid.currentPageNumber}" th:href="'/invoices?page=' + ${i + 1}"
-                           class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                           th:text="${i + 1}"></a>
-                    </li>
-                    <li>
+                           class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
                         <a th:href="'/invoices?page=' + ${navigationNext}"
-                           class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                    </li>
-                </ul>
-            </nav>
-
+                           class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+                    </div>
+                </nav>
+            </div>
         </div>
     </main>
 </div>
