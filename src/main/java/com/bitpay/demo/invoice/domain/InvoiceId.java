@@ -15,10 +15,10 @@ public class InvoiceId {
         this.value = value;
     }
 
-    protected InvoiceId() {
-    }
-
     public Long value() {
         return this.value;
+    }
+
+    protected InvoiceId() {
     }
 }
