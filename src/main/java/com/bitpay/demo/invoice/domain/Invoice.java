@@ -117,4 +117,8 @@ public class Invoice {
     public @NonNull BitPayOrderId getBitPayOrderId() {
         return this.bitPayOrderId;
     }
+
+    public @NonNull ItemDescription getItemDescription() {
+        return this.itemDescription;
+    }
 }

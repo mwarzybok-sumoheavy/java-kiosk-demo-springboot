@@ -69,7 +69,7 @@
             </div>
             <input type="number"  th:id="${field.id}" th:name="${field.name}" th:required="${field.required}" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00" th:attr="aria-describedby=${field.id} + '-currency'" />
             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <span class="text-gray-500 sm:text-sm" th:id="${field.id} + '-currency'"> USD </span>
+              <span class="text-gray-500 sm:text-sm" th:id="${field.id} + '-currency'" th:text="${field.currency}"></span>
             </div>
           </div>
         </div>
