@@ -13,7 +13,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import lombok.NonNull;
-import org.jetbrains.annotations.NotNull;
 
 @DependencyInjection
 public class InvoiceDtoMapper {
@@ -33,7 +32,7 @@ public class InvoiceDtoMapper {
         );
     }
 
-    private @NonNull String formatToString(@NotNull @NonNull final LocalDateTime dateTime) {
+    private @NonNull String formatToString(@NonNull final LocalDateTime dateTime) {
         final ZonedDateTime zonedDateTime = ZonedDateTime.of(dateTime, ZoneId.of("UTC"));
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm z");
         return zonedDateTime.format(formatter);
