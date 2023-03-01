@@ -40,6 +40,7 @@ bitpay:
           id: "price"
           name: "price"
           currency: "USD"
+          label: "Price"
   token:
   notificationEmail:
 

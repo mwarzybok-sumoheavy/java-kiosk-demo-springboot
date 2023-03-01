@@ -3,15 +3,15 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.invoice.domain;
+package com.bitpay.demo.invoice.domain.payment;
 
 import lombok.NonNull;
 
-public class ShopperJson {
+public class PaymentCode {
 
     private String value;
 
-    public ShopperJson(final @NonNull String value) {
+    public PaymentCode(final @NonNull String value) {
         this.value = value;
     }
 
@@ -19,6 +19,6 @@ public class ShopperJson {
         return this.value;
     }
 
-    protected ShopperJson() {
+    protected PaymentCode() {
     }
 }

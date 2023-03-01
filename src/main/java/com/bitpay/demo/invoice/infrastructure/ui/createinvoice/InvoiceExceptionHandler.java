@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.invoice.infrastructure.ui.postcreateinvoice;
+package com.bitpay.demo.invoice.infrastructure.ui.createinvoice;
 
 import com.bitpay.sdk.exceptions.BitPayException;
 import lombok.NonNull;
