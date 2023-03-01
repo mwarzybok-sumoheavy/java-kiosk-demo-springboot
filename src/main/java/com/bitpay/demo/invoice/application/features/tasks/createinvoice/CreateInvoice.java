@@ -7,6 +7,8 @@ package com.bitpay.demo.invoice.application.features.tasks.createinvoice;
 
 import com.bitpay.demo.DependencyInjection;
 import com.bitpay.demo.invoice.domain.InvoiceRepository;
+import com.bitpay.demo.shared.logger.LogCode;
+import com.bitpay.demo.shared.logger.Logger;
 import com.bitpay.sdk.exceptions.BitPayException;
 import com.bitpay.sdk.model.Invoice.Invoice;
 import java.util.Map;
@@ -19,17 +21,20 @@ public class CreateInvoice {
     private final CreateBitPayInvoice createBitPayInvoice;
     private final InvoiceFactory invoiceFactory;
     private final InvoiceRepository invoiceRepository;
+    private final Logger logger;
 
     CreateInvoice(
         @NonNull final GetValidatedParams getValidatedParams,
         @NonNull final CreateBitPayInvoice createBitPayInvoice,
         @NonNull final InvoiceFactory invoiceFactory,
-        @NonNull final InvoiceRepository invoiceRepository
+        @NonNull final InvoiceRepository invoiceRepository,
+        @NonNull final Logger logger
     ) {
         this.getValidatedParams = getValidatedParams;
         this.createBitPayInvoice = createBitPayInvoice;
         this.invoiceFactory = invoiceFactory;
         this.invoiceRepository = invoiceRepository;
+        this.logger = logger;
     }
 
     @NonNull
@@ -42,6 +47,12 @@ public class CreateInvoice {
         final com.bitpay.demo.invoice.domain.Invoice invoice = this.invoiceFactory.create(bitPayInvoice);
 
         this.invoiceRepository.save(invoice);
+
+        this.logger.info(
+            LogCode.INVOICE_CREATE_SUCCESS,
+            "Successfully created invoice",
+            Map.of("id", invoice.getId())
+        );
 
         return bitPayInvoice.getUrl();
     }
