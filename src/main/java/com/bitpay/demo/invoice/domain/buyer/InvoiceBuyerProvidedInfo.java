@@ -16,6 +16,7 @@ public class InvoiceBuyerProvidedInfo {
     private BuyerEmailAddress emailAddress;
     private BuyerSelectedWallet selectedWallet;
     private BuyerSms sms;
+    private BuyerSmsVerified smsVerified;
 
     public InvoiceBuyerProvidedInfo(
         @NonNull final BuyerName name,
@@ -23,7 +24,8 @@ public class InvoiceBuyerProvidedInfo {
         @NonNull final BuyerSelectedTransactionCurrency selectedTransactionCurrency,
         @NonNull final BuyerEmailAddress emailAddress,
         @NonNull final BuyerSelectedWallet selectedWallet,
-        @NonNull final BuyerSms sms
+        @NonNull final BuyerSms sms,
+        @NonNull final BuyerSmsVerified smsVerified
     ) {
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -31,6 +33,7 @@ public class InvoiceBuyerProvidedInfo {
         this.emailAddress = emailAddress;
         this.selectedWallet = selectedWallet;
         this.sms = sms;
+        this.smsVerified = smsVerified;
     }
 
     InvoiceBuyerProvidedInfo() {
