@@ -7,59 +7,75 @@ package com.bitpay.demo.invoice.application.features.tasks.createinvoice;
 
 import com.bitpay.demo.DependencyInjection;
 import com.bitpay.demo.invoice.domain.AcceptanceWindow;
+import com.bitpay.demo.invoice.domain.AutoRedirect;
 import com.bitpay.demo.invoice.domain.BillId;
 import com.bitpay.demo.invoice.domain.BitPayGuid;
 import com.bitpay.demo.invoice.domain.BitPayId;
+import com.bitpay.demo.invoice.domain.BitPayIdRequired;
 import com.bitpay.demo.invoice.domain.BitPayOrderId;
 import com.bitpay.demo.invoice.domain.BitPayUrl;
-import com.bitpay.demo.invoice.domain.BuyerJson;
-import com.bitpay.demo.invoice.domain.BuyerProvidedEmail;
 import com.bitpay.demo.invoice.domain.CloseUrl;
-import com.bitpay.demo.invoice.domain.Currency;
+import com.bitpay.demo.invoice.domain.CurrencyCode;
 import com.bitpay.demo.invoice.domain.ExceptionStatus;
 import com.bitpay.demo.invoice.domain.FacadeType;
 import com.bitpay.demo.invoice.domain.Invoice;
-import com.bitpay.demo.invoice.domain.InvoiceBuyer;
+import com.bitpay.demo.invoice.domain.IsCancelled;
 import com.bitpay.demo.invoice.domain.ItemDescription;
+import com.bitpay.demo.invoice.domain.JsonPayProRequired;
+import com.bitpay.demo.invoice.domain.LowFeeDetected;
 import com.bitpay.demo.invoice.domain.MerchantName;
 import com.bitpay.demo.invoice.domain.PosDataJson;
 import com.bitpay.demo.invoice.domain.Price;
 import com.bitpay.demo.invoice.domain.RedirectUrl;
+import com.bitpay.demo.invoice.domain.ShopperUser;
 import com.bitpay.demo.invoice.domain.Status;
+import com.bitpay.demo.invoice.domain.TargetConfirmations;
 import com.bitpay.demo.invoice.domain.Token;
-import com.bitpay.demo.invoice.domain.buyer.BuyerEmailAddress;
-import com.bitpay.demo.invoice.domain.buyer.BuyerName;
-import com.bitpay.demo.invoice.domain.buyer.BuyerPhoneNumber;
-import com.bitpay.demo.invoice.domain.buyer.BuyerSelectedTransactionCurrency;
-import com.bitpay.demo.invoice.domain.buyer.BuyerSelectedWallet;
-import com.bitpay.demo.invoice.domain.buyer.BuyerSms;
-import com.bitpay.demo.invoice.domain.buyer.InvoiceBuyerProvidedInfo;
-import com.bitpay.demo.shared.ObjectToJsonConverter;
+import com.bitpay.demo.invoice.domain.itemizeddetail.InvoiceItemizedDetail;
+import com.bitpay.sdk.model.Invoice.InvoiceItemizedDetails;
+import com.bitpay.sdk.model.Invoice.InvoiceTransaction;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 import lombok.NonNull;
 
 @DependencyInjection
 class InvoiceFactory {
 
-    private final ObjectToJsonConverter objectToJsonConverter;
     private final InvoicePaymentFactory invoicePaymentFactory;
+    private final InvoiceBuyerFactory invoiceBuyerFactory;
+    private final InvoiceBuyerProvidedInfoFactory invoiceBuyerProvidedInfoFactory;
+    private final InvoiceRefundFactory invoiceRefundFactory;
+    private final InvoiceTransactionFactory invoiceTransactionFactory;
+    private final InvoiceItemizedDetailFactory invoiceItemizedDetailFactory;
 
     InvoiceFactory(
-        @NonNull final ObjectToJsonConverter objectToJsonConverter,
-        @NonNull final InvoicePaymentFactory invoicePaymentFactory
+        @NonNull final InvoicePaymentFactory invoicePaymentFactory,
+        @NonNull final InvoiceBuyerFactory invoiceBuyerFactory,
+        @NonNull final InvoiceBuyerProvidedInfoFactory invoiceBuyerProvidedInfoFactory,
+        @NonNull final InvoiceRefundFactory invoiceRefundFactory,
+        @NonNull final InvoiceTransactionFactory invoiceTransactionFactory,
+        @NonNull final InvoiceItemizedDetailFactory invoiceItemizedDetailFactory
     ) {
-        this.objectToJsonConverter = objectToJsonConverter;
         this.invoicePaymentFactory = invoicePaymentFactory;
+        this.invoiceBuyerFactory = invoiceBuyerFactory;
+        this.invoiceBuyerProvidedInfoFactory = invoiceBuyerProvidedInfoFactory;
+        this.invoiceRefundFactory = invoiceRefundFactory;
+        this.invoiceTransactionFactory = invoiceTransactionFactory;
+        this.invoiceItemizedDetailFactory = invoiceItemizedDetailFactory;
     }
 
     @NonNull
     Invoice create(@NonNull final com.bitpay.sdk.model.Invoice.Invoice bitPayInvoice) {
-        return new Invoice(
+        final var invoice = new Invoice(
             new PosDataJson(bitPayInvoice.getPosData()),
             new Price(bitPayInvoice.getPrice()),
-            new Currency(bitPayInvoice.getCurrency()),
+            new CurrencyCode(bitPayInvoice.getCurrency()),
             new BitPayId(bitPayInvoice.getId()),
             new Status(bitPayInvoice.getStatus()),
             LocalDateTime.ofInstant(Instant.ofEpochMilli(bitPayInvoice.getInvoiceTime()), ZoneId.systemDefault()),
@@ -76,31 +92,60 @@ class InvoiceFactory {
             new MerchantName(bitPayInvoice.getMerchantName()),
             new ItemDescription(bitPayInvoice.getItemDesc()),
             new BillId(bitPayInvoice.getBillId()),
+            new TargetConfirmations(bitPayInvoice.getTargetConfirmations()),
+            new LowFeeDetected(bitPayInvoice.getLowFeeDetected()),
+            new AutoRedirect(bitPayInvoice.getAutoRedirect()),
+            new ShopperUser(bitPayInvoice.getShopper().getName()),
+            new JsonPayProRequired(bitPayInvoice.getJsonPayProRequired()),
+            new BitPayIdRequired(bitPayInvoice.getBitpayIdRequired()),
+            new IsCancelled(bitPayInvoice.getIsCancelled()),
             this.invoicePaymentFactory.create(bitPayInvoice),
-            getInvoiceBuyer(bitPayInvoice),
-            getInvoiceBuyerProvidedInfo(bitPayInvoice.getInvoiceBuyerProvidedInfo())
+            this.invoiceBuyerFactory.create(bitPayInvoice),
+            this.invoiceBuyerProvidedInfoFactory.create(bitPayInvoice.getInvoiceBuyerProvidedInfo()),
+            this.invoiceRefundFactory.create(bitPayInvoice)
         );
+
+        invoice.addInvoiceTransactions(
+            getInvoiceTransactions(
+                invoice,
+                bitPayInvoice.getTransactions()
+            )
+        );
+        invoice.addInvoiceItemizedDetails(
+            getInvoiceItemizedDetails(
+                invoice,
+                bitPayInvoice.getItemizedDetails()
+            )
+        );
+
+        return invoice;
     }
 
     @NonNull
-    private InvoiceBuyerProvidedInfo getInvoiceBuyerProvidedInfo(
-        @NonNull final com.bitpay.sdk.model.Invoice.InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo
+    private Collection<InvoiceItemizedDetail> getInvoiceItemizedDetails(
+        @NonNull final Invoice invoice,
+        @Nullable final Collection<InvoiceItemizedDetails> itemizedDetails
     ) {
-        return new InvoiceBuyerProvidedInfo(
-            new BuyerName(invoiceBuyerProvidedInfo.getName()),
-            new BuyerPhoneNumber(invoiceBuyerProvidedInfo.getPhoneNumber()),
-            new BuyerSelectedTransactionCurrency(invoiceBuyerProvidedInfo.getSelectedTransactionCurrency()),
-            new BuyerEmailAddress(invoiceBuyerProvidedInfo.getEmailAddress()),
-            new BuyerSelectedWallet(invoiceBuyerProvidedInfo.getSelectedWallet()),
-            new BuyerSms(invoiceBuyerProvidedInfo.getSms())
-        );
+        if (Objects.isNull(itemizedDetails)) {
+            return List.of();
+        }
+
+        return itemizedDetails.stream()
+            .map(itemizedDetail -> this.invoiceItemizedDetailFactory.create(invoice, itemizedDetail))
+            .collect(Collectors.toList());
     }
 
     @NonNull
-    private InvoiceBuyer getInvoiceBuyer(@NonNull final com.bitpay.sdk.model.Invoice.Invoice bitPayInvoice) {
-        return new InvoiceBuyer(
-            new BuyerJson(this.objectToJsonConverter.execute(bitPayInvoice.getBuyer())),
-            new BuyerProvidedEmail(bitPayInvoice.getBuyerProvidedEmail())
-        );
+    private Collection<com.bitpay.demo.invoice.domain.transaction.InvoiceTransaction> getInvoiceTransactions(
+        @NonNull final Invoice invoice,
+        @Nullable final Collection<InvoiceTransaction> transactions
+    ) {
+        if (Objects.isNull(transactions)) {
+            return List.of();
+        }
+
+        return transactions.stream()
+            .map(transaction -> this.invoiceTransactionFactory.create(invoice, transaction))
+            .collect(Collectors.toList());
     }
 }

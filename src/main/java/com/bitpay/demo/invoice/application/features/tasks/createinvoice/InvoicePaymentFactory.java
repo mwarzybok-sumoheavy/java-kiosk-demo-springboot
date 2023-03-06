@@ -6,29 +6,16 @@
 package com.bitpay.demo.invoice.application.features.tasks.createinvoice;
 
 import com.bitpay.demo.DependencyInjection;
-import com.bitpay.demo.invoice.domain.AmountPaid;
-import com.bitpay.demo.invoice.domain.AutoRedirect;
-import com.bitpay.demo.invoice.domain.BitPayIdRequired;
-import com.bitpay.demo.invoice.domain.DisplayAmountPaid;
-import com.bitpay.demo.invoice.domain.InvoicePayment;
-import com.bitpay.demo.invoice.domain.IsCancelled;
-import com.bitpay.demo.invoice.domain.ItemizedDetailsJson;
-import com.bitpay.demo.invoice.domain.JsonPayProRequired;
-import com.bitpay.demo.invoice.domain.LowFeeDetected;
-import com.bitpay.demo.invoice.domain.NonPayProPaymentReceived;
-import com.bitpay.demo.invoice.domain.OverpaidAmount;
-import com.bitpay.demo.invoice.domain.RefundAddressRequestPending;
-import com.bitpay.demo.invoice.domain.RefundAddressesJson;
-import com.bitpay.demo.invoice.domain.RefundInfoJson;
-import com.bitpay.demo.invoice.domain.ShopperUser;
-import com.bitpay.demo.invoice.domain.TargetConfirmations;
-import com.bitpay.demo.invoice.domain.TransactionCurrency;
-import com.bitpay.demo.invoice.domain.TransactionsJson;
-import com.bitpay.demo.invoice.domain.UnderpaidAmount;
-import com.bitpay.demo.invoice.domain.UniversalCodesPaymentString;
-import com.bitpay.demo.invoice.domain.UniversalCodesVerificationLink;
-import com.bitpay.demo.invoice.domain.payment.InvoicePaymentTotal;
-import com.bitpay.demo.shared.ObjectToJsonConverter;
+import com.bitpay.demo.invoice.domain.payment.AmountPaid;
+import com.bitpay.demo.invoice.domain.payment.DisplayAmountPaid;
+import com.bitpay.demo.invoice.domain.payment.InvoicePayment;
+import com.bitpay.demo.invoice.domain.payment.InvoicePaymentCurrency;
+import com.bitpay.demo.invoice.domain.payment.NonPayProPaymentReceived;
+import com.bitpay.demo.invoice.domain.payment.OverpaidAmount;
+import com.bitpay.demo.invoice.domain.payment.TransactionCurrency;
+import com.bitpay.demo.invoice.domain.payment.UnderpaidAmount;
+import com.bitpay.demo.invoice.domain.payment.UniversalCodesPaymentString;
+import com.bitpay.demo.invoice.domain.payment.UniversalCodesVerificationLink;
 import java.util.Collection;
 import java.util.Optional;
 import lombok.NonNull;
@@ -36,37 +23,20 @@ import lombok.NonNull;
 @DependencyInjection
 class InvoicePaymentFactory {
 
-    private final ObjectToJsonConverter objectToJsonConverter;
-    private final InvoicePaymentTotalFactory invoiceTotalFactory;
+    private final InvoicePaymentCurrencyFactory invoicePaymentCurrencyFactory;
 
-    InvoicePaymentFactory(
-        @NonNull final ObjectToJsonConverter objectToJsonConverter,
-        @NonNull final InvoicePaymentTotalFactory invoiceTotalFactory
-    ) {
-        this.objectToJsonConverter = objectToJsonConverter;
-        this.invoiceTotalFactory = invoiceTotalFactory;
+    InvoicePaymentFactory(@NonNull final InvoicePaymentCurrencyFactory invoicePaymentCurrencyFactory) {
+        this.invoicePaymentCurrencyFactory = invoicePaymentCurrencyFactory;
     }
 
     @NonNull
     InvoicePayment create(@NonNull final com.bitpay.sdk.model.Invoice.Invoice bitPayInvoice) {
         final var invoicePayment = new InvoicePayment(
-            new TargetConfirmations(bitPayInvoice.getTargetConfirmations()),
-            new TransactionsJson(this.objectToJsonConverter.execute(bitPayInvoice.getTransactions())),
-            new RefundAddressesJson(this.objectToJsonConverter.execute(bitPayInvoice.getRefundAddresses())),
-            new LowFeeDetected(bitPayInvoice.getLowFeeDetected()),
             new AmountPaid(bitPayInvoice.getAmountPaid().doubleValue()),
             new DisplayAmountPaid(bitPayInvoice.getDisplayAmountPaid().doubleValue()),
-            new RefundAddressRequestPending(bitPayInvoice.getRefundAddressRequestPending()),
             new NonPayProPaymentReceived(bitPayInvoice.getNonPayProPaymentReceived()),
-            new AutoRedirect(bitPayInvoice.getAutoRedirect()),
-            new ShopperUser(bitPayInvoice.getShopper().getName()),
-            new RefundInfoJson(this.objectToJsonConverter.execute(bitPayInvoice.getRefundInfo())),
-            new JsonPayProRequired(bitPayInvoice.getJsonPayProRequired()),
             new UniversalCodesPaymentString(bitPayInvoice.getUniversalCodes().getBitpay()),
             new UniversalCodesVerificationLink(bitPayInvoice.getUniversalCodes().getVerificationLink()),
-            new BitPayIdRequired(bitPayInvoice.getBitpayIdRequired()),
-            new IsCancelled(bitPayInvoice.getIsCancelled()),
-            new ItemizedDetailsJson(this.objectToJsonConverter.execute(bitPayInvoice.getItemizedDetails())),
             new TransactionCurrency(bitPayInvoice.getTransactionCurrency()),
             Optional.ofNullable(bitPayInvoice.getUnderPaidAmount())
                 .map(amount -> new UnderpaidAmount(amount.doubleValue()))
@@ -76,8 +46,8 @@ class InvoicePaymentFactory {
                 .orElse(null)
         );
 
-        invoicePayment.addPaymentTotals(
-            getInvoicePaymentTotal(
+        invoicePayment.addPaymentCurrencies(
+            getInvoicePaymentCurrencies(
                 invoicePayment,
                 bitPayInvoice
             )
@@ -87,12 +57,12 @@ class InvoicePaymentFactory {
     }
 
     @NonNull
-    private Collection<InvoicePaymentTotal> getInvoicePaymentTotal(
+    private Collection<InvoicePaymentCurrency> getInvoicePaymentCurrencies(
         @NonNull final InvoicePayment invoicePayment,
         @NonNull final com.bitpay.sdk.model.Invoice.Invoice bitPayInvoice
     ) {
         return bitPayInvoice.getPaymentTotals().entrySet().stream()
-            .map(code -> this.invoiceTotalFactory.create(code, invoicePayment, bitPayInvoice))
+            .map(code -> this.invoicePaymentCurrencyFactory.create(code, invoicePayment, bitPayInvoice))
             .toList();
     }
 }

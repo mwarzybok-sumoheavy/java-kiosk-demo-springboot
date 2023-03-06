@@ -19,13 +19,27 @@
             <basic name="expirationTime">
                 <column nullable="true"/>
             </basic>
-            <one-to-one name="invoicePayment" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.InvoicePayment">
+            <one-to-many name="invoiceTransactions" fetch="LAZY" orphan-removal="true"
+                         target-entity="com.bitpay.demo.invoice.domain.transaction.InvoiceTransaction"
+                         mapped-by="invoice">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <one-to-many name="invoiceItemizedDetails" fetch="LAZY" orphan-removal="true"
+                         target-entity="com.bitpay.demo.invoice.domain.itemizeddetail.InvoiceItemizedDetail"
+                         mapped-by="invoice">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <one-to-one name="invoicePayment" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.payment.InvoicePayment">
                 <join-column name="invoice_payment_id"/>
                 <cascade>
                     <cascade-all/>
                 </cascade>
             </one-to-one>
-            <one-to-one name="invoiceBuyer" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.InvoiceBuyer">
+            <one-to-one name="invoiceBuyer" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.buyer.InvoiceBuyer">
                 <join-column name="invoice_buyer_id"/>
                 <cascade>
                     <cascade-all/>
@@ -33,6 +47,12 @@
             </one-to-one>
             <one-to-one name="invoiceBuyerProvidedInfo" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.buyer.InvoiceBuyerProvidedInfo">
                 <join-column name="invoice_buyer_provided_info_id"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+            <one-to-one name="invoiceRefund" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.refund.InvoiceRefund">
+                <join-column name="invoice_refund_id"/>
                 <cascade>
                     <cascade-all/>
                 </cascade>
@@ -47,9 +67,9 @@
                     <column name="price"/>
                 </attribute-override>
             </embedded>
-            <embedded name="currency">
+            <embedded name="currencyCode">
                 <attribute-override name="value">
-                    <column name="currency"/>
+                    <column name="currency_code"/>
                 </attribute-override>
             </embedded>
             <embedded name="status">
@@ -122,59 +142,14 @@
                     <column name="bill_id"/>
                 </attribute-override>
             </embedded>
-        </attributes>
-    </entity>
-
-    <entity class="com.bitpay.demo.invoice.domain.InvoicePayment" access="FIELD">
-        <table name="invoice_payment"/>
-        <attributes>
-            <id name="id">
-                <generated-value strategy="IDENTITY"/>
-            </id>
-            <one-to-many name="paymentTotals" fetch="EAGER" orphan-removal="true"
-                         target-entity="com.bitpay.demo.invoice.domain.payment.InvoicePaymentTotal" mapped-by="invoicePayment">
-                <cascade>
-                    <cascade-all/>
-                </cascade>
-            </one-to-many>
             <embedded name="targetConfirmations">
                 <attribute-override name="value">
                     <column name="target_confirmations"/>
                 </attribute-override>
             </embedded>
-            <embedded name="transactions">
-                <attribute-override name="value">
-                    <column name="transactions"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="refundAddresses">
-                <attribute-override name="value">
-                    <column name="refund_addresses"/>
-                </attribute-override>
-            </embedded>
             <embedded name="lowFeeDetected">
                 <attribute-override name="value">
                     <column name="low_fee_detected"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="amountPaid">
-                <attribute-override name="value">
-                    <column name="amount_paid"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="displayAmountPaid">
-                <attribute-override name="value">
-                    <column name="display_amount_paid"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="refundAddressRequestPending">
-                <attribute-override name="value">
-                    <column name="refund_address_request_pending"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="nonPayProPaymentReceived">
-                <attribute-override name="value">
-                    <column name="non_pay_pro_payment_received"/>
                 </attribute-override>
             </embedded>
             <embedded name="autoRedirect">
@@ -187,24 +162,9 @@
                     <column name="shopper_user"/>
                 </attribute-override>
             </embedded>
-            <embedded name="refundInfo">
-                <attribute-override name="value">
-                    <column name="refund_info"/>
-                </attribute-override>
-            </embedded>
             <embedded name="jsonPayProRequired">
                 <attribute-override name="value">
                     <column name="json_pay_pro_required"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="universalCodesPaymentString">
-                <attribute-override name="value">
-                    <column name="universal_codes_payment_string"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="universalCodesVerificationLink">
-                <attribute-override name="value">
-                    <column name="universal_codes_verification_link"/>
                 </attribute-override>
             </embedded>
             <embedded name="bitPayIdRequired">
@@ -217,14 +177,29 @@
                     <column name="is_cancelled"/>
                 </attribute-override>
             </embedded>
-            <embedded name="itemizedDetails">
+        </attributes>
+    </entity>
+
+    <entity class="com.bitpay.demo.invoice.domain.payment.InvoicePayment" access="FIELD">
+        <table name="invoice_payment"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <one-to-many name="paymentCurrencies" fetch="LAZY" orphan-removal="true"
+                         target-entity="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCurrency" mapped-by="invoicePayment">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <embedded name="amountPaid">
                 <attribute-override name="value">
-                    <column name="itemized_details"/>
+                    <column name="amount_paid"/>
                 </attribute-override>
             </embedded>
-            <embedded name="transactionCurrency">
+            <embedded name="displayAmountPaid">
                 <attribute-override name="value">
-                    <column name="transaction_currency"/>
+                    <column name="display_amount_paid"/>
                 </attribute-override>
             </embedded>
             <embedded name="underpaidAmount">
@@ -237,18 +212,261 @@
                     <column name="overpaid_amount"/>
                 </attribute-override>
             </embedded>
+            <embedded name="nonPayProPaymentReceived">
+                <attribute-override name="value">
+                    <column name="non_pay_pro_payment_received"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="universalCodesPaymentString">
+                <attribute-override name="value">
+                    <column name="universal_codes_payment_string"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="universalCodesVerificationLink">
+                <attribute-override name="value">
+                    <column name="universal_codes_verification_link"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="transactionCurrency">
+                <attribute-override name="value">
+                    <column name="transaction_currency"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+    <entity class="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCurrency" access="FIELD">
+        <table name="invoice_payment_currency"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <many-to-one name="invoicePayment" fetch="LAZY">
+                <join-column name="invoice_payment_id" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="exchangeRates" fetch="LAZY" orphan-removal="true"
+                         target-entity="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCurrencyExchangeRate"
+                         mapped-by="paymentCurrency">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <one-to-many name="currencyCodes" fetch="LAZY" orphan-removal="true"
+                         target-entity="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCurrencyCode"
+                         mapped-by="paymentCurrency">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <one-to-one name="supportedTransactionCurrency" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCurrencySupportedTransactionCurrency">
+                <join-column name="supported_transaction_currency_id"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+            <one-to-one name="minerFee" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCurrencyMinerFee">
+                <join-column name="miner_fee_id"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+            <embedded name="currencyCode">
+                <attribute-override name="value">
+                    <column name="currency_code"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="total">
+                <attribute-override name="value">
+                    <column name="total"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="subtotal">
+                <attribute-override name="value">
+                    <column name="subtotal"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="displayTotal">
+                <attribute-override name="value">
+                    <column name="display_total"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="displaySubtotal">
+                <attribute-override name="value">
+                    <column name="display_subtotal"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+    <entity class="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCurrencyCode" access="FIELD">
+        <table name="invoice_payment_currency_code"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <many-to-one name="paymentCurrency" fetch="LAZY">
+                <join-column name="invoice_payment_currency_id" referenced-column-name="id"/>
+            </many-to-one>
+            <embedded name="paymentCode">
+                <attribute-override name="value">
+                    <column name="payment_code"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="paymentCodeUrl">
+                <attribute-override name="value">
+                    <column name="payment_code_url"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+    <entity class="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCurrencyExchangeRate" access="FIELD">
+        <table name="invoice_payment_currency_exchange_rate"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <many-to-one name="paymentCurrency" fetch="LAZY">
+                <join-column name="invoice_payment_currency_id" referenced-column-name="id"/>
+            </many-to-one>
+            <embedded name="currencyCode">
+                <attribute-override name="value">
+                    <column name="currency_code"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="rate">
+                <attribute-override name="value">
+                    <column name="rate"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+    <entity class="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCurrencyMinerFee" access="FIELD">
+        <table name="invoice_payment_currency_miner_fee"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <embedded name="satoshisPerByte">
+                <attribute-override name="value">
+                    <column name="satoshis_per_byte"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="totalFee">
+                <attribute-override name="value">
+                    <column name="total_fee"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="fiatAmount">
+                <attribute-override name="value">
+                    <column name="fiat_amount"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+    <entity class="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCurrencySupportedTransactionCurrency" access="FIELD">
+        <table name="invoice_payment_currency_supported_transaction_currency"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <embedded name="enabled">
+                <attribute-override name="value">
+                    <column name="enabled"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="reason">
+                <attribute-override name="value">
+                    <column name="reason"/>
+                </attribute-override>
+            </embedded>
         </attributes>
     </entity>
 
-    <entity class="com.bitpay.demo.invoice.domain.InvoiceBuyer" access="FIELD">
+    <entity class="com.bitpay.demo.invoice.domain.transaction.InvoiceTransaction" access="FIELD">
+        <table name="invoice_transaction"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="time">
+                <column nullable="true"/>
+            </basic>
+            <basic name="receivedTime">
+                <column nullable="true"/>
+            </basic>
+            <many-to-one name="invoice" fetch="LAZY">
+                <join-column name="invoice_id" referenced-column-name="id"/>
+            </many-to-one>
+            <embedded name="amount">
+                <attribute-override name="value">
+                    <column name="amount"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="confirmations">
+                <attribute-override name="value">
+                    <column name="confirmations"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="txid">
+                <attribute-override name="value">
+                    <column name="txid"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+
+    <entity class="com.bitpay.demo.invoice.domain.buyer.InvoiceBuyer" access="FIELD">
         <table name="invoice_buyer"/>
         <attributes>
             <id name="id">
                 <generated-value strategy="IDENTITY"/>
             </id>
-            <embedded name="buyer">
+            <embedded name="name">
                 <attribute-override name="value">
-                    <column name="buyer"/>
+                    <column name="name"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="address1">
+                <attribute-override name="value">
+                    <column name="address1"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="address2">
+                <attribute-override name="value">
+                    <column name="address2"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="locality">
+                <attribute-override name="value">
+                    <column name="locality"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="region">
+                <attribute-override name="value">
+                    <column name="region"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="postalCode">
+                <attribute-override name="value">
+                    <column name="postal_code"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="country">
+                <attribute-override name="value">
+                    <column name="country"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="email">
+                <attribute-override name="value">
+                    <column name="email"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="phone">
+                <attribute-override name="value">
+                    <column name="phone"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="notify">
+                <attribute-override name="value">
+                    <column name="notify"/>
                 </attribute-override>
             </embedded>
             <embedded name="buyerProvidedEmail">
@@ -294,154 +512,111 @@
                     <column name="sms"/>
                 </attribute-override>
             </embedded>
+            <embedded name="smsVerified">
+                <attribute-override name="value">
+                    <column name="sms_verified"/>
+                </attribute-override>
+            </embedded>
         </attributes>
     </entity>
 
-    <entity class="com.bitpay.demo.invoice.domain.payment.InvoicePaymentTotal" access="FIELD">
-        <table name="invoice_payment_total"/>
+    <entity class="com.bitpay.demo.invoice.domain.itemizeddetail.InvoiceItemizedDetail" access="FIELD">
+        <table name="invoice_itemized_detail"/>
         <attributes>
             <id name="id">
                 <generated-value strategy="IDENTITY"/>
             </id>
-            <many-to-one name="invoicePayment" fetch="LAZY">
-                <join-column name="invoice_payment_id" referenced-column-name="id"/>
+            <many-to-one name="invoice" fetch="LAZY">
+                <join-column name="invoice_id" referenced-column-name="id"/>
             </many-to-one>
-            <one-to-many name="exchangeRates" fetch="EAGER" orphan-removal="true"
-                         target-entity="com.bitpay.demo.invoice.domain.payment.InvoicePaymentExchangeRate"
-                         mapped-by="paymentTotal">
+            <embedded name="amount">
+                <attribute-override name="value">
+                    <column name="amount"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="description">
+                <attribute-override name="value">
+                    <column name="description"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="isFee">
+                <attribute-override name="value">
+                    <column name="is_fee"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+
+    <entity class="com.bitpay.demo.invoice.domain.refund.InvoiceRefund" access="FIELD">
+        <table name="invoice_refund"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <one-to-many name="refundInfo" fetch="LAZY" orphan-removal="true"
+                         target-entity="com.bitpay.demo.invoice.domain.refund.InvoiceRefundInfo"
+                         mapped-by="invoiceRefund">
                 <cascade>
                     <cascade-all/>
                 </cascade>
             </one-to-many>
-            <one-to-many name="paymentCodes" fetch="EAGER" orphan-removal="true"
-                         target-entity="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCode"
-                         mapped-by="paymentTotal">
+            <embedded name="addressesJson">
+                <attribute-override name="value">
+                    <column name="addresses_json"/>
+                </attribute-override>
+            </embedded>
+            <embedded name="addressRequestPending">
+                <attribute-override name="value">
+                    <column name="address_request_pending"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+    <entity class="com.bitpay.demo.invoice.domain.refund.InvoiceRefundInfo" access="FIELD">
+        <table name="invoice_refund_info"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <many-to-one name="invoiceRefund" fetch="LAZY">
+                <join-column name="invoice_refund_id" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="invoiceRefundInfoAmounts" fetch="LAZY" orphan-removal="true"
+                         target-entity="com.bitpay.demo.invoice.domain.refund.InvoiceRefundInfoAmount"
+                         mapped-by="invoiceRefundInfo">
                 <cascade>
                     <cascade-all/>
                 </cascade>
             </one-to-many>
-            <one-to-one name="supportedTransactionCurrency" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.payment.InvoicePaymentSupportedTransactionCurrency">
-                <join-column name="supported_transaction_currency_id"/>
-                <cascade>
-                    <cascade-all/>
-                </cascade>
-            </one-to-one>
-            <one-to-one name="minerFee" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.payment.InvoicePaymentMinerFee">
-                <join-column name="miner_fee_id"/>
-                <cascade>
-                    <cascade-all/>
-                </cascade>
-            </one-to-one>
             <embedded name="currencyCode">
                 <attribute-override name="value">
-                    <column name="currencyCode"/>
+                    <column name="currency_code"/>
                 </attribute-override>
             </embedded>
-            <embedded name="total">
+            <embedded name="supportRequest">
                 <attribute-override name="value">
-                    <column name="total"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="subtotal">
-                <attribute-override name="value">
-                    <column name="subtotal"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="displayTotal">
-                <attribute-override name="value">
-                    <column name="display_total"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="displaySubtotal">
-                <attribute-override name="value">
-                    <column name="display_subtotal"/>
+                    <column name="support_request"/>
                 </attribute-override>
             </embedded>
         </attributes>
     </entity>
-
-    <entity class="com.bitpay.demo.invoice.domain.payment.InvoicePaymentExchangeRate" access="FIELD">
-        <table name="invoice_payment_exchange_rate"/>
+    <entity class="com.bitpay.demo.invoice.domain.refund.InvoiceRefundInfoAmount" access="FIELD">
+        <table name="invoice_refund_info_amount"/>
         <attributes>
             <id name="id">
                 <generated-value strategy="IDENTITY"/>
             </id>
-            <many-to-one name="paymentTotal" fetch="LAZY">
-                <join-column name="invoice_payment_total_id" referenced-column-name="id"/>
+            <many-to-one name="invoiceRefundInfo" fetch="LAZY">
+                <join-column name="invoice_refund_info_id" referenced-column-name="id"/>
             </many-to-one>
             <embedded name="currencyCode">
                 <attribute-override name="value">
                     <column name="currency_code"/>
                 </attribute-override>
             </embedded>
-            <embedded name="exchangeRate">
+            <embedded name="amount">
                 <attribute-override name="value">
-                    <column name="exchange_rate"/>
-                </attribute-override>
-            </embedded>
-        </attributes>
-    </entity>
-
-    <entity class="com.bitpay.demo.invoice.domain.payment.InvoicePaymentCode" access="FIELD">
-        <table name="invoice_payment_code"/>
-        <attributes>
-            <id name="id">
-                <generated-value strategy="IDENTITY"/>
-            </id>
-            <many-to-one name="paymentTotal" fetch="LAZY">
-                <join-column name="invoice_payment_total_id" referenced-column-name="id"/>
-            </many-to-one>
-            <embedded name="paymentCode">
-                <attribute-override name="value">
-                    <column name="payment_code"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="paymentCodeUrl">
-                <attribute-override name="value">
-                    <column name="payment_code_url"/>
-                </attribute-override>
-            </embedded>
-        </attributes>
-    </entity>
-
-    <entity class="com.bitpay.demo.invoice.domain.payment.InvoicePaymentSupportedTransactionCurrency" access="FIELD">
-        <table name="invoice_payment_supported_transaction_currency"/>
-        <attributes>
-            <id name="id">
-                <generated-value strategy="IDENTITY"/>
-            </id>
-            <embedded name="enabled">
-                <attribute-override name="value">
-                    <column name="enabled"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="reason">
-                <attribute-override name="value">
-                    <column name="reason"/>
-                </attribute-override>
-            </embedded>
-        </attributes>
-    </entity>
-
-    <entity class="com.bitpay.demo.invoice.domain.payment.InvoicePaymentMinerFee" access="FIELD">
-        <table name="invoice_payment_miner_fee"/>
-        <attributes>
-            <id name="id">
-                <generated-value strategy="IDENTITY"/>
-            </id>
-            <embedded name="satoshisPerByte">
-                <attribute-override name="value">
-                    <column name="satoshis_per_byte"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="totalFee">
-                <attribute-override name="value">
-                    <column name="total_fee"/>
-                </attribute-override>
-            </embedded>
-            <embedded name="fiatAmount">
-                <attribute-override name="value">
-                    <column name="fiat_amount"/>
+                    <column name="amount"/>
                 </attribute-override>
             </embedded>
         </attributes>
