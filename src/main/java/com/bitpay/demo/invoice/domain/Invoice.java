@@ -15,11 +15,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.annotation.Nullable;
 import lombok.NonNull;
 
 public class Invoice {
 
     private Long id;
+    private InvoiceUuid uuid;
     private PosDataJson posData;
     private Price price;
     private CurrencyCode currencyCode;
@@ -54,37 +56,39 @@ public class Invoice {
     private Collection<InvoiceItemizedDetail> invoiceItemizedDetails = List.of();
 
     public Invoice(
+        @NonNull final InvoiceUuid uuid,
         @NonNull final PosDataJson posData,
         @NonNull final Price price,
         @NonNull final CurrencyCode currencyCode,
         @NonNull final BitPayId bitPayId,
         @NonNull final Status status,
         @NonNull final LocalDateTime createdDate,
-        @NonNull final BitPayOrderId bitPayOrderId,
-        @NonNull final LocalDateTime expirationTime,
-        @NonNull final FacadeType facadeType,
-        @NonNull final BitPayGuid bitPayGuid,
-        @NonNull final ExceptionStatus exceptionStatus,
-        @NonNull final BitPayUrl bitPayUrl,
-        @NonNull final RedirectUrl redirectUrl,
-        @NonNull final CloseUrl closeUrl,
-        @NonNull final AcceptanceWindow acceptanceWindow,
-        @NonNull final Token token,
-        @NonNull final MerchantName merchantName,
-        @NonNull final ItemDescription itemDescription,
-        @NonNull final BillId billId,
-        @NonNull final TargetConfirmations targetConfirmations,
-        @NonNull final LowFeeDetected lowFeeDetected,
-        @NonNull final AutoRedirect autoRedirect,
-        @NonNull final ShopperUser shopperUser,
-        @NonNull final JsonPayProRequired jsonPayProRequired,
-        @NonNull final BitPayIdRequired bitPayIdRequired,
-        @NonNull final IsCancelled isCancelled,
         @NonNull final InvoicePayment invoicePayment,
         @NonNull final InvoiceBuyer invoiceBuyer,
         @NonNull final InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo,
-        @NonNull final InvoiceRefund invoiceRefund
+        @NonNull final InvoiceRefund invoiceRefund,
+        @Nullable final BitPayOrderId bitPayOrderId,
+        @Nullable final LocalDateTime expirationTime,
+        @Nullable final FacadeType facadeType,
+        @Nullable final BitPayGuid bitPayGuid,
+        @Nullable final ExceptionStatus exceptionStatus,
+        @Nullable final BitPayUrl bitPayUrl,
+        @Nullable final RedirectUrl redirectUrl,
+        @Nullable final CloseUrl closeUrl,
+        @Nullable final AcceptanceWindow acceptanceWindow,
+        @Nullable final Token token,
+        @Nullable final MerchantName merchantName,
+        @Nullable final ItemDescription itemDescription,
+        @Nullable final BillId billId,
+        @Nullable final TargetConfirmations targetConfirmations,
+        @Nullable final LowFeeDetected lowFeeDetected,
+        @Nullable final AutoRedirect autoRedirect,
+        @Nullable final ShopperUser shopperUser,
+        @Nullable final JsonPayProRequired jsonPayProRequired,
+        @Nullable final BitPayIdRequired bitPayIdRequired,
+        @Nullable final IsCancelled isCancelled
     ) {
+        this.uuid = uuid;
         this.posData = posData;
         this.price = price;
         this.currencyCode = currencyCode;
@@ -156,6 +160,106 @@ public class Invoice {
         return this.itemDescription;
     }
 
+    public @NonNull LocalDateTime getExpirationTime() {
+        return this.expirationTime;
+    }
+
+    public @NonNull FacadeType getFacadeType() {
+        return this.facadeType;
+    }
+
+    public @NonNull BitPayGuid getBitPayGuid() {
+        return this.bitPayGuid;
+    }
+
+    public @NonNull ExceptionStatus getExceptionStatus() {
+        return this.exceptionStatus;
+    }
+
+    public @NonNull BitPayUrl getBitPayUrl() {
+        return this.bitPayUrl;
+    }
+
+    public @NonNull RedirectUrl getRedirectUrl() {
+        return this.redirectUrl;
+    }
+
+    public @NonNull CloseUrl getCloseUrl() {
+        return this.closeUrl;
+    }
+
+    public @NonNull AcceptanceWindow getAcceptanceWindow() {
+        return this.acceptanceWindow;
+    }
+
+    public @NonNull Token getToken() {
+        return this.token;
+    }
+
+    public @NonNull MerchantName getMerchantName() {
+        return this.merchantName;
+    }
+
+    public @NonNull BillId getBillId() {
+        return this.billId;
+    }
+
+    public @NonNull TargetConfirmations getTargetConfirmations() {
+        return this.targetConfirmations;
+    }
+
+    public @NonNull LowFeeDetected getLowFeeDetected() {
+        return this.lowFeeDetected;
+    }
+
+    public @NonNull AutoRedirect getAutoRedirect() {
+        return this.autoRedirect;
+    }
+
+    public @NonNull ShopperUser getShopperUser() {
+        return this.shopperUser;
+    }
+
+    public @NonNull JsonPayProRequired getJsonPayProRequired() {
+        return this.jsonPayProRequired;
+    }
+
+    public @NonNull BitPayIdRequired getBitPayIdRequired() {
+        return this.bitPayIdRequired;
+    }
+
+    public @NonNull IsCancelled getIsCancelled() {
+        return this.isCancelled;
+    }
+
+    public @NonNull InvoicePayment getInvoicePayment() {
+        return this.invoicePayment;
+    }
+
+    public @NonNull InvoiceBuyer getInvoiceBuyer() {
+        return this.invoiceBuyer;
+    }
+
+    public @NonNull InvoiceBuyerProvidedInfo getInvoiceBuyerProvidedInfo() {
+        return this.invoiceBuyerProvidedInfo;
+    }
+
+    public @NonNull InvoiceRefund getInvoiceRefund() {
+        return this.invoiceRefund;
+    }
+
+    public @NonNull Collection<InvoiceTransaction> getInvoiceTransactions() {
+        return this.invoiceTransactions;
+    }
+
+    public @NonNull Collection<InvoiceItemizedDetail> getInvoiceItemizedDetails() {
+        return this.invoiceItemizedDetails;
+    }
+
+    public @NonNull InvoiceUuid getUuid() {
+        return this.uuid;
+    }
+
     public void addInvoiceTransactions(@NonNull final Collection<InvoiceTransaction> invoiceTransactions) {
         final var transactions = new ArrayList<>(this.invoiceTransactions);
         transactions.addAll(invoiceTransactions);
@@ -168,5 +272,22 @@ public class Invoice {
         itemizedDetails.addAll(invoiceItemizedDetails);
 
         this.invoiceItemizedDetails = itemizedDetails;
+    }
+
+    public void update(@NonNull final Invoice invoice) {
+        this.price = invoice.getPrice();
+        this.currencyCode = invoice.getCurrencyCode();
+        this.status = invoice.getStatus();
+        this.bitPayOrderId = invoice.getBitPayOrderId();
+        this.expirationTime = invoice.getExpirationTime();
+        this.exceptionStatus = invoice.getExceptionStatus();
+        this.bitPayUrl = invoice.getBitPayUrl();
+        this.invoicePayment.update(invoice.getInvoicePayment());
+        this.invoiceBuyer.update(invoice.getInvoiceBuyer());
+    }
+
+    @NonNull
+    public InvoiceId getInvoiceId() {
+        return new InvoiceId(this.id);
     }
 }

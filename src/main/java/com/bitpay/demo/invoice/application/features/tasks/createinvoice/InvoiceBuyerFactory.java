@@ -7,9 +7,9 @@ package com.bitpay.demo.invoice.application.features.tasks.createinvoice;
 
 import com.bitpay.demo.DependencyInjection;
 import com.bitpay.demo.invoice.domain.buyer.BuyerAddress;
+import com.bitpay.demo.invoice.domain.buyer.BuyerCity;
 import com.bitpay.demo.invoice.domain.buyer.BuyerCountry;
 import com.bitpay.demo.invoice.domain.buyer.BuyerEmailAddress;
-import com.bitpay.demo.invoice.domain.buyer.BuyerLocality;
 import com.bitpay.demo.invoice.domain.buyer.BuyerName;
 import com.bitpay.demo.invoice.domain.buyer.BuyerNotify;
 import com.bitpay.demo.invoice.domain.buyer.BuyerPhoneNumber;
@@ -38,7 +38,7 @@ class InvoiceBuyerFactory {
             new BuyerName(buyer.getName()),
             new BuyerAddress(buyer.getAddress1()),
             new BuyerAddress(buyer.getAddress2()),
-            new BuyerLocality(buyer.getLocality()),
+            new BuyerCity(buyer.getLocality()),
             new BuyerRegion(buyer.getRegion()),
             new BuyerPostalCode(buyer.getPostalCode()),
             new BuyerCountry(buyer.getCountry()),

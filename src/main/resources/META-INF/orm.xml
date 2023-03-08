@@ -57,6 +57,11 @@
                     <cascade-all/>
                 </cascade>
             </one-to-one>
+            <embedded name="uuid">
+                <attribute-override name="value">
+                    <column name="uuid"/>
+                </attribute-override>
+            </embedded>
             <embedded name="posData">
                 <attribute-override name="value">
                     <column name="pos_data"/>
@@ -434,9 +439,9 @@
                     <column name="address2"/>
                 </attribute-override>
             </embedded>
-            <embedded name="locality">
+            <embedded name="city">
                 <attribute-override name="value">
-                    <column name="locality"/>
+                    <column name="city"/>
                 </attribute-override>
             </embedded>
             <embedded name="region">

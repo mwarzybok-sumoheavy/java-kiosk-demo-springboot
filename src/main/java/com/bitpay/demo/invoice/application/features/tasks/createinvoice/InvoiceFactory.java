@@ -19,6 +19,7 @@ import com.bitpay.demo.invoice.domain.CurrencyCode;
 import com.bitpay.demo.invoice.domain.ExceptionStatus;
 import com.bitpay.demo.invoice.domain.FacadeType;
 import com.bitpay.demo.invoice.domain.Invoice;
+import com.bitpay.demo.invoice.domain.InvoiceUuid;
 import com.bitpay.demo.invoice.domain.IsCancelled;
 import com.bitpay.demo.invoice.domain.ItemDescription;
 import com.bitpay.demo.invoice.domain.JsonPayProRequired;
@@ -71,14 +72,22 @@ class InvoiceFactory {
     }
 
     @NonNull
-    Invoice create(@NonNull final com.bitpay.sdk.model.Invoice.Invoice bitPayInvoice) {
+    Invoice create(
+        @NonNull final com.bitpay.sdk.model.Invoice.Invoice bitPayInvoice,
+        @NonNull final InvoiceUuid uuid
+    ) {
         final var invoice = new Invoice(
+            uuid,
             new PosDataJson(bitPayInvoice.getPosData()),
             new Price(bitPayInvoice.getPrice()),
             new CurrencyCode(bitPayInvoice.getCurrency()),
             new BitPayId(bitPayInvoice.getId()),
             new Status(bitPayInvoice.getStatus()),
             LocalDateTime.ofInstant(Instant.ofEpochMilli(bitPayInvoice.getInvoiceTime()), ZoneId.systemDefault()),
+            this.invoicePaymentFactory.create(bitPayInvoice),
+            this.invoiceBuyerFactory.create(bitPayInvoice),
+            this.invoiceBuyerProvidedInfoFactory.create(bitPayInvoice.getInvoiceBuyerProvidedInfo()),
+            this.invoiceRefundFactory.create(bitPayInvoice),
             new BitPayOrderId(bitPayInvoice.getOrderId()),
             LocalDateTime.ofInstant(Instant.ofEpochMilli(bitPayInvoice.getExpirationTime()), ZoneId.systemDefault()),
             new FacadeType("pos/invoice"),
@@ -98,11 +107,7 @@ class InvoiceFactory {
             new ShopperUser(bitPayInvoice.getShopper().getName()),
             new JsonPayProRequired(bitPayInvoice.getJsonPayProRequired()),
             new BitPayIdRequired(bitPayInvoice.getBitpayIdRequired()),
-            new IsCancelled(bitPayInvoice.getIsCancelled()),
-            this.invoicePaymentFactory.create(bitPayInvoice),
-            this.invoiceBuyerFactory.create(bitPayInvoice),
-            this.invoiceBuyerProvidedInfoFactory.create(bitPayInvoice.getInvoiceBuyerProvidedInfo()),
-            this.invoiceRefundFactory.create(bitPayInvoice)
+            new IsCancelled(bitPayInvoice.getIsCancelled())
         );
 
         invoice.addInvoiceTransactions(

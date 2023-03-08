@@ -3,15 +3,15 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.invoice.domain.buyer;
+package com.bitpay.demo.invoice.domain;
 
 import lombok.NonNull;
 
-public class BuyerLocality {
+public class InvoiceUuid {
 
     private String value;
 
-    public BuyerLocality(final @NonNull String value) {
+    public InvoiceUuid(final @NonNull String value) {
         this.value = value;
     }
 
@@ -19,6 +19,6 @@ public class BuyerLocality {
         return this.value;
     }
 
-    protected BuyerLocality() {
+    protected InvoiceUuid() {
     }
 }

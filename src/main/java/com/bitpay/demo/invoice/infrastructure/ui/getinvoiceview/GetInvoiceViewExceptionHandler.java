@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice("com.bitpay.demo.invoice.infrastructure.ui.getinvoiceview")
-public class InvoiceNotFoundExceptionHandler {
+public class GetInvoiceViewExceptionHandler {
 
     @ExceptionHandler(InvoiceNotFound.class)
     public String handleInvoiceNotFound() {
