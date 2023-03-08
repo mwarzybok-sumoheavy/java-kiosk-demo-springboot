@@ -45,12 +45,6 @@
                     <cascade-all/>
                 </cascade>
             </one-to-one>
-            <one-to-one name="invoiceBuyerProvidedInfo" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.buyer.InvoiceBuyerProvidedInfo">
-                <join-column name="invoice_buyer_provided_info_id"/>
-                <cascade>
-                    <cascade-all/>
-                </cascade>
-            </one-to-one>
             <one-to-one name="invoiceRefund" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.refund.InvoiceRefund">
                 <join-column name="invoice_refund_id"/>
                 <cascade>
@@ -391,9 +385,6 @@
             <id name="id">
                 <generated-value strategy="IDENTITY"/>
             </id>
-            <basic name="time">
-                <column nullable="true"/>
-            </basic>
             <basic name="receivedTime">
                 <column nullable="true"/>
             </basic>
@@ -424,6 +415,12 @@
             <id name="id">
                 <generated-value strategy="IDENTITY"/>
             </id>
+            <one-to-one name="invoiceBuyerProvidedInfo" fetch="LAZY" target-entity="com.bitpay.demo.invoice.domain.buyer.InvoiceBuyerProvidedInfo">
+                <join-column name="invoice_buyer_provided_info_id"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
             <embedded name="name">
                 <attribute-override name="value">
                     <column name="name"/>

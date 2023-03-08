@@ -6,7 +6,6 @@
 package com.bitpay.demo.invoice.domain;
 
 import com.bitpay.demo.invoice.domain.buyer.InvoiceBuyer;
-import com.bitpay.demo.invoice.domain.buyer.InvoiceBuyerProvidedInfo;
 import com.bitpay.demo.invoice.domain.itemizeddetail.InvoiceItemizedDetail;
 import com.bitpay.demo.invoice.domain.payment.InvoicePayment;
 import com.bitpay.demo.invoice.domain.refund.InvoiceRefund;
@@ -50,7 +49,6 @@ public class Invoice {
     private IsCancelled isCancelled;
     private InvoicePayment invoicePayment;
     private InvoiceBuyer invoiceBuyer;
-    private InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo;
     private InvoiceRefund invoiceRefund;
     private Collection<InvoiceTransaction> invoiceTransactions = List.of();
     private Collection<InvoiceItemizedDetail> invoiceItemizedDetails = List.of();
@@ -65,7 +63,6 @@ public class Invoice {
         @NonNull final LocalDateTime createdDate,
         @NonNull final InvoicePayment invoicePayment,
         @NonNull final InvoiceBuyer invoiceBuyer,
-        @NonNull final InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo,
         @NonNull final InvoiceRefund invoiceRefund,
         @Nullable final BitPayOrderId bitPayOrderId,
         @Nullable final LocalDateTime expirationTime,
@@ -117,7 +114,6 @@ public class Invoice {
         this.isCancelled = isCancelled;
         this.invoicePayment = invoicePayment;
         this.invoiceBuyer = invoiceBuyer;
-        this.invoiceBuyerProvidedInfo = invoiceBuyerProvidedInfo;
         this.invoiceRefund = invoiceRefund;
     }
 
@@ -238,10 +234,6 @@ public class Invoice {
 
     public @NonNull InvoiceBuyer getInvoiceBuyer() {
         return this.invoiceBuyer;
-    }
-
-    public @NonNull InvoiceBuyerProvidedInfo getInvoiceBuyerProvidedInfo() {
-        return this.invoiceBuyerProvidedInfo;
     }
 
     public @NonNull InvoiceRefund getInvoiceRefund() {

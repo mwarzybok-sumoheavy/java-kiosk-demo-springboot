@@ -18,23 +18,35 @@ import com.bitpay.demo.invoice.domain.buyer.BuyerProvidedEmail;
 import com.bitpay.demo.invoice.domain.buyer.BuyerRegion;
 import com.bitpay.demo.invoice.domain.buyer.InvoiceBuyer;
 import com.bitpay.sdk.model.Invoice.Invoice;
+import com.bitpay.sdk.model.Invoice.InvoiceBuyerProvidedInfo;
 import java.util.Objects;
 import lombok.NonNull;
 
 @DependencyInjection
 class InvoiceBuyerFactory {
 
+    private final InvoiceBuyerProvidedInfoFactory invoiceBuyerProvidedInfoFactory;
+
+    InvoiceBuyerFactory(@NonNull final InvoiceBuyerProvidedInfoFactory invoiceBuyerProvidedInfoFactory) {
+        this.invoiceBuyerProvidedInfoFactory = invoiceBuyerProvidedInfoFactory;
+    }
+
     @NonNull
-    public InvoiceBuyer create(@NonNull final Invoice bitPayInvoice) {
+    public InvoiceBuyer create(
+        @NonNull final Invoice bitPayInvoice,
+        @NonNull final InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo
+    ) {
         final var buyer = bitPayInvoice.getBuyer();
 
         if (Objects.isNull(buyer)) {
             return new InvoiceBuyer(
-                new BuyerProvidedEmail(bitPayInvoice.getBuyerProvidedEmail())
+                new BuyerProvidedEmail(bitPayInvoice.getBuyerProvidedEmail()),
+                this.invoiceBuyerProvidedInfoFactory.create(invoiceBuyerProvidedInfo)
             );
         }
 
         return new InvoiceBuyer(
+            this.invoiceBuyerProvidedInfoFactory.create(invoiceBuyerProvidedInfo),
             new BuyerName(buyer.getName()),
             new BuyerAddress(buyer.getAddress1()),
             new BuyerAddress(buyer.getAddress2()),

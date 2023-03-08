@@ -22,8 +22,10 @@ public class InvoiceBuyer {
     private BuyerPhoneNumber phone;
     private BuyerNotify notify;
     private BuyerProvidedEmail buyerProvidedEmail;
+    private InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo;
 
     public InvoiceBuyer(
+        @NonNull final InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo,
         @Nullable final BuyerName name,
         @Nullable final BuyerAddress address1,
         @Nullable final BuyerAddress address2,
@@ -47,10 +49,15 @@ public class InvoiceBuyer {
         this.phone = phone;
         this.notify = notify;
         this.buyerProvidedEmail = buyerProvidedEmail;
+        this.invoiceBuyerProvidedInfo = invoiceBuyerProvidedInfo;
     }
 
-    public InvoiceBuyer(@NonNull BuyerProvidedEmail buyerProvidedEmail) {
+    public InvoiceBuyer(
+        @NonNull final BuyerProvidedEmail buyerProvidedEmail,
+        @NonNull final InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo
+    ) {
         this.buyerProvidedEmail = buyerProvidedEmail;
+        this.invoiceBuyerProvidedInfo = invoiceBuyerProvidedInfo;
     }
 
     InvoiceBuyer() {
@@ -100,7 +107,11 @@ public class InvoiceBuyer {
         return this.buyerProvidedEmail;
     }
 
-    public void update(@NonNull InvoiceBuyer invoiceBuyer) {
+    public InvoiceBuyerProvidedInfo getInvoiceBuyerProvidedInfo() {
+        return this.invoiceBuyerProvidedInfo;
+    }
+
+    public void update(@NonNull final InvoiceBuyer invoiceBuyer) {
         this.name = invoiceBuyer.getName();
         this.address1 = invoiceBuyer.getAddress1();
         this.address2 = invoiceBuyer.getAddress2();

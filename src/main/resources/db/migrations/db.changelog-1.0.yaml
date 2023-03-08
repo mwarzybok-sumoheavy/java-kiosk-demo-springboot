@@ -114,6 +114,14 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: true
+              - column:
+                  name: invoice_buyer_provided_info_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_ib_invoice_buyer_provided_info_id
+                    references: invoice_buyer_provided_info(id)
+                    deleteCascade: true
 
         # invoice_payment
         - createTable:
@@ -568,14 +576,6 @@ databaseChangeLog:
                     references: invoice_buyer(id)
                     deleteCascade: true
               - column:
-                  name: invoice_buyer_provided_info_id
-                  type: int
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_i_invoice_buyer_provided_info_id
-                    references: invoice_buyer_provided_info(id)
-                    deleteCascade: true
-              - column:
                   name: invoice_refund_id
                   type: int
                   constraints:
@@ -611,11 +611,6 @@ databaseChangeLog:
               - column:
                   name: confirmations
                   type: INT
-                  constraints:
-                    nullable: true
-              - column:
-                  name: time
-                  type: DATE
                   constraints:
                     nullable: true
               - column:

@@ -26,7 +26,6 @@ class InvoiceTransactionFactory {
             invoice,
             new Amount(transaction.getAmount().doubleValue()),
             new Confirmations(transaction.getConfirmations()),
-            transaction.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
             transaction.getReceivedTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
             new Txid(transaction.getTransactionId())
         );

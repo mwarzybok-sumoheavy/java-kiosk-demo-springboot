@@ -60,7 +60,6 @@ class GetInvoiceWithUpdateData {
             invoice.getCreatedDate(),
             getPayment(updateData, invoice.getInvoicePayment()),
             getInvoiceBuyer(invoice.getInvoiceBuyer(), (Map<String, Object>) updateData.get("buyerFields")),
-            invoice.getInvoiceBuyerProvidedInfo(),
             invoice.getInvoiceRefund(),
             (BitPayOrderId) getFieldValue("orderId", updateData, BitPayOrderId.class, invoice.getBitPayOrderId()),
             getExpirationTime(updateData, invoice),
@@ -147,6 +146,7 @@ class GetInvoiceWithUpdateData {
         }
 
         return new InvoiceBuyer(
+            invoiceBuyer.getInvoiceBuyerProvidedInfo(),
             (BuyerName) getFieldValue("buyerName", updateData, BuyerName.class, invoiceBuyer.getName()),
             (BuyerAddress) getFieldValue("buyerAddress1", updateData, BuyerAddress.class, invoiceBuyer.getAddress1()),
             (BuyerAddress) getFieldValue("buyerAddress2", updateData, BuyerAddress.class, invoiceBuyer.getAddress2()),

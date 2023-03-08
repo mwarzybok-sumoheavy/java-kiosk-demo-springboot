@@ -50,7 +50,6 @@ class InvoiceFactory {
 
     private final InvoicePaymentFactory invoicePaymentFactory;
     private final InvoiceBuyerFactory invoiceBuyerFactory;
-    private final InvoiceBuyerProvidedInfoFactory invoiceBuyerProvidedInfoFactory;
     private final InvoiceRefundFactory invoiceRefundFactory;
     private final InvoiceTransactionFactory invoiceTransactionFactory;
     private final InvoiceItemizedDetailFactory invoiceItemizedDetailFactory;
@@ -58,14 +57,12 @@ class InvoiceFactory {
     InvoiceFactory(
         @NonNull final InvoicePaymentFactory invoicePaymentFactory,
         @NonNull final InvoiceBuyerFactory invoiceBuyerFactory,
-        @NonNull final InvoiceBuyerProvidedInfoFactory invoiceBuyerProvidedInfoFactory,
         @NonNull final InvoiceRefundFactory invoiceRefundFactory,
         @NonNull final InvoiceTransactionFactory invoiceTransactionFactory,
         @NonNull final InvoiceItemizedDetailFactory invoiceItemizedDetailFactory
     ) {
         this.invoicePaymentFactory = invoicePaymentFactory;
         this.invoiceBuyerFactory = invoiceBuyerFactory;
-        this.invoiceBuyerProvidedInfoFactory = invoiceBuyerProvidedInfoFactory;
         this.invoiceRefundFactory = invoiceRefundFactory;
         this.invoiceTransactionFactory = invoiceTransactionFactory;
         this.invoiceItemizedDetailFactory = invoiceItemizedDetailFactory;
@@ -85,8 +82,7 @@ class InvoiceFactory {
             new Status(bitPayInvoice.getStatus()),
             LocalDateTime.ofInstant(Instant.ofEpochMilli(bitPayInvoice.getInvoiceTime()), ZoneId.systemDefault()),
             this.invoicePaymentFactory.create(bitPayInvoice),
-            this.invoiceBuyerFactory.create(bitPayInvoice),
-            this.invoiceBuyerProvidedInfoFactory.create(bitPayInvoice.getInvoiceBuyerProvidedInfo()),
+            this.invoiceBuyerFactory.create(bitPayInvoice, bitPayInvoice.getInvoiceBuyerProvidedInfo()),
             this.invoiceRefundFactory.create(bitPayInvoice),
             new BitPayOrderId(bitPayInvoice.getOrderId()),
             LocalDateTime.ofInstant(Instant.ofEpochMilli(bitPayInvoice.getExpirationTime()), ZoneId.systemDefault()),
