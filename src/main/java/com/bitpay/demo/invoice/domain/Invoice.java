@@ -47,6 +47,7 @@ public class Invoice {
     private JsonPayProRequired jsonPayProRequired;
     private BitPayIdRequired bitPayIdRequired;
     private IsCancelled isCancelled;
+    private TransactionSpeed transactionSpeed;
     private InvoicePayment invoicePayment;
     private InvoiceBuyer invoiceBuyer;
     private InvoiceRefund invoiceRefund;
@@ -61,6 +62,7 @@ public class Invoice {
         @NonNull final BitPayId bitPayId,
         @NonNull final Status status,
         @NonNull final LocalDateTime createdDate,
+        @NonNull final TransactionSpeed transactionSpeed,
         @NonNull final InvoicePayment invoicePayment,
         @NonNull final InvoiceBuyer invoiceBuyer,
         @NonNull final InvoiceRefund invoiceRefund,
@@ -115,6 +117,7 @@ public class Invoice {
         this.invoicePayment = invoicePayment;
         this.invoiceBuyer = invoiceBuyer;
         this.invoiceRefund = invoiceRefund;
+        this.transactionSpeed = transactionSpeed;
     }
 
     Invoice() {
@@ -281,5 +284,10 @@ public class Invoice {
     @NonNull
     public InvoiceId getInvoiceId() {
         return new InvoiceId(this.id);
+    }
+
+    @NonNull
+    public TransactionSpeed getTransactionSpeed() {
+        return this.transactionSpeed;
     }
 }

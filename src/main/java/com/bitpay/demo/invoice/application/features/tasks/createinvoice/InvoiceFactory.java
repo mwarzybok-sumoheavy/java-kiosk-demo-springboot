@@ -32,6 +32,7 @@ import com.bitpay.demo.invoice.domain.ShopperUser;
 import com.bitpay.demo.invoice.domain.Status;
 import com.bitpay.demo.invoice.domain.TargetConfirmations;
 import com.bitpay.demo.invoice.domain.Token;
+import com.bitpay.demo.invoice.domain.TransactionSpeed;
 import com.bitpay.demo.invoice.domain.itemizeddetail.InvoiceItemizedDetail;
 import com.bitpay.sdk.model.Invoice.InvoiceItemizedDetails;
 import com.bitpay.sdk.model.Invoice.InvoiceTransaction;
@@ -81,6 +82,7 @@ class InvoiceFactory {
             new BitPayId(bitPayInvoice.getId()),
             new Status(bitPayInvoice.getStatus()),
             LocalDateTime.ofInstant(Instant.ofEpochMilli(bitPayInvoice.getInvoiceTime()), ZoneId.systemDefault()),
+            new TransactionSpeed(bitPayInvoice.getTransactionSpeed()),
             this.invoicePaymentFactory.create(bitPayInvoice),
             this.invoiceBuyerFactory.create(bitPayInvoice, bitPayInvoice.getInvoiceBuyerProvidedInfo()),
             this.invoiceRefundFactory.create(bitPayInvoice),
