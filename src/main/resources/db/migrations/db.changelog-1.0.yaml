@@ -460,6 +460,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: transaction_speed
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
                   name: bitpay_order_id
                   type: varchar(255)
                   constraints:

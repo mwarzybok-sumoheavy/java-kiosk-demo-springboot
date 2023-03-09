@@ -86,6 +86,11 @@
                     <column name="bitpay_order_id"/>
                 </attribute-override>
             </embedded>
+            <embedded name="transactionSpeed">
+                <attribute-override name="value">
+                    <column name="transaction_speed"/>
+                </attribute-override>
+            </embedded>
             <embedded name="facadeType">
                 <attribute-override name="value">
                     <column name="facade_type"/>

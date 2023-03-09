@@ -58,6 +58,7 @@ class GetInvoiceWithUpdateData {
             invoice.getBitPayId(),
             (Status) getFieldValue("status", updateData, Status.class, invoice.getStatus()),
             invoice.getCreatedDate(),
+            invoice.getTransactionSpeed(),
             getPayment(updateData, invoice.getInvoicePayment()),
             getInvoiceBuyer(invoice.getInvoiceBuyer(), (Map<String, Object>) updateData.get("buyerFields")),
             invoice.getInvoiceRefund(),
