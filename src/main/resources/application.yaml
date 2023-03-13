@@ -63,3 +63,5 @@ spring:
         format: true
   main:
     banner-mode: off
+
+app-url: "https://localhost:8080"

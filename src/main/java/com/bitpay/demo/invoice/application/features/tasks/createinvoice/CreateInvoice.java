@@ -7,11 +7,13 @@ package com.bitpay.demo.invoice.application.features.tasks.createinvoice;
 
 import com.bitpay.demo.DependencyInjection;
 import com.bitpay.demo.invoice.domain.InvoiceRepository;
+import com.bitpay.demo.invoice.domain.InvoiceUuid;
 import com.bitpay.demo.shared.logger.LogCode;
 import com.bitpay.demo.shared.logger.Logger;
 import com.bitpay.sdk.exceptions.BitPayException;
 import com.bitpay.sdk.model.Invoice.Invoice;
 import java.util.Map;
+import java.util.UUID;
 import lombok.NonNull;
 
 @DependencyInjection
@@ -42,9 +44,9 @@ public class CreateInvoice {
         throws MissingRequiredField, BitPayException {
 
         final Map<String, Object> validatedParams = this.getValidatedParams.execute(requestParameters);
-
-        final Invoice bitPayInvoice = this.createBitPayInvoice.execute(validatedParams);
-        final com.bitpay.demo.invoice.domain.Invoice invoice = this.invoiceFactory.create(bitPayInvoice);
+        final InvoiceUuid uuid = new InvoiceUuid(UUID.randomUUID().toString());
+        final Invoice bitPayInvoice = this.createBitPayInvoice.execute(validatedParams, uuid);
+        final com.bitpay.demo.invoice.domain.Invoice invoice = this.invoiceFactory.create(bitPayInvoice, uuid);
 
         this.invoiceRepository.save(invoice);
 

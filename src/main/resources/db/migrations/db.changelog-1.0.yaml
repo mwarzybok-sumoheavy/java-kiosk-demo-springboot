@@ -75,7 +75,7 @@ databaseChangeLog:
                   constraints:
                     nullable: true
               - column:
-                  name: locality
+                  name: city
                   type: varchar(255)
                   constraints:
                     nullable: true
@@ -114,6 +114,14 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: true
+              - column:
+                  name: invoice_buyer_provided_info_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_ib_invoice_buyer_provided_info_id
+                    references: invoice_buyer_provided_info(id)
+                    deleteCascade: true
 
         # invoice_payment
         - createTable:
@@ -155,7 +163,7 @@ databaseChangeLog:
                   name: enabled
                   type: BOOLEAN
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: reason
                   type: varchar(255)
@@ -175,12 +183,12 @@ databaseChangeLog:
                   name: amount_paid
                   type: DOUBLE
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: display_amount_paid
                   type: DOUBLE
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: underpaid_amount
                   type: DOUBLE
@@ -195,22 +203,22 @@ databaseChangeLog:
                   name: non_pay_pro_payment_received
                   type: BOOLEAN
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: universal_codes_payment_string
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: universal_codes_verification_link
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: transaction_currency
                   type: varchar(10)
                   constraints:
-                    nullable: false
+                    nullable: true
         - createTable:
             tableName: invoice_payment_currency
             columns:
@@ -226,7 +234,7 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_payment_currency_invoice_payment_id
+                    foreignKeyName: fk_ipc_invoice_payment_id
                     references: invoice_payment(id)
                     deleteCascade: true
               - column:
@@ -238,28 +246,28 @@ databaseChangeLog:
                   name: total
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: subtotal
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: display_total
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: display_subtotal
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: supported_transaction_currency_id
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_payment_currency_invoice_supported_transaction_currency_id
+                    foreignKeyName: fk_ipc_invoice_supported_transaction_currency_id
                     references: invoice_payment_currency_supported_transaction_currency(id)
                     deleteCascade: true
               - column:
@@ -267,7 +275,7 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_payment_currency_miner_fee_id
+                    foreignKeyName: fk_ipc_miner_fee_id
                     references: invoice_payment_currency_miner_fee(id)
                     deleteCascade: true
         - createTable:
@@ -285,7 +293,7 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_payment_currency_code_invoice_payment_currency_id
+                    foreignKeyName: fk_ipcc_invoice_payment_currency_id
                     references: invoice_payment_currency(id)
                     deleteCascade: true
               - column:
@@ -297,7 +305,7 @@ databaseChangeLog:
                   name: payment_code_url
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
         - createTable:
             tableName: invoice_payment_currency_exchange_rate
             columns:
@@ -313,7 +321,7 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_payment_currency_exchange_rate_invoice_payment_currency_id
+                    foreignKeyName: fk_ipcer_invoice_payment_currency_id
                     references: invoice_payment_currency(id)
                     deleteCascade: true
               - column:
@@ -325,7 +333,7 @@ databaseChangeLog:
                   name: rate
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
 
         # invoice_refund
         - createTable:
@@ -342,12 +350,12 @@ databaseChangeLog:
                   name: addresses_json
                   type: text
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: address_request_pending
                   type: BOOLEAN
                   constraints:
-                    nullable: false
+                    nullable: true
         - createTable:
             tableName: invoice_refund_info
             columns:
@@ -363,7 +371,7 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_refund_info_invoice_refund_id
+                    foreignKeyName: fk_iri_invoice_refund_id
                     references: invoice_refund(id)
                     deleteCascade: true
               - column:
@@ -375,7 +383,7 @@ databaseChangeLog:
                   name: support_request
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
         - createTable:
             tableName: invoice_refund_info_amount
             columns:
@@ -391,7 +399,7 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_refund_info_amount_invoice_refund_info_id
+                    foreignKeyName: fk_iria_info_amount_invoice_refund_info_id
                     references: invoice_refund_info(id)
                     deleteCascade: true
               - column:
@@ -403,7 +411,7 @@ databaseChangeLog:
                   name: amount
                   type: DOUBLE
                   constraints:
-                    nullable: false
+                    nullable: true
 
         # invoice
         - createTable:
@@ -415,6 +423,11 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
+                    nullable: false
+              - column:
+                  name: uuid
+                  type: varchar(255)
+                  constraints:
                     nullable: false
               - column:
                   name: pos_data
@@ -447,111 +460,116 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: bitpay_order_id
+                  name: transaction_speed
                   type: varchar(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: bitpay_order_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
               - column:
                   name: expiration_time
                   type: DATETIME
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: facade_type
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: bitpay_guid
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: exception_status
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: bitpay_url
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: redirect_url
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: close_url
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: acceptance_window
                   type: INT
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: token
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: merchant_name
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: item_description
                   type: text
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: bill_id
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: target_confirmations
                   type: INT
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: low_fee_detected
                   type: BOOLEAN
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: auto_redirect
                   type: BOOLEAN
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: shopper_user
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: json_pay_pro_required
                   type: BOOLEAN
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: bitpay_id_required
                   type: BOOLEAN
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: is_cancelled
                   type: BOOLEAN
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: invoice_payment_id
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_invoice_payment_id
+                    foreignKeyName: fk_i_invoice_payment_id
                     references: invoice_payment(id)
                     deleteCascade: true
               - column:
@@ -559,23 +577,15 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_invoice_buyer_id
+                    foreignKeyName: fk_i_invoice_buyer_id
                     references: invoice_buyer(id)
-                    deleteCascade: true
-              - column:
-                  name: invoice_buyer_provided_info_id
-                  type: int
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_invoice_invoice_buyer_provided_info_id
-                    references: invoice_buyer_provided_info(id)
                     deleteCascade: true
               - column:
                   name: invoice_refund_id
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_invoice_refund_id
+                    foreignKeyName: fk_i_invoice_refund_id
                     references: invoice_refund(id)
                     deleteCascade: true
 
@@ -595,34 +605,29 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_transaction_invoice_id
+                    foreignKeyName: fk_it_invoice_id
                     references: invoice(id)
                     deleteCascade: true
               - column:
                   name: amount
                   type: DOUBLE
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: confirmations
                   type: INT
                   constraints:
-                    nullable: false
-              - column:
-                  name: time
-                  type: DATE
-                  constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: received_time
                   type: DATE
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: txid
                   type: varchar(255)
                   constraints:
-                    nullable: false
+                    nullable: true
 
         # invoice_itemized detail
         - createTable:
@@ -640,21 +645,21 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_invoice_itemized_detail_invoice_id
+                    foreignKeyName: fk_iid_invoice_id
                     references: invoice(id)
                     deleteCascade: true
               - column:
                   name: amount
                   type: DOUBLE
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: description
                   type: text
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: is_fee
                   type: BOOLEAN
                   constraints:
-                    nullable: false
+                    nullable: true

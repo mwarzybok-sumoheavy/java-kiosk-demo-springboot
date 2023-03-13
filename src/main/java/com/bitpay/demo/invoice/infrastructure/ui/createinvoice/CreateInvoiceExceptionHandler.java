@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @ControllerAdvice("com.bitpay.demo.invoice.infrastructure.ui.createinvoice")
-public class InvoiceExceptionHandler {
+public class CreateInvoiceExceptionHandler {
 
     private final Logger logger;
 
-    public InvoiceExceptionHandler(@NonNull final Logger logger) {
+    public CreateInvoiceExceptionHandler(@NonNull final Logger logger) {
         this.logger = logger;
     }
 

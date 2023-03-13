@@ -21,4 +21,7 @@ public interface InvoiceRepository {
         @NonNull EntityPageNumber pageNumber,
         @NonNull EntityPageSize pageSize
     );
+
+    @NonNull
+    Invoice findByUuid(@NonNull InvoiceUuid invoiceUuid) throws InvoiceNotFound;
 }

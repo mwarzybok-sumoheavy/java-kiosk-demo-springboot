@@ -10,6 +10,7 @@ import com.bitpay.demo.invoice.domain.Invoice;
 import com.bitpay.demo.invoice.domain.InvoiceId;
 import com.bitpay.demo.invoice.domain.InvoiceNotFound;
 import com.bitpay.demo.invoice.domain.InvoiceRepository;
+import com.bitpay.demo.invoice.domain.InvoiceUuid;
 import com.bitpay.demo.shared.domain.EntityPageNumber;
 import com.bitpay.demo.shared.domain.EntityPageSize;
 import com.bitpay.demo.shared.domain.Page;
@@ -51,5 +52,10 @@ class MysqlAddressRepository implements InvoiceRepository {
                 ).value()
             )
         );
+    }
+
+    @Override
+    public @NonNull Invoice findByUuid(@NonNull InvoiceUuid invoiceUuid) throws InvoiceNotFound {
+        return this.repo.findByUuid(invoiceUuid).orElseThrow(InvoiceNotFound::new);
     }
 }
