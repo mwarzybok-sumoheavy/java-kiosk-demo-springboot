@@ -1,0 +1,442 @@
+{
+  "amountPaid": {
+    "value": 10.1
+  },
+  "displayAmountPaid": {
+    "value": 10.1
+  },
+  "nonPayProPaymentReceived": {
+    "value": false
+  },
+  "universalCodesPaymentString": {
+    "value": "https://link.test.bitpay.com/i/CoJ3XEVtpekVWXoD781j3K"
+  },
+  "universalCodesVerificationLink": {
+    "value": ""
+  },
+  "transactionCurrency": {
+    "value": "USD"
+  },
+  "paymentCurrencies": [
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "currencyCode": {
+        "value": ""
+      },
+      "total": {
+        "value": ""
+      },
+      "subtotal": {
+        "value": ""
+      },
+      "displayTotal": {
+        "value": ""
+      },
+      "displaySubtotal": {
+        "value": ""
+      },
+      "exchangeRates": [],
+      "currencyCodes": [],
+      "supportedTransactionCurrency": {
+        "enabled": {
+          "value": false
+        }
+      },
+      "minerFee": {
+        "satoshisPerByte": {
+          "value": 0.0
+        },
+        "totalFee": {
+          "value": 0.0
+        },
+        "fiatAmount": {
+          "value": 0.0
+        }
+      }
+    }
+  ]
+}

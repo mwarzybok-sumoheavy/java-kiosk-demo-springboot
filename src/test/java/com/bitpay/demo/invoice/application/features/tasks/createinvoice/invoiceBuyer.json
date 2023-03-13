@@ -1,0 +1,56 @@
+{
+  "name": {
+    "value": "John Wick"
+  },
+  "address1": {
+    "value": "123 Broadcast"
+  },
+  "address2": {},
+  "city": {
+    "value": "New York"
+  },
+  "region": {
+    "value": "TX"
+  },
+  "postalCode": {
+    "value": "10001"
+  },
+  "country": {
+    "value": "US"
+  },
+  "email": {
+    "value": "test@example.com"
+  },
+  "phone": {
+    "value": "123456789"
+  },
+  "notify": {
+    "value": true
+  },
+  "buyerProvidedEmail": {
+    "value": "test@example.com"
+  },
+  "invoiceBuyerProvidedInfo": {
+    "name": {
+      "value": ""
+    },
+    "phoneNumber": {
+      "value": ""
+    },
+    "selectedTransactionCurrency": {
+      "value": ""
+    },
+    "emailAddress": {
+      "value": ""
+    },
+    "selectedWallet": {
+      "value": ""
+    },
+    "sms": {
+      "value": ""
+    },
+    "smsVerified": {
+      "value": false
+    }
+  }
+}

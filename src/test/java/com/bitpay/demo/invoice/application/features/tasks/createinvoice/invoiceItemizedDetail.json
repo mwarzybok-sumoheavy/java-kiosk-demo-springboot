@@ -1,0 +1,11 @@
+{
+  "amount": {
+    "value": 5.0
+  },
+  "description": {
+    "value": "Item 1"
+  },
+  "isFee": {
+    "value": false
+  }
+}

@@ -6,9 +6,6 @@
 package com.bitpay.demo.shared;
 
 import com.bitpay.demo.DependencyInjection;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Function;
@@ -29,10 +26,6 @@ public class StringToObjectParser {
         PARSER.put(Long.class, Long::valueOf);
         PARSER.put(Double.class, Double::valueOf);
         PARSER.put(Float.class, Float::valueOf);
-        PARSER.put(String.class, String::valueOf);
-        PARSER.put(BigDecimal.class, BigDecimal::new);
-        PARSER.put(BigInteger.class, BigInteger::new);
-        PARSER.put(LocalDate.class, LocalDate::parse);
     }
 
     @Nullable

@@ -7,10 +7,12 @@ package com.bitpay.demo.invoice.domain.refund;
 
 
 import com.bitpay.demo.invoice.domain.CurrencyCode;
+import com.bitpay.demo.shared.FieldExcludedFromSerialization;
 import lombok.NonNull;
 
 public class InvoiceRefundInfoAmount {
     private Long id;
+    @FieldExcludedFromSerialization
     private InvoiceRefundInfo invoiceRefundInfo;
     private CurrencyCode currencyCode;
     private Amount amount;

@@ -6,6 +6,7 @@
 package com.bitpay.demo.invoice.domain.payment;
 
 import com.bitpay.demo.invoice.domain.CurrencyCode;
+import com.bitpay.demo.shared.FieldExcludedFromSerialization;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,6 +15,7 @@ import lombok.NonNull;
 public class InvoicePaymentCurrency {
 
     private Long id;
+    @FieldExcludedFromSerialization
     private InvoicePayment invoicePayment;
     private CurrencyCode currencyCode;
     private Total total;

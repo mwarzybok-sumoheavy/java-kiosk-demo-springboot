@@ -6,6 +6,7 @@
 package com.bitpay.demo.invoice.domain.refund;
 
 import com.bitpay.demo.invoice.domain.CurrencyCode;
+import com.bitpay.demo.shared.FieldExcludedFromSerialization;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -13,6 +14,8 @@ import lombok.NonNull;
 
 public class InvoiceRefundInfo {
     private Long id;
+
+    @FieldExcludedFromSerialization
     private InvoiceRefund invoiceRefund;
     private SupportRequest supportRequest;
     private CurrencyCode currencyCode;

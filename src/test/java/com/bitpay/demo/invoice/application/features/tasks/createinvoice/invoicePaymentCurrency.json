@@ -1,0 +1,144 @@
+{
+  "currencyCode": {
+    "value": "GUSD"
+  },
+  "total": {
+    "value": "12300"
+  },
+  "subtotal": {
+    "value": "12300"
+  },
+  "displayTotal": {
+    "value": "123.00"
+  },
+  "displaySubtotal": {
+    "value": "123.00"
+  },
+  "exchangeRates": [
+    {
+      "currencyCode": {
+        "value": "BTC"
+      },
+      "rate": {
+        "value": "5.0398145348251183E-5"
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "MATIC"
+      },
+      "rate": {
+        "value": "1.0478885046631037"
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "USDC"
+      },
+      "rate": {
+        "value": "1"
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "LTC"
+      },
+      "rate": {
+        "value": "0.014124293785310734"
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "BUSD"
+      },
+      "rate": {
+        "value": "1"
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "USDT"
+      },
+      "rate": {
+        "value": "1"
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "USD"
+      },
+      "rate": {
+        "value": "1"
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "ETH"
+      },
+      "rate": {
+        "value": "7.177102173226539E-4"
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "DOGE"
+      },
+      "rate": {
+        "value": "15.620040954968704"
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "BCH"
+      },
+      "rate": {
+        "value": "0.009379983116030392"
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "PAX"
+      },
+      "rate": {
+        "value": "1"
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "USDC_m"
+      },
+      "rate": {
+        "value": "1"
+      }
+    }
+  ],
+  "currencyCodes": [
+    {
+      "paymentCode": {
+        "value": "EIP681b"
+      },
+      "paymentCodeUrl": {
+        "value": "ethereum:?r\u003dhttps://test.bitpay.com/i/CoJ3XEVtpekVWXoD781j3K"
+      }
+    }
+  ],
+  "supportedTransactionCurrency": {
+    "enabled": {
+      "value": true
+    },
+    "reason": {
+      "value": ""
+    }
+  },
+  "minerFee": {
+    "satoshisPerByte": {
+      "value": 0.0
+    },
+    "totalFee": {
+      "value": 0.0
+    },
+    "fiatAmount": {
+      "value": 0.0
+    }
+  }
+}

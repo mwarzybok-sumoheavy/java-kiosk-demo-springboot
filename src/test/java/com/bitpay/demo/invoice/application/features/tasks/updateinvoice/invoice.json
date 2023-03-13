@@ -1,0 +1,121 @@
+{
+  "uuid": {
+    "value": "123-456-789"
+  },
+  "posData": {
+    "value": "{\"price\":\"123\",\"reg_transaction_no\":\"123\",\"store\":\"store-2\",\"register\":\"2\"}"
+  },
+  "price": {
+    "value": 123.0
+  },
+  "currencyCode": {
+    "value": "USD"
+  },
+  "bitPayId": {
+    "value": "CoJ3XEVtpekVWXoD781j3K"
+  },
+  "status": {
+    "value": "new"
+  },
+  "createdDate": "2023-03-10T11:18:27.831",
+  "bitPayOrderId": {
+    "value": "18cf8fde-8478-461b-82c6-8a5eba3e817d"
+  },
+  "expirationTime": "2023-03-10T11:33:27.831",
+  "facadeType": {
+    "value": "pos/invoice"
+  },
+  "bitPayGuid": {
+    "value": "6ba0b636-4bb4-4650-8c03-b13384265860"
+  },
+  "exceptionStatus": {
+    "value": "false"
+  },
+  "bitPayUrl": {
+    "value": "https://test.bitpay.com/invoice?id\u003dCoJ3XEVtpekVWXoD781j3K"
+  },
+  "redirectUrl": {
+    "value": ""
+  },
+  "closeUrl": {
+    "value": ""
+  },
+  "acceptanceWindow": {
+    "value": 0
+  },
+  "token": {
+    "value": "6yqFWN5u7Asbnnan6H59qHDSpp5QuUmAZhzg4s1nFLnyYdZNNKjg7Y4zb4hzv7hpxg"
+  },
+  "merchantName": {
+    "value": "SUMO Heavy Industries LLC"
+  },
+  "itemDescription": {
+    "value": "Example"
+  },
+  "billId": {
+    "value": ""
+  },
+  "targetConfirmations": {
+    "value": 0
+  },
+  "lowFeeDetected": {
+    "value": false
+  },
+  "autoRedirect": {
+    "value": false
+  },
+  "shopperUser": {
+    "value": ""
+  },
+  "jsonPayProRequired": {
+    "value": false
+  },
+  "bitPayIdRequired": {
+    "value": false
+  },
+  "isCancelled": {
+    "value": false
+  },
+  "transactionSpeed": {
+    "value": "medium"
+  },
+  "invoicePayment": {
+    "paymentCurrencies": []
+  },
+  "invoiceBuyer": {
+    "invoiceBuyerProvidedInfo": {
+      "name": {
+        "value": ""
+      },
+      "phoneNumber": {
+        "value": ""
+      },
+      "selectedTransactionCurrency": {
+        "value": ""
+      },
+      "emailAddress": {
+        "value": ""
+      },
+      "selectedWallet": {
+        "value": ""
+      },
+      "sms": {
+        "value": ""
+      },
+      "smsVerified": {
+        "value": false
+      }
+    }
+  },
+  "invoiceRefund": {
+    "addressesJson": {
+      "value": ""
+    },
+    "addressRequestPending": {
+      "value": false
+    },
+    "refundInfo": []
+  },
+  "invoiceTransactions": [],
+  "invoiceItemizedDetails": []
+}

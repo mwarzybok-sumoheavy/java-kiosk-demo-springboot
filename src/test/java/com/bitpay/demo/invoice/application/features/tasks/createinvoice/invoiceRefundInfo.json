@@ -1,0 +1,26 @@
+{
+  "supportRequest": {
+    "value": "Cw4dQ1wnEaL11EkfLrBQAC"
+  },
+  "currencyCode": {
+    "value": "USD"
+  },
+  "invoiceRefundInfoAmounts": [
+    {
+      "currencyCode": {
+        "value": "BTC"
+      },
+      "amount": {
+        "value": 0.145439
+      }
+    },
+    {
+      "currencyCode": {
+        "value": "USD"
+      },
+      "amount": {
+        "value": 1010.1
+      }
+    }
+  ]
+}

@@ -6,10 +6,13 @@
 package com.bitpay.demo.invoice.domain.payment;
 
 import com.bitpay.demo.invoice.domain.CurrencyCode;
+import com.bitpay.demo.shared.FieldExcludedFromSerialization;
 import lombok.NonNull;
 
 public class InvoicePaymentCurrencyExchangeRate {
     private Long id;
+
+    @FieldExcludedFromSerialization
     private InvoicePaymentCurrency paymentCurrency;
     private CurrencyCode currencyCode;
     private Rate rate;
