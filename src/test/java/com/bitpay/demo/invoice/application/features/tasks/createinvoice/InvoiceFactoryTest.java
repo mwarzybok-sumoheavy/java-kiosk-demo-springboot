@@ -78,18 +78,7 @@ class InvoiceFactoryTest implements UnitTest, GetBitPayInvoice {
                     new BuyerSelectedWallet(""),
                     new BuyerSms(""),
                     new BuyerSmsVerified(false)
-                ),
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
+                )
             )
         );
 
@@ -98,11 +87,7 @@ class InvoiceFactoryTest implements UnitTest, GetBitPayInvoice {
 
     private InvoicePaymentFactory getInvoicePaymentFactory() {
         final var mock = Mockito.mock(InvoicePaymentFactory.class);
-        Mockito.when(mock.create(ArgumentMatchers.any())).thenReturn(
-            new InvoicePayment(
-                null, null, null, null, null, null, null, null
-            )
-        );
+        Mockito.when(mock.create(ArgumentMatchers.any())).thenReturn(new InvoicePayment());
 
         return mock;
     }

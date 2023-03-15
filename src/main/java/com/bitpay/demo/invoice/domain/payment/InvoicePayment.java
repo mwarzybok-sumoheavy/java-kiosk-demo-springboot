@@ -44,7 +44,7 @@ public class InvoicePayment {
         this.overpaidAmount = overpaidAmount;
     }
 
-    InvoicePayment() {
+    public InvoicePayment() {
     }
 
     public AmountPaid getAmountPaid() {
