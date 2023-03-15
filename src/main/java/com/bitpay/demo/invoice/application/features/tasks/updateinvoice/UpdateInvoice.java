@@ -51,7 +51,7 @@ public class UpdateInvoice {
             );
             final var invoice = this.invoiceRepository.findByUuid(invoiceUuid);
             this.validateUpdateData.execute(updateData, invoice.getBitPayId());
-            final var invoiceUpdate = this.getInvoiceWithUpdateData.create(updateData, invoice);
+            final var invoiceUpdate = this.getInvoiceWithUpdateData.execute(updateData, invoice);
             this.logger.info(
                 LogCode.IPN_VALIDATE_SUCCESS,
                 "Successfully validated IPN",
@@ -85,6 +85,7 @@ public class UpdateInvoice {
                     "stackTrace", stackTrace
                 )
             );
+            throw validationInvoiceUpdateDataFailed;
         }
     }
 }

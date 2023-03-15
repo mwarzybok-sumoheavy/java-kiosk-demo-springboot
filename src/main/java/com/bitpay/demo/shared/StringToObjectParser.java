@@ -26,6 +26,7 @@ public class StringToObjectParser {
         PARSER.put(Long.class, Long::valueOf);
         PARSER.put(Double.class, Double::valueOf);
         PARSER.put(Float.class, Float::valueOf);
+        PARSER.put(String.class, String::valueOf);
     }
 
     @Nullable

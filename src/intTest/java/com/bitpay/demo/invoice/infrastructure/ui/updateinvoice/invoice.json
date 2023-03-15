@@ -116,35 +116,6 @@
     },
     "refundInfo": []
   },
-  "invoiceTransactions": [
-    {
-      "amount": {
-        "value": 0.0
-      }
-    }
-  ],
-  "invoiceItemizedDetails": [
-    {
-      "amount": {
-        "value": 0.0
-      },
-      "description": {
-        "value": ""
-      },
-      "isFee": {
-        "value": false
-      }
-    },
-    {
-      "amount": {
-        "value": 0.0
-      },
-      "description": {
-        "value": ""
-      },
-      "isFee": {
-        "value": false
-      }
-    }
-  ]
+  "invoiceTransactions": [],
+  "invoiceItemizedDetails": []
 }

@@ -15,4 +15,9 @@ class MissingRequiredField extends RuntimeException {
     MissingRequiredField(@NonNull final Field field) {
         this.field = field;
     }
+
+    @NonNull
+    public String getMessage() {
+        return String.format("Value for field %s is missing.", this.field.getLabel());
+    }
 }

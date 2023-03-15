@@ -5,5 +5,15 @@
   "addressRequestPending": {
     "value": true
   },
-  "refundInfo": []
+  "refundInfo": [
+    {
+      "supportRequest": {
+        "value": ""
+      },
+      "currencyCode": {
+        "value": ""
+      },
+      "invoiceRefundInfoAmounts": []
+    }
+  ]
 }

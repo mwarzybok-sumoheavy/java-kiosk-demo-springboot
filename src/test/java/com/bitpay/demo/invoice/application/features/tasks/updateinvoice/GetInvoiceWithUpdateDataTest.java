@@ -24,7 +24,7 @@ class GetInvoiceWithUpdateDataTest implements UnitTest {
         final var updateData = toObject(updateDataJson, Map.class);
 
         // when
-        final var result = getTestedClass().create(
+        final var result = getTestedClass().execute(
             updateData,
             invoice
         );

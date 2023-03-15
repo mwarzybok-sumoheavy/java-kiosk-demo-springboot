@@ -46,7 +46,7 @@ class GetInvoiceWithUpdateData {
     }
 
     @NonNull
-    public Invoice create(
+    public Invoice execute(
         @NonNull final Map<String, Object> updateData,
         @NonNull final Invoice invoice
     ) throws ReflectiveOperationException {
