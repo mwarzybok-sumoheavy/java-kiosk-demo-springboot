@@ -60,6 +60,10 @@ public class InvoiceBuyer {
         this.invoiceBuyerProvidedInfo = invoiceBuyerProvidedInfo;
     }
 
+    public InvoiceBuyer(@NonNull final InvoiceBuyerProvidedInfo invoiceBuyerProvidedInfo) {
+        this.invoiceBuyerProvidedInfo = invoiceBuyerProvidedInfo;
+    }
+
     InvoiceBuyer() {
     }
 
