@@ -1,0 +1,9 @@
+{
+  "addressesJson": {
+    "value": "[{\"bitcoincash:qr0fwvhrj0x803cmuyell55wqzpg6432euethcdp9z\":{\"type\":\"buyerSupplied\",\"date\":\"2021-05-11T08:59:55.146Z\"}}]"
+  },
+  "addressRequestPending": {
+    "value": true
+  },
+  "refundInfo": []
+}

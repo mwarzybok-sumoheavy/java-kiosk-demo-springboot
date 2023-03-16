@@ -1,0 +1,19 @@
+{
+  "id": 1,
+  "bitPayId" : {
+    "value": "1234-123-123"
+  },
+  "price" : {
+    "value": 20.00
+  },
+  "createdDate": "2023-03-09T11:14:07.338744207",
+  "bitPayOrderId" : {
+    "value": "123-123-123"
+  },
+  "status" : {
+    "value": "new"
+  },
+  "itemDescription" : {
+    "value": "example"
+  }
+}

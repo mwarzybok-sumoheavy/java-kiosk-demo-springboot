@@ -73,29 +73,30 @@ class ValidateUpdateData {
             return;
         }
 
-        final var buyerFields = updateData.get("buyerFields");
 
-        if (!(buyerFields instanceof Map<?, ?>)) {
+        if (!(updateData.get("buyerFields") instanceof Map<?, ?>)) {
             errors.put("buyerFields", "BuyerFields isn't object.");
             return;
         }
 
-        validateString((Map<?, ?>) buyerFields, "buyerName", 255, errors);
-        validateString((Map<?, ?>) buyerFields, "buyerAddress1", 255, errors);
-        validateString((Map<?, ?>) buyerFields, "buyerAddress2", 255, errors);
-        validateString((Map<?, ?>) buyerFields, "buyerCity", 255, errors);
-        validateString((Map<?, ?>) buyerFields, "buyerState", 255, errors);
-        validateString((Map<?, ?>) buyerFields, "buyerZip", 255, errors);
-        validateString((Map<?, ?>) buyerFields, "buyerCountry", 2, errors);
-        validateString((Map<?, ?>) buyerFields, "buyerPhone", 255, errors);
-        validateString((Map<?, ?>) buyerFields, "buyerEmail", 255, errors);
+        final Map<String, Object> buyerFields = (Map<String, Object>) updateData.get("buyerFields");
 
-        if (!updateData.containsKey("buyerNotify")) {
+        validateString(buyerFields, "buyerName", 255, errors);
+        validateString(buyerFields, "buyerAddress1", 255, errors);
+        validateString(buyerFields, "buyerAddress2", 255, errors);
+        validateString(buyerFields, "buyerCity", 255, errors);
+        validateString(buyerFields, "buyerState", 255, errors);
+        validateString(buyerFields, "buyerZip", 255, errors);
+        validateString(buyerFields, "buyerCountry", 2, errors);
+        validateString(buyerFields, "buyerPhone", 255, errors);
+        validateString(buyerFields, "buyerEmail", 255, errors);
+
+        if (!buyerFields.containsKey("buyerNotify")) {
             return;
         }
 
         try {
-            this.stringToObjectParser.parse(Boolean.class, updateData.get("buyerNotify").toString());
+            this.stringToObjectParser.parse(Boolean.class, buyerFields.get("buyerNotify").toString());
         } catch (final UnsupportedOperationException ignore) {
             errors.put("buyerNotify", "BuyerNotify is not boolean.");
         }
@@ -111,7 +112,7 @@ class ValidateUpdateData {
 
         try {
             this.stringToObjectParser.parse(Long.class, updateData.get("expirationTime").toString());
-        } catch (final UnsupportedOperationException ignore) {
+        } catch (final UnsupportedOperationException | NumberFormatException ignore) {
             errors.put("expirationTime", "ExpirationTime is not number.");
         }
     }
@@ -126,7 +127,7 @@ class ValidateUpdateData {
 
         try {
             this.stringToObjectParser.parse(Double.class, updateData.get("amountPaid").toString());
-        } catch (final UnsupportedOperationException ignore) {
+        } catch (final UnsupportedOperationException | NumberFormatException ignore) {
             errors.put("amountPaid", "AmountPaid is not number.");
         }
     }
@@ -168,7 +169,7 @@ class ValidateUpdateData {
 
         try {
             this.stringToObjectParser.parse(Double.class, updateData.get("price").toString());
-        } catch (final UnsupportedOperationException ignore) {
+        } catch (final UnsupportedOperationException | NumberFormatException ignore) {
             errors.put("price", "Price is not number.");
         }
     }

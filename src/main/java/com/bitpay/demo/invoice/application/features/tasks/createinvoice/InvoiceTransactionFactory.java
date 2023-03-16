@@ -12,6 +12,7 @@ import com.bitpay.demo.invoice.domain.transaction.Confirmations;
 import com.bitpay.demo.invoice.domain.transaction.Txid;
 import com.bitpay.sdk.model.Invoice.InvoiceTransaction;
 import java.time.ZoneId;
+import java.util.Objects;
 import lombok.NonNull;
 
 @DependencyInjection
@@ -26,7 +27,9 @@ class InvoiceTransactionFactory {
             invoice,
             new Amount(transaction.getAmount().doubleValue()),
             new Confirmations(transaction.getConfirmations()),
-            transaction.getReceivedTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+            Objects.nonNull(transaction.getReceivedTime())
+                ? transaction.getReceivedTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                : null,
             new Txid(transaction.getTransactionId())
         );
     }

@@ -1,0 +1,28 @@
+{
+  "buyerProvidedEmail": {
+    "value": "test@example.com"
+  },
+  "invoiceBuyerProvidedInfo": {
+    "name": {
+      "value": ""
+    },
+    "phoneNumber": {
+      "value": ""
+    },
+    "selectedTransactionCurrency": {
+      "value": ""
+    },
+    "emailAddress": {
+      "value": ""
+    },
+    "selectedWallet": {
+      "value": ""
+    },
+    "sms": {
+      "value": ""
+    },
+    "smsVerified": {
+      "value": false
+    }
+  }
+}

@@ -5,10 +5,12 @@
 
 package com.bitpay.demo.invoice.domain.payment;
 
+import com.bitpay.demo.shared.FieldExcludedFromSerialization;
 import lombok.NonNull;
 
 public class InvoicePaymentCurrencyCode {
     private Long id;
+    @FieldExcludedFromSerialization
     private InvoicePaymentCurrency paymentCurrency;
     private PaymentCode paymentCode;
     private PaymentCodeUrl paymentCodeUrl;

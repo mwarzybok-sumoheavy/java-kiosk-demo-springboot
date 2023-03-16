@@ -1,0 +1,23 @@
+{
+  "name": {
+    "value": "John Wick"
+  },
+  "phoneNumber": {
+    "value": "123456789"
+  },
+  "selectedTransactionCurrency": {
+    "value": "BTC"
+  },
+  "emailAddress": {
+    "value": "test@example.com"
+  },
+  "selectedWallet": {
+    "value": "bitpay"
+  },
+  "sms": {
+    "value": "123456789"
+  },
+  "smsVerified": {
+    "value": true
+  }
+}

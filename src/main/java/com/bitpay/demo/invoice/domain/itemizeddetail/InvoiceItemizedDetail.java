@@ -7,10 +7,12 @@ package com.bitpay.demo.invoice.domain.itemizeddetail;
 
 import com.bitpay.demo.invoice.domain.Amount;
 import com.bitpay.demo.invoice.domain.Invoice;
+import com.bitpay.demo.shared.FieldExcludedFromSerialization;
 import lombok.NonNull;
 
 public class InvoiceItemizedDetail {
     private Long id;
+    @FieldExcludedFromSerialization
     private Invoice invoice;
     private Amount amount;
     private Description description;
