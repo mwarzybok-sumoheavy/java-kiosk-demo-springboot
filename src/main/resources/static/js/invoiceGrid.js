@@ -13,6 +13,11 @@ class UpdateStatusSse {
             statusTextItem.classList.replace("grid-status-" + statusTextItem.textContent, "grid-status-" + data.status)
             statusTextItem.textContent = data.status;
         })
+
+        evtSource.onerror = function(e) {
+            evtSource.close();
+            self.execute();
+        };
     }
 }
 

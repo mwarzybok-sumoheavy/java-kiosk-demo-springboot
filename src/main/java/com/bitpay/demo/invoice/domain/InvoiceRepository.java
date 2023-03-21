@@ -8,6 +8,7 @@ package com.bitpay.demo.invoice.domain;
 import com.bitpay.demo.shared.domain.EntityPageNumber;
 import com.bitpay.demo.shared.domain.EntityPageSize;
 import com.bitpay.demo.shared.domain.Page;
+import java.util.Collection;
 import lombok.NonNull;
 
 public interface InvoiceRepository {
@@ -24,4 +25,7 @@ public interface InvoiceRepository {
 
     @NonNull
     Invoice findByUuid(@NonNull InvoiceUuid invoiceUuid) throws InvoiceNotFound;
+
+    @NonNull
+    Collection<Invoice> findAll();
 }

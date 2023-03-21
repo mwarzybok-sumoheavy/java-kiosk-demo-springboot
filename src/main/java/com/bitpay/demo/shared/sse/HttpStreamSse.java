@@ -13,14 +13,14 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @RestController
 public class HttpStreamSse {
 
-    private final SseEmitter sseEmitter;
+    private final SseEmitterFacade sseEmitterFacade;
 
-    public HttpStreamSse(@NonNull final SseEmitter sseEmitter) {
-        this.sseEmitter = sseEmitter;
+    public HttpStreamSse(@NonNull final SseEmitterFacade sseEmitterFacade) {
+        this.sseEmitterFacade = sseEmitterFacade;
     }
 
     @GetMapping("/stream-sse")
     public SseEmitter execute() {
-        return this.sseEmitter;
+        return this.sseEmitterFacade.createEmitter();
     }
 }

@@ -6,6 +6,8 @@
 package com.bitpay.demo.invoice.application.features.tasks.createinvoice;
 
 import com.bitpay.demo.UnitTest;
+import com.bitpay.demo.invoice.domain.Amount;
+import com.bitpay.demo.invoice.domain.Invoice;
 import com.bitpay.demo.invoice.domain.InvoiceUuid;
 import com.bitpay.demo.invoice.domain.buyer.BuyerEmailAddress;
 import com.bitpay.demo.invoice.domain.buyer.BuyerName;
@@ -16,10 +18,14 @@ import com.bitpay.demo.invoice.domain.buyer.BuyerSms;
 import com.bitpay.demo.invoice.domain.buyer.BuyerSmsVerified;
 import com.bitpay.demo.invoice.domain.buyer.InvoiceBuyer;
 import com.bitpay.demo.invoice.domain.buyer.InvoiceBuyerProvidedInfo;
+import com.bitpay.demo.invoice.domain.itemizeddetail.Description;
+import com.bitpay.demo.invoice.domain.itemizeddetail.InvoiceItemizedDetail;
+import com.bitpay.demo.invoice.domain.itemizeddetail.IsFee;
 import com.bitpay.demo.invoice.domain.payment.InvoicePayment;
 import com.bitpay.demo.invoice.domain.refund.InvoiceRefund;
 import com.bitpay.demo.invoice.domain.refund.RefundAddressRequestPending;
 import com.bitpay.demo.invoice.domain.refund.RefundAddressesJson;
+import com.bitpay.demo.invoice.domain.transaction.InvoiceTransaction;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -49,9 +55,38 @@ class InvoiceFactoryTest implements UnitTest, GetBitPayInvoice {
             getInvoicePaymentFactory(),
             getInvoiceBuyerFactory(),
             getInvoiceRefundFactory(),
-            Mockito.mock(InvoiceTransactionFactory.class),
-            Mockito.mock(InvoiceItemizedDetailFactory.class)
+            getInvoiceTransactionFactory(),
+            getInvoiceItemizedDetailFactory()
         );
+    }
+
+    private static InvoiceTransactionFactory getInvoiceTransactionFactory() {
+        final var mock = Mockito.mock(InvoiceTransactionFactory.class);
+        Mockito.when(mock.create(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(
+            new InvoiceTransaction(
+                Mockito.mock(Invoice.class),
+                new Amount(0.0),
+                null,
+                null,
+                null
+            )
+        );
+
+        return mock;
+    }
+
+    private static InvoiceItemizedDetailFactory getInvoiceItemizedDetailFactory() {
+        final var mock = Mockito.mock(InvoiceItemizedDetailFactory.class);
+        Mockito.when(mock.create(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(
+            new InvoiceItemizedDetail(
+                Mockito.mock(Invoice.class),
+                new Amount(0.0),
+                new Description(""),
+                new IsFee(false)
+            )
+        );
+
+        return mock;
     }
 
     private InvoiceRefundFactory getInvoiceRefundFactory() {

@@ -115,6 +115,19 @@ class StringToObjectParserTest implements UnitTest {
         Assertions.assertEquals(1F, result);
     }
 
+    @Test
+    void parseString() {
+        // given
+        final var classType = String.class;
+        final var value = "1";
+
+        // when
+        final var result = getTestedClass().parse(classType, value);
+
+        // then
+        Assertions.assertEquals("1", result);
+    }
+
     private StringToObjectParser getTestedClass() {
         return new StringToObjectParser();
     }

@@ -16,6 +16,7 @@ import com.bitpay.demo.shared.domain.EntityPageSize;
 import com.bitpay.demo.shared.domain.Page;
 import com.bitpay.demo.shared.domain.PageFactory;
 import com.bitpay.demo.shared.domain.SpringPageRequest;
+import java.util.Collection;
 import lombok.NonNull;
 
 @DependencyInjection
@@ -55,7 +56,12 @@ class MysqlAddressRepository implements InvoiceRepository {
     }
 
     @Override
-    public @NonNull Invoice findByUuid(@NonNull InvoiceUuid invoiceUuid) throws InvoiceNotFound {
+    public @NonNull Invoice findByUuid(@NonNull final InvoiceUuid invoiceUuid) throws InvoiceNotFound {
         return this.repo.findByUuid(invoiceUuid).orElseThrow(InvoiceNotFound::new);
+    }
+
+    @Override
+    public @NonNull Collection<Invoice> findAll() {
+        return this.repo.findAll();
     }
 }
