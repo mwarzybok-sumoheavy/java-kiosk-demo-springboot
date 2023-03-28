@@ -1,1 +1,103 @@
 # BitPay Kiosk Demo - Java / Spring Boot
+
+This is a demonstration Spring Boot app to show how BitPay can be used in the
+context of a retail kiosk. It utilizes the the `pos` facade and with a simple 
+configuration file you can customize the `posData` fields that are sent to
+BitPay. This app uses Liquibase to manage the database schema and by default
+uses an embedded H2 database to make it easy to start.
+
+## Functionality
+
+- Create invoices
+- View a grid of invoices
+- View invoice details
+- Store invoices in a database
+- Receives instant payment notifications (IPN) to update the database
+- Uses EventSource to update the frontend upon receiving IPN
+
+## Prerequisites
+
+- BitPay Account
+- Java >= 17
+
+## Configuration
+
+This app uses a YAML configuration file. To configure it, you'll need to either
+update `application.yaml` or override specific YAML values with a custom YAML
+when booting the application.
+
+### General Information
+
+| YAML Key                                | Description                                             |
+| --------------------------------------- | ------------------------------------------------------- |
+| app-url                                 | Sets the application URL used for IPN                   |
+| bitpay.design.hero.bgColor              | CSS color for hero background                           |
+| bitpay.design.hero.title                | The title to show in the hero                           |
+| bitpay.design.hero.body                 | The text to show under the title in the hero            |
+| bitpay.design.logo                      | URL for the logo                                        |
+| bitpay.design.posdata.fields            | See the `POS Data Fields` section below                 |
+| bitpay.token                            | Your BitPay token                                       |
+| bitpay.notificationEmail                | The email you want to use for notifications             |
+| server.port                             | HTTP port to used to run the application                |
+| spring.datasource.url                   | JDBC database URL                                       |
+| spring.datasource.username              | The username for the database connection                |
+| spring.datasource.password              | The password for the database connection                |
+| spring.datasource.hikari.maxLifetime    | The maximum lifetime of a connection in the Hikari pool |
+| spring.jpa.hibernate.ddl-auto           | Automatically determine how to initialize the database  |
+| spring.jpa.properties.hibernate.dialect | Sets the dialect to use for the database                |
+| spring.jpa.properties.hibernate.format  | Formats the database queries                            |
+| spring.main.banner-mode                 | Enables or disables the Spring Boot banner              |
+
+### POS Data Fields
+
+#### Dropdown
+
+| YAML Key      | Description |
+| ------------- | ----------- |
+| type          |             |
+| required      |             |
+| id            |             |
+| name          |             |
+| label         |             |
+| options.id    |             |
+| options.label |             |
+| options.value |             |
+
+#### Fieldset
+
+| YAML Key      | Description |
+| ------------- | ----------- |
+| type          |             |
+| required      |             |
+| name          |             |
+| label         |             |
+| options.id    |             |
+| options.label |             |
+| options.value |             |
+
+#### Text
+
+| YAML Key      | Description |
+| ------------- | ----------- |
+| type          |             |
+| required      |             |
+| name          |             |
+| label         |             |
+
+#### Price
+
+| YAML Key      | Description |
+| ------------- | ----------- |
+| type          |             |
+| required      |             |
+| name          |             |
+| currency      |             |
+| label         |             |
+
+## Running
+
+Run `./gradlew clean bootRun` to run the application.
+
+## Testing
+
+Run `./gradlew clean test` to run tests.
