@@ -23,4 +23,16 @@ public class InvoicePaymentCurrencySupportedTransactionCurrency {
 
     InvoicePaymentCurrencySupportedTransactionCurrency() {
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public Enabled getEnabled() {
+        return this.enabled;
+    }
+
+    public Reason getReason() {
+        return this.reason;
+    }
 }

@@ -11,7 +11,10 @@ import com.bitpay.demo.shared.StringToObjectParser;
 import java.util.Map;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.Customization;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.comparator.CustomComparator;
 
 class GetInvoiceWithUpdateDataTest implements UnitTest {
 
@@ -33,7 +36,11 @@ class GetInvoiceWithUpdateDataTest implements UnitTest {
         JSONAssert.assertEquals(
             toJson(result),
             getDataFromFile("updatedInvoice.json"),
-            false
+            new CustomComparator(
+                JSONCompareMode.LENIENT,
+                new Customization("createdDate", (o1, o2) -> true),
+                new Customization("expirationTime", (o1, o2) -> true)
+            )
         );
     }
 

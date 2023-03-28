@@ -37,4 +37,28 @@ public class InvoiceTransaction {
 
     InvoiceTransaction() {
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public Invoice getInvoice() {
+        return this.invoice;
+    }
+
+    public Amount getAmount() {
+        return this.amount;
+    }
+
+    public Confirmations getConfirmations() {
+        return this.confirmations;
+    }
+
+    public LocalDate getReceivedTime() {
+        return this.receivedTime;
+    }
+
+    public Txid getTxid() {
+        return this.txid;
+    }
 }

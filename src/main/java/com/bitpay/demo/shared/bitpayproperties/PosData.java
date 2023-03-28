@@ -18,7 +18,7 @@ public class PosData {
 
     void setFields(@NonNull final Collection<Field> fields) {
         final var modifiableFieldCollection = new ArrayList<>(fields);
-        if (hasPriceField(modifiableFieldCollection)) {
+        if (!hasPriceField(modifiableFieldCollection)) {
             modifiableFieldCollection.add(Field.createPriceField());
         }
 
@@ -26,6 +26,6 @@ public class PosData {
     }
 
     private static boolean hasPriceField(@NonNull final Collection<Field> fields) {
-        return fields.stream().noneMatch(field -> "price".equals(field.getName()));
+        return fields.stream().anyMatch(field -> "price".equals(field.getName()));
     }
 }

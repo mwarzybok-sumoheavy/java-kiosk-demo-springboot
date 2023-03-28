@@ -50,6 +50,50 @@ public class InvoicePaymentCurrency {
     InvoicePaymentCurrency() {
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public InvoicePayment getInvoicePayment() {
+        return this.invoicePayment;
+    }
+
+    public CurrencyCode getCurrencyCode() {
+        return this.currencyCode;
+    }
+
+    public Total getTotal() {
+        return this.total;
+    }
+
+    public Subtotal getSubtotal() {
+        return this.subtotal;
+    }
+
+    public DisplayTotal getDisplayTotal() {
+        return this.displayTotal;
+    }
+
+    public DisplaySubtotal getDisplaySubtotal() {
+        return this.displaySubtotal;
+    }
+
+    public Collection<InvoicePaymentCurrencyExchangeRate> getExchangeRates() {
+        return this.exchangeRates;
+    }
+
+    public Collection<InvoicePaymentCurrencyCode> getCurrencyCodes() {
+        return this.currencyCodes;
+    }
+
+    public InvoicePaymentCurrencySupportedTransactionCurrency getSupportedTransactionCurrency() {
+        return this.supportedTransactionCurrency;
+    }
+
+    public InvoicePaymentCurrencyMinerFee getMinerFee() {
+        return this.minerFee;
+    }
+
     public void addExchangeRates(@NonNull final Collection<InvoicePaymentCurrencyExchangeRate> paymentExchangeRates) {
         final var exchangeRates = new ArrayList<>(this.exchangeRates);
         exchangeRates.addAll(paymentExchangeRates);

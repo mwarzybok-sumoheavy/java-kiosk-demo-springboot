@@ -32,4 +32,24 @@ public class InvoiceItemizedDetail {
 
     InvoiceItemizedDetail() {
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public Invoice getInvoice() {
+        return this.invoice;
+    }
+
+    public Amount getAmount() {
+        return this.amount;
+    }
+
+    public Description getDescription() {
+        return this.description;
+    }
+
+    public IsFee getIsFee() {
+        return this.isFee;
+    }
 }

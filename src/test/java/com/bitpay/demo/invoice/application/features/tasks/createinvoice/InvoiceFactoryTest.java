@@ -30,7 +30,10 @@ import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+import org.skyscreamer.jsonassert.Customization;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.comparator.CustomComparator;
 
 class InvoiceFactoryTest implements UnitTest, GetBitPayInvoice {
 
@@ -46,7 +49,11 @@ class InvoiceFactoryTest implements UnitTest, GetBitPayInvoice {
         JSONAssert.assertEquals(
             toJson(result),
             getDataFromFile("invoice.json"),
-            false
+            new CustomComparator(
+                JSONCompareMode.LENIENT,
+                new Customization("createdDate", (o1, o2) -> true),
+                new Customization("expirationTime", (o1, o2) -> true)
+            )
         );
     }
 

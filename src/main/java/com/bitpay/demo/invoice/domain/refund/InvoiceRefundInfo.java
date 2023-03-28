@@ -40,4 +40,24 @@ public class InvoiceRefundInfo {
 
         this.invoiceRefundInfoAmounts = refundInfoAmounts;
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public InvoiceRefund getInvoiceRefund() {
+        return this.invoiceRefund;
+    }
+
+    public SupportRequest getSupportRequest() {
+        return this.supportRequest;
+    }
+
+    public CurrencyCode getCurrencyCode() {
+        return this.currencyCode;
+    }
+
+    public Collection<InvoiceRefundInfoAmount> getInvoiceRefundInfoAmounts() {
+        return this.invoiceRefundInfoAmounts;
+    }
 }
