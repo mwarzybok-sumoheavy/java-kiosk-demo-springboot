@@ -47,6 +47,10 @@ public class InvoicePayment {
     public InvoicePayment() {
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
     public AmountPaid getAmountPaid() {
         return this.amountPaid;
     }

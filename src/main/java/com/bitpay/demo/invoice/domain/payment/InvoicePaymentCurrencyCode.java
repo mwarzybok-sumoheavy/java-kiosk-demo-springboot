@@ -27,4 +27,20 @@ public class InvoicePaymentCurrencyCode {
 
     InvoicePaymentCurrencyCode() {
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public InvoicePaymentCurrency getPaymentCurrency() {
+        return this.paymentCurrency;
+    }
+
+    public PaymentCode getPaymentCode() {
+        return this.paymentCode;
+    }
+
+    public PaymentCodeUrl getPaymentCodeUrl() {
+        return this.paymentCodeUrl;
+    }
 }

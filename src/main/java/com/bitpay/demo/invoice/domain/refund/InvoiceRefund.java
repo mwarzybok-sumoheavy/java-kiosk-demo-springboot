@@ -33,4 +33,20 @@ public class InvoiceRefund {
 
         this.refundInfo = refundInfo;
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public RefundAddressesJson getAddressesJson() {
+        return this.addressesJson;
+    }
+
+    public RefundAddressRequestPending getAddressRequestPending() {
+        return this.addressRequestPending;
+    }
+
+    public Collection<InvoiceRefundInfo> getRefundInfo() {
+        return this.refundInfo;
+    }
 }

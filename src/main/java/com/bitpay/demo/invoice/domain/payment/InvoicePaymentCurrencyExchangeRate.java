@@ -29,4 +29,20 @@ public class InvoicePaymentCurrencyExchangeRate {
 
     InvoicePaymentCurrencyExchangeRate() {
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public InvoicePaymentCurrency getPaymentCurrency() {
+        return this.paymentCurrency;
+    }
+
+    public CurrencyCode getCurrencyCode() {
+        return this.currencyCode;
+    }
+
+    public Rate getRate() {
+        return this.rate;
+    }
 }

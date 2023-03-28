@@ -25,4 +25,20 @@ public class InvoicePaymentCurrencyMinerFee {
 
     public InvoicePaymentCurrencyMinerFee() {
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public SatoshisPerByte getSatoshisPerByte() {
+        return this.satoshisPerByte;
+    }
+
+    public TotalFee getTotalFee() {
+        return this.totalFee;
+    }
+
+    public FiatAmount getFiatAmount() {
+        return this.fiatAmount;
+    }
 }

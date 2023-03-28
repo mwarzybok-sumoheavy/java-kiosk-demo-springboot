@@ -67,6 +67,10 @@ public class InvoiceBuyer {
     InvoiceBuyer() {
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
     public BuyerName getName() {
         return this.name;
     }

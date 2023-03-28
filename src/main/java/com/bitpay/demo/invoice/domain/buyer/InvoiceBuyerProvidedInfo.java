@@ -38,4 +38,36 @@ public class InvoiceBuyerProvidedInfo {
 
     InvoiceBuyerProvidedInfo() {
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public BuyerName getName() {
+        return this.name;
+    }
+
+    public BuyerPhoneNumber getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public BuyerSelectedTransactionCurrency getSelectedTransactionCurrency() {
+        return this.selectedTransactionCurrency;
+    }
+
+    public BuyerEmailAddress getEmailAddress() {
+        return this.emailAddress;
+    }
+
+    public BuyerSelectedWallet getSelectedWallet() {
+        return this.selectedWallet;
+    }
+
+    public BuyerSms getSms() {
+        return this.sms;
+    }
+
+    public BuyerSmsVerified getSmsVerified() {
+        return this.smsVerified;
+    }
 }
