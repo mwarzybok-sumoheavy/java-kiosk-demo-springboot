@@ -50,49 +50,49 @@ when booting the application.
 
 ### POS Data Fields
 
-#### Dropdown
+#### Dropdown (posData)
 
-| YAML Key      | Description |
-| ------------- | ----------- |
-| type          |             |
-| required      |             |
-| id            |             |
-| name          |             |
-| label         |             |
-| options.id    |             |
-| options.label |             |
-| options.value |             |
+| YAML Key      | Description                                            |
+| ------------- | ------------------------------------------------------ |
+| type          | Set to "select"                                        |
+| required      | Determines whether the field should be required or not |
+| id            | Field identifier                                       |
+| name          | Field name                                             |
+| label         | Field label                                            |
+| options.id    | (options array) ID for a given selection               |
+| options.label | (options array) Label for a given selection            |
+| options.value | (options array) Value for a given selection            |
 
-#### Fieldset
+#### Fieldset (posData)
 
-| YAML Key      | Description |
-| ------------- | ----------- |
-| type          |             |
-| required      |             |
-| name          |             |
-| label         |             |
-| options.id    |             |
-| options.label |             |
-| options.value |             |
+| YAML Key      | Description                                            |
+| ------------- | ------------------------------------------------------ |
+| type          | Set to "fieldset"                                      |
+| required      | Determines whether the field should be required or not |
+| name          | Field name                                             |
+| label         | Field label                                            |
+| options.id    | (options array) ID for a given selection               |
+| options.label | (options array) Label for a given selection            |
+| options.value | (options array) Value for a given selection            |
 
-#### Text
+#### Text (posData)
 
-| YAML Key      | Description |
-| ------------- | ----------- |
-| type          |             |
-| required      |             |
-| name          |             |
-| label         |             |
+| YAML Key | Description                                            |
+| -------- | ------------------------------------------------------ |
+| type     | Set to "text"                                          |
+| required | Determines whether the field should be required or not |
+| name     | Field name                                             |
+| label    | Field label                                            |
 
 #### Price
 
-| YAML Key      | Description |
-| ------------- | ----------- |
-| type          |             |
-| required      |             |
-| name          |             |
-| currency      |             |
-| label         |             |
+| YAML Key | Description                                            |
+| -------- | ------------------------------------------------------ |
+| type     | Set to "price"                                         |
+| required | Determines whether the field should be required or not |
+| name     | Field name                                             |
+| label    | Field label                                            |
+| currency | Currency for the field                                 |
 
 ## Running
 
