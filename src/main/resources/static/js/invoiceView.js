@@ -10,6 +10,9 @@ class UpdateStatusSse {
         const evtSource = new EventSource("/stream-sse");
         evtSource.addEventListener('invoice/update/' + this.invoiceId, event => {
             let data = JSON.parse(event.data);
+
+            addInvoiceSnackBar(data);
+
             let statusTextItem = document.getElementsByClassName("status")[0];
 
             if (!statusTextItem) {

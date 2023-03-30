@@ -29,9 +29,15 @@ public class HttpUpdateInvoice {
         @NonNull @PathVariable("uuid") final String invoiceUuid,
         @NonNull @RequestBody final Map<String, Object> updateData
     ) throws ReflectiveOperationException, ValidationInvoiceUpdateDataFailed, InvoiceNotFound {
+        var data = (Map<String, Object>) updateData.get("data");
+        var event = (Map<String, Object>) updateData.get("event");
+        if (!event.isEmpty() && event.containsKey("name")) {
+            data.put("eventName", event.get("name"));
+        }
+
         this.updateInvoice.execute(
             new InvoiceUuid(invoiceUuid),
-            (Map<String, Object>) updateData.get("data")
+            data
         );
     }
 }

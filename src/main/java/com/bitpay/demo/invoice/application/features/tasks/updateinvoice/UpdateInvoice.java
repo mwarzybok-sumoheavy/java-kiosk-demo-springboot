@@ -6,6 +6,7 @@
 package com.bitpay.demo.invoice.application.features.tasks.updateinvoice;
 
 import com.bitpay.demo.DependencyInjection;
+import com.bitpay.demo.invoice.domain.BitPayId;
 import com.bitpay.demo.invoice.domain.InvoiceNotFound;
 import com.bitpay.demo.invoice.domain.InvoiceRepository;
 import com.bitpay.demo.invoice.domain.InvoiceUuid;
@@ -14,7 +15,9 @@ import com.bitpay.demo.shared.logger.Logger;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Objects;
 import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 @DependencyInjection
 public class UpdateInvoice {
@@ -64,7 +67,7 @@ public class UpdateInvoice {
                 "Successfully updated invoice",
                 Map.of("id", invoice.getId())
             );
-            this.sendUpdateInvoiceNotification.execute(invoice);
+            sendUpdateInvoiceEventStream(updateData, invoice);
         } catch (final InvoiceNotFound invoiceNotFound) {
             this.logger.error(
                 LogCode.INVOICE_UPDATE_FAIL,
@@ -87,5 +90,47 @@ public class UpdateInvoice {
             );
             throw validationInvoiceUpdateDataFailed;
         }
+    }
+
+    private void sendUpdateInvoiceEventStream(
+        @NonNull Map<String, Object> updateData,
+        @NonNull com.bitpay.demo.invoice.domain.Invoice invoice
+    ) {
+        var eventName = (String) updateData.get("eventName");
+        this.sendUpdateInvoiceNotification.execute(
+            invoice,
+            this.getEventMessageTypeFromEventName(eventName),
+            this.getEventMessageFromEventName(invoice.getBitPayId(), eventName)
+        );
+    }
+
+    private String getEventMessageFromEventName(BitPayId bitPayId, String eventName) {
+        if (Objects.isNull(eventName)) {
+            return null;
+        }
+
+        return switch (eventName) {
+            case ("invoice_manuallyNotified"), ("invoice_refundComplete") -> null;
+            case ("invoice_paidInFull") -> String.format("Invoice %s has been paid in full.", bitPayId.value());
+            case ("invoice_expired") -> String.format("Invoice %s has expired.", bitPayId.value());
+            case ("invoice_confirmed") -> String.format("Invoice %s has been confirmed.", bitPayId.value());
+            case ("invoice_completed") -> String.format("Invoice %s is complete.", bitPayId.value());
+            case ("invoice_failedToConfirm") -> String.format("Invoice %s has failed to confirm.", bitPayId.value());
+            case ("invoice_declined") -> String.format("Invoice %s has been declined..", bitPayId.value());
+            default -> null;
+        };
+    }
+
+    private UpdateInvoiceEventType getEventMessageTypeFromEventName(String eventName) {
+        if (Objects.isNull(eventName)) {
+            return null;
+        }
+
+        return switch (eventName) {
+            case ("invoice_manuallyNotified"), ("invoice_refundComplete") -> null;
+            case ("invoice_paidInFull"), ("invoice_confirmed"), ("invoice_completed") -> UpdateInvoiceEventType.SUCCESS;
+            case ("invoice_expired"), ("invoice_failedToConfirm"), ("invoice_declined") -> UpdateInvoiceEventType.ERROR;
+            default -> null;
+        };
     }
 }
