@@ -8,9 +8,14 @@
   <title th:text="${design.hero.title}"></title>
   <link rel="stylesheet" href="/css/styles.css" type="text/css" media="all"/>
   <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script src="/js/invoiceSnackBar.js"></script>
+  <script src="/js/invoiceForm.js"></script>
 </head>
 
 <body>
+
+  <div th:insert="~{fragments/snackbars}"></div>
+
   <header class="bg-white shadow-sm lg:static lg:overflow-y-visible">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
@@ -82,6 +87,10 @@
       </div>
     </form>
   </div>
+
+  <script type="text/javascript">
+    new UpdateStatusSse().execute();
+  </script>
 </body>
 
 </html>
