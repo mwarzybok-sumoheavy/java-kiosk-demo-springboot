@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
 import lombok.NonNull;
-import org.jetbrains.annotations.NotNull;
 
 @DependencyInjection
 public class UpdateInvoice {

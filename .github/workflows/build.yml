@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+  push:
+    branches-ignore:
+      - 'master'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java-version: [17]
+    
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'corretto'
+      - name: Run gradle compile
+        run: ./gradlew clean assemble --console=plain
+      - name: Run gradle test
+        run: ./gradlew test --console=plain
+      - name: Run gradle checkstyle
+        run: ./gradlew checkstyleMain checkstyleTest --console=plain
+    
