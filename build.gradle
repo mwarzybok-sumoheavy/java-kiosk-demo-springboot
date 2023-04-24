@@ -54,6 +54,21 @@ configurations {
 
 tasks.named('test') {
     useJUnitPlatform()
+    dependsOn 'cleanTest'
+    testLogging {
+        events "failed"
+    }
+}
+
+task integrationTest(type: Test) {
+    useJUnitPlatform()
+    dependsOn 'cleanTest'
+    testLogging {
+        events "failed"
+    }
+    testClassesDirs = sourceSets.intTest.output.classesDirs
+    classpath = sourceSets.intTest.runtimeClasspath
+    shouldRunAfter test
 }
 
 checkstyle {
