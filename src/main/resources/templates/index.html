@@ -2,95 +2,91 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-  <title th:text="${design.hero.title}"></title>
-  <link rel="stylesheet" href="/css/styles.css" type="text/css" media="all"/>
-  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-  <script src="/js/invoiceSnackBar.js"></script>
-  <script src="/js/invoiceForm.js"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title th:text="${design.hero.title}"></title>
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" media="all"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script src="/js/invoiceSnackBar.js"></script>
+    <script src="/js/invoiceForm.js"></script>
 </head>
 
 <body>
 
-  <div th:insert="~{fragments/snackbars}"></div>
-
-  <header class="bg-white shadow-sm lg:static lg:overflow-y-visible">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
-        <div class="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
-          <div class="flex-shrink-0 flex items-center p-5">
-            <a href="#">
-                <img th:src="${design.logo}" height="34" width="284"/>
-            </a>
-          </div>
+<div th:insert="~{fragments/snackbars}"></div>
+<div class="min-h-full">
+    <div th:insert="~{fragments/navBar}"></div>
+    <div id="hero" class="relative" th:style="'background-color:' + ${design.hero.bgColor}">
+        <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl text-center"
+                th:text="${design.hero.title}"></h1>
+            <p class="mt-6 text-xl text-white max-w-3xl text-center m-auto" th:text="${design.hero.body}"></p>
         </div>
-      </div>
-    </div>
-  </header>
-
-  <div id="hero" class="relative" th:style="'background-color:' + ${design.hero.bgColor}">
-    <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl text-center" th:text="${design.hero.title}"></h1>
-      <p class="mt-6 text-xl text-white max-w-3xl text-center m-auto" th:text="${design.hero.body}"></p>
-    </div>
-  </div>
-
-  <div class="m-auto mt-6 max-w-3xl">
-    <div class="mt-4 bg-red-700" th:if="${error != null}">
-      <span th:text="${error}"></span>
     </div>
 
-    <form action="/invoice" method="post">
-      <div th:each="field:${design.posData.fields}">
-        <div class="mt-4" th:if="${#strings.equals(field.type, 'select')}">
-          <label th:for="${field.name}" class="block text-sm font-medium text-gray-700" th:text="${field.label}"></label>
-          <select th:id="${field.id}" th:name="${field.name}" th:required="${field.required}" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-            <option selected="selected" value=""></option>
-            <option th:each="option:${field.options}" th:value="${option.value}" th:text="${option.label}"></option>
-          </select>
+    <div class="m-auto mt-6 max-w-3xl">
+        <div class="mt-4 bg-red-700" th:if="${error != null}">
+            <span th:text="${error}"></span>
         </div>
-        <div class="mt-4" th:if="${#strings.equals(field.type,'fieldset')}">
-          <fieldset>
-            <legend th:text="${field.label}"></legend>
-            <div th:each="option:${field.options}">
-              <input type="radio" th:required="${field.required}" th:id="${option.id}" th:name="${field.name}" th:value="${option.value}" />
-              <label th:for="${option.id}" th:text="${option.label}"></label>
+        <form action="/invoice" method="post">
+            <div th:each="field:${design.posData.fields}">
+                <div class="mt-4" th:if="${#strings.equals(field.type, 'select')}">
+                    <label th:for="${field.name}" class="block text-sm font-medium text-gray-700"
+                           th:text="${field.label}"></label>
+                    <select th:id="${field.id}" th:name="${field.name}" th:required="${field.required}"
+                            class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option selected="selected" value=""></option>
+                        <option th:each="option:${field.options}" th:value="${option.value}"
+                                th:text="${option.label}"></option>
+                    </select>
+                </div>
+                <div class="mt-4" th:if="${#strings.equals(field.type,'fieldset')}">
+                    <fieldset>
+                        <legend th:text="${field.label}"></legend>
+                        <div th:each="option:${field.options}">
+                            <input type="radio" th:required="${field.required}" th:id="${option.id}"
+                                   th:name="${field.name}" th:value="${option.value}"/>
+                            <label th:for="${option.id}" th:text="${option.label}"></label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="mt-4" th:if="${#strings.equals(field.type, 'text')}">
+                    <label th:for="${field.name}" class="block text-sm font-medium text-gray-700"
+                           th:text="${field.label}"></label>
+                    <div class="mt-1">
+                        <input type="text" th:id="${field.id}" th:name="${field.name}" th:required="${field.required}"
+                               class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"/>
+                    </div>
+                </div>
+                <div class="mt-4" th:if="${#strings.equals(field.type, 'price')}">
+                    <label th:for="${field.name}" class="block text-sm font-medium text-gray-700"
+                           th:text="${field.label}"></label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="text-gray-500 sm:text-sm"> $ </span>
+                        </div>
+                        <input type="number" th:id="${field.id}" th:name="${field.name}" th:required="${field.required}"
+                               class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
+                               placeholder="0.00" th:attr="aria-describedby=${field.id} + '-currency'"
+                               step="0.01"/>
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <span class="text-gray-500 sm:text-sm" th:id="${field.id} + '-currency'"
+                                  th:text="${field.currency}"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </fieldset>
-        </div>
-        <div class="mt-4" th:if="${#strings.equals(field.type, 'text')}">
-          <label th:for="${field.name}" class="block text-sm font-medium text-gray-700" th:text="${field.label}"></label>
-          <div class="mt-1">
-            <input type="text" th:id="${field.id}" th:name="${field.name}" th:required="${field.required}" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" />
-          </div>
-        </div>
-        <div class="mt-4" th:if="${#strings.equals(field.type, 'price')}">
-          <label th:for="${field.name}" class="block text-sm font-medium text-gray-700" th:text="${field.label}"></label>
-          <div class="mt-1 relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span class="text-gray-500 sm:text-sm"> $ </span>
-            </div>
-            <input type="number" step="0.01" th:id="${field.id}" th:name="${field.name}" th:required="${field.required}" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00" th:attr="aria-describedby=${field.id} + '-currency'" />
-            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <span class="text-gray-500 sm:text-sm" th:id="${field.id} + '-currency'" th:text="${field.currency}"></span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="mt-4 text-center">
-        <button type="submit">
-          <img src="https://test.bitpay.com/cdn/en_US/bp-btn-pay-currencies.svg" />
-        </button>
-      </div>
-    </form>
-  </div>
-
-  <script type="text/javascript">
-    new UpdateStatusSse().execute();
-  </script>
+            <div class="mt-4 text-center">
+                <button type="submit">
+                    <img src="https://test.bitpay.com/cdn/en_US/bp-btn-pay-currencies.svg"/>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">new UpdateStatusSse().execute();</script>
 </body>
 
 </html>
