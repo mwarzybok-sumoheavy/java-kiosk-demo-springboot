@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.invoice.infrastructure.ui.getinvoiceform;
+package com.bitpay.demo.donation.infrastructure.ui.getdonationform;
 
 import com.bitpay.demo.shared.bitpayproperties.BitPayProperties;
 import lombok.NonNull;
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@ConditionalOnExpression("'${bitpay.design.mode:standard}'.equals('standard')")
+@ConditionalOnExpression("'${bitpay.design.mode:standard}'.equals('donation')")
 @Controller
-public class HttpGetInvoiceForm {
+public class HttpGetDonationForm {
 
     private final BitPayProperties bitPayProperties;
 
-    public HttpGetInvoiceForm(@NonNull final BitPayProperties bitPayProperties) {
+    public HttpGetDonationForm(@NonNull final BitPayProperties bitPayProperties) {
         this.bitPayProperties = bitPayProperties;
     }
 
@@ -26,6 +26,6 @@ public class HttpGetInvoiceForm {
     public String execute(@NonNull final Model model) {
         model.addAttribute("design", this.bitPayProperties.getDesign());
 
-        return "index";
+        return "donationForm";
     }
 }
