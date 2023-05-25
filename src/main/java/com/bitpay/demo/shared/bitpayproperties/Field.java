@@ -23,8 +23,23 @@ public class Field {
         field.required = true;
         field.id = "price";
         field.name = "price";
+        field.label = "price";
 
         return field;
+    }
+
+    Field() {}
+
+    public Field(
+        final String type,
+        final Boolean required,
+        final String name,
+        final String label
+    ) {
+        this.type = type;
+        this.required = required;
+        this.name = name;
+        this.label = label;
     }
 
     public String getType() {

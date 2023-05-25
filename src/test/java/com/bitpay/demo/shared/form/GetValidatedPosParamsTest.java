@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.invoice.application.features.tasks.createinvoice;
+package com.bitpay.demo.shared.form;
 
 import com.bitpay.demo.UnitTest;
 import com.bitpay.demo.shared.bitpayproperties.BitPayProperties;
@@ -12,7 +12,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class GetValidatedParamsTest implements UnitTest, GetBitPayInvoice {
+class GetValidatedPosParamsTest implements UnitTest {
 
     private final BitPayProperties bitPayProperties = new BitPayProperties();
 
@@ -55,7 +55,7 @@ class GetValidatedParamsTest implements UnitTest, GetBitPayInvoice {
         // throw MissingRequiredField;
     }
 
-    private GetValidatedParams getTestedClass() {
-        return new GetValidatedParams(this.bitPayProperties);
+    private GetValidatedPosParams getTestedClass() {
+        return new GetValidatedPosParams(this.bitPayProperties);
     }
 }

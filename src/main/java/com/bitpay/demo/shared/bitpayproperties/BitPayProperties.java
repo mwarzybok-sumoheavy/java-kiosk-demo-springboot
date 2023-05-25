@@ -42,4 +42,12 @@ public class BitPayProperties {
             .map(Field::getCurrency)
             .orElse(null);
     }
+
+    public String getMode() {
+        return this.design.getMode();
+    }
+
+    public double getMaxPrice() {
+        return this.design.getMaxPrice();
+    }
 }

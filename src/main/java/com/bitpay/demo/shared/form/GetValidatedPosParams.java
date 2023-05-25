@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.bitpay.demo.invoice.application.features.tasks.createinvoice;
+package com.bitpay.demo.shared.form;
 
 import com.bitpay.demo.DependencyInjection;
 import com.bitpay.demo.shared.bitpayproperties.BitPayProperties;
@@ -13,17 +13,20 @@ import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nullable;
 import lombok.NonNull;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 
 @DependencyInjection
-class GetValidatedParams {
+@ConditionalOnExpression("'${bitpay.design.mode:standard}'.equals('standard')")
+public class GetValidatedPosParams implements GetValidatedParams {
 
     private final BitPayProperties bitPayProperties;
 
-    GetValidatedParams(@NonNull final BitPayProperties bitPayProperties) {
+    public GetValidatedPosParams(@NonNull final BitPayProperties bitPayProperties) {
         this.bitPayProperties = bitPayProperties;
     }
 
     @NonNull
+    @Override
     public Map<String, Object> execute(
         @NonNull final Map<String, Object> requestParameters
     ) throws MissingRequiredField {

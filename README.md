@@ -28,25 +28,31 @@ when booting the application.
 
 ### General Information
 
-| YAML Key                                | Description                                             |
-| --------------------------------------- | ------------------------------------------------------- |
-| app-url                                 | Sets the application URL used for IPN                   |
-| bitpay.design.hero.bgColor              | CSS color for hero background                           |
-| bitpay.design.hero.title                | The title to show in the hero                           |
-| bitpay.design.hero.body                 | The text to show under the title in the hero            |
-| bitpay.design.logo                      | URL for the logo                                        |
-| bitpay.design.posdata.fields            | See the `POS Data Fields` section below                 |
-| bitpay.token                            | Your BitPay token                                       |
-| bitpay.notificationEmail                | The email you want to use for notifications             |
-| server.port                             | HTTP port to used to run the application                |
-| spring.datasource.url                   | JDBC database URL                                       |
-| spring.datasource.username              | The username for the database connection                |
-| spring.datasource.password              | The password for the database connection                |
-| spring.datasource.hikari.maxLifetime    | The maximum lifetime of a connection in the Hikari pool |
-| spring.jpa.hibernate.ddl-auto           | Automatically determine how to initialize the database  |
-| spring.jpa.properties.hibernate.dialect | Sets the dialect to use for the database                |
-| spring.jpa.properties.hibernate.format  | Formats the database queries                            |
-| spring.main.banner-mode                 | Enables or disables the Spring Boot banner              |
+| YAML Key                                       | Description                                                                      |
+|------------------------------------------------|----------------------------------------------------------------------------------|
+| app-url                                        | Sets the application URL used for IPN                                            |
+| bitpay.design.hero.bgColor                     | CSS color for hero background                                                    |
+| bitpay.design.hero.title                       | The title to show in the hero                                                    |
+| bitpay.design.hero.body                        | The text to show under the title in the hero                                     |
+| bitpay.design.logo                             | URL for the logo                                                                 |
+| bitpay.design.mode                             | Determines whether the app should be run in `standard` or `donation` mode        |
+| bitpay.design.donation.denominations           | Available donations to choose. The highest value determined the maximum donation |
+| bitpay.design.donation.enableOther             | Determines whether the app should allow to use own donation value.               |
+| bitpay.design.donation.footerText              | The text to show in the footer                                                   |
+| bitpay.design.donation.buttonSelectedBgColor   | CSS color for selected donation background                                       |
+| bitpay.design.donation.buttonSelectedTextColor | CSS color for selected donation text                                             |
+| bitpay.design.posdata.fields                   | See the `POS Data Fields` section below                                          |
+| bitpay.token                                   | Your BitPay token                                                                |
+| bitpay.notificationEmail                       | The email you want to use for notifications                                      |
+| server.port                                    | HTTP port to used to run the application                                         |
+| spring.datasource.url                          | JDBC database URL                                                                |
+| spring.datasource.username                     | The username for the database connection                                         |
+| spring.datasource.password                     | The password for the database connection                                         |
+| spring.datasource.hikari.maxLifetime           | The maximum lifetime of a connection in the Hikari pool                          |
+| spring.jpa.hibernate.ddl-auto                  | Automatically determine how to initialize the database                           |
+| spring.jpa.properties.hibernate.dialect        | Sets the dialect to use for the database                                         |
+| spring.jpa.properties.hibernate.format         | Formats the database queries                                                     |
+| spring.main.banner-mode                        | Enables or disables the Spring Boot banner                                       |
 
 ### POS Data Fields
 
