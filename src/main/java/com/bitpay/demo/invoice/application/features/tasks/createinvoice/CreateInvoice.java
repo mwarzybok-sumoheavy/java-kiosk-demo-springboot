@@ -45,6 +45,7 @@ public class CreateInvoice {
     public String execute(@NonNull final Map<String, Object> requestParameters)
         throws MissingRequiredField, BitPayException {
 
+        var delete = ""; // @todo
         final Map<String, Object> validatedParams = this.getValidatedParams.execute(requestParameters);
         final InvoiceUuid uuid = new InvoiceUuid(UUID.randomUUID().toString());
         final Invoice bitPayInvoice = this.createBitPayInvoice.execute(validatedParams, uuid);
